@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 20:16:34 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 01:50:59 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ bool	is_ceil_floor(char *to_check)
 		return (false);
 	else if ((ft_strncmp(to_check, "F", 1) == 0) || \
 			(ft_strncmp(to_check, "C", 1) == 0))
+			
 		return (true);
 	else
 		return (false);

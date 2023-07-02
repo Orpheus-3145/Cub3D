@@ -6,11 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 02:50:15 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 20:20:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/02 21:52:25 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 t_input	*create_input(char *file_name)
 {

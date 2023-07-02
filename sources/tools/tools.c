@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 20:47:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 01:06:12 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ void	print_input(t_input *input)
 		{
 			ft_printf("ceil RGB: ");
 			print_rgb(input->ceil_rgb);
+		}
+		if (input->map)
+		{
+			ft_printf("2D map:\n");
+			ft_print_double(input->map->map_array, "\t");
+			ft_printf("\n");
+			ft_printf("height: %u\n", input->map->height);
+			ft_printf("width: %u\n", input->map->width);
+			ft_printf("starting pos: (%d,%d)\n", input->map->start_pos.x, input->map->start_pos.y);
+			ft_printf("facing dir: %c\n", input->map->map_array[input->map->start_pos.y][input->map->start_pos.x]);
 		}
 	}
 }

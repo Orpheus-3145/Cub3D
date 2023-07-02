@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 20:16:19 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 01:41:30 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum	s_direction
 	DIR_SOUTH,
 	DIR_WEST,
 	DIR_EAST,
+	DIR_ERROR,
 }	t_direction;
 
 typedef enum	s_status
@@ -80,20 +81,36 @@ bool	is_direction(char *to_check);
 
 bool	is_ceil_floor(char *to_check);
 
+
 t_status	insert_texture_path(char *dir, char *texture_path, t_input *input);
 
 t_status	insert_color(char *type, char *color, t_input *input);
 
 t_status	fill_line(char *line, t_input *input);
 
+t_status	store_map(int32_t fd, t_input *input);
+
 t_status	inspect_file(t_input *input);
 
-void	parse_input(int32_t argc, char **argv);
+t_input		*parse_input(int32_t argc, char **argv);
+
+bool		got_all_config(t_input *input);
 
 
 t_input	*create_input(char *file_name);
 
 void	free_input(t_input *input);
+
+
+uint32_t	find_height(char **map_array);
+
+uint32_t	find_width(char **map_array);
+
+t_xy_point	find_start_pos(char **map_array);
+
+t_direction	find_start_face(char **map_array, t_xy_point pos);
+
+t_map	*create_map(char **map_array);
 
 
 void	print_rgb(int32_t rgb);
