@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 05:34:49 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/02 20:16:19 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ bool	check_file(char *file_name, int32_t mode);
 
 t_status	check_color(char *color_seq);
 
-void	insert_texture_path(char *dir, char *texture_path, t_input *input);
+bool	is_direction(char *to_check);
 
-void	insert_color(char *type, char *color, t_input *input);
+bool	is_ceil_floor(char *to_check);
+
+t_status	insert_texture_path(char *dir, char *texture_path, t_input *input);
+
+t_status	insert_color(char *type, char *color, t_input *input);
 
 t_status	fill_line(char *line, t_input *input);
-
-t_status	inspect_line(char *line, t_input *input);
 
 t_status	inspect_file(t_input *input);
 
@@ -92,5 +94,10 @@ void	parse_input(int32_t argc, char **argv);
 t_input	*create_input(char *file_name);
 
 void	free_input(t_input *input);
+
+
+void	print_rgb(int32_t rgb);
+
+void	print_input(t_input *input);
 
 #endif

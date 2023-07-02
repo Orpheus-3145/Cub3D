@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/07/02 00:42:19 by fra           ########   odam.nl          #
+#    Updated: 2023/07/02 20:57:42 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,9 @@ RESET = \x1b[0m
 YELLOW = \x1b[33;01m
 
 all: $(MLX42) $(LIBFT) $(NAME)
-	@clear
 
 run: all
+	@clear
 	@./$(NAME) maps/test1.cub
 
 $(MLX42):
@@ -61,7 +61,7 @@ $(LIBFT):
 
 $(NAME): $(OBJ_DIR) $(OBJECTS)
 	@$(CC) $(CFLAGS) $(IFLAGS) $(OBJECTS) $(LFLAGS) -o $(NAME)
-	@printf "(fdf) $(GREEN)Created program $(NAME)$(RESET)\n"
+	@printf "(cub3D) $(GREEN)Created program $(NAME)$(RESET)\n"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -69,21 +69,21 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
-	@printf "(fdf) $(BLUE)Created object $$(basename $@)$(RESET)\n"
+	@printf "(cub3D) $(BLUE)Created object $$(basename $@)$(RESET)\n"
 
 clean:
 	@$(MAKE) clean -C $(MLX42_DIR)/build -j4 --quiet
 	@$(MAKE) clean -C $(LIBFT_DIR) --quiet
 	@for file in $(shell find $(OBJ_DIR) -type f -name '*.o'); do \
 		rm -f $$file;	\
-		printf "(fdf) $(RED)Removed object $$(basename $$file)$(RESET)\n"; \
+		printf "(cub3D) $(RED)Removed object $$(basename $$file)$(RESET)\n"; \
 	done
 
 fclean: clean
 	@$(MAKE) clean/fast -C $(MLX42_DIR)/build -j4 --quiet
 	@$(MAKE) fclean -C $(LIBFT_DIR) --quiet
 	@-rm -f $(NAME)
-	@printf "(fdf) $(RED)Removed program $(NAME)$(RESET)\n"
+	@printf "(cub3D) $(RED)Removed program $(NAME)$(RESET)\n"
 
 re: fclean all
 
