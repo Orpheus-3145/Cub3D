@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 02:50:15 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 02:50:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/02 05:36:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_input	*create_input(char *file_name)
 
 void	free_input(t_input *input)
 {
-	ft_free_double(input->map->map_array, -1);
+	ft_free_double((void **) input->map->map_array, -1);
 	ft_free(input->map);
 	ft_free(input->n_tex_path);
 	ft_free(input->s_tex_path);

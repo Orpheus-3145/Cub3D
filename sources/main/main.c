@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 04:32:27 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/02 05:31:52 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int main(int argc, char **argv)
 {
-    parse_map(argc, argv);
+    parse_input(argc, argv);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/02 04:31:05 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/02 05:36:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 bool	check_input(int32_t argc, char **argv)
 {
 	uint32_t	len_file;
-	int			fd;
 
 	if (argc != 2)
 		return (false);
@@ -37,13 +36,13 @@ bool	check_file(char *file_name, int32_t mode)
 	fd = open(file_name, mode);
 	status = fd == -1;
 	close(fd);
-	return (fd);
+	return (status);
 }
 
 t_status	check_color(char *color_seq)
 {
 	t_status	status;
-	char		ints;
+	char		**ints;
 	int32_t		nbr;
 	uint32_t	i;
 
@@ -55,21 +54,56 @@ t_status	check_color(char *color_seq)
 	i = 0;
 	while (ints[i])
 	{
-		if (ft_is_int(ints[i] == false))
+		if (ft_is_int(ints[i]) == false)
 		{
 			status = STAT_FALSE;
 			break ;
 		}
+		nbr = ft_atoi(ints[i]);
+		if ((nbr < 0) || (nbr > 255))
+		{
+			status = STAT_FALSE;
+			break ;
+		}
+		i++;
 	}
 	if (i == 2)
 		status = STAT_TRUE;
-	ft_free_double(ints, -1);
+	ft_free_double((void **) ints, -1);
 	return (status);
 }
 
-t_status	is_valid_line(char *line)
+void	insert_texture_path(char *dir, char *texture_path, t_input *input)
+{
+	if (ft_strncmp(dir, "NO", 2) == 0)
+		input->n_tex_path = texture_path;
+	else if (ft_strncmp(dir, "SO", 2) == 0)
+		input->s_tex_path = texture_path;
+	else if (ft_strncmp(dir, "WE", 2) == 0)
+		input->w_tex_path = texture_path;
+	else if (ft_strncmp(dir, "EA", 2) == 0)
+		input->e_tex_path = texture_path;
+}
+
+void	insert_color(char *type, char *color, t_input *input)
+{
+	(void) type;
+	(void) color;
+	(void) input;
+	// if (ft_strncmp(type, "F", 1) == 0)
+	// {
+	// 	// BITWISE OPS
+	// }
+	// else if (ft_strncmp(type, "C", 2) == 0)
+	// {
+	// 	// BITWISE OPS
+	// }
+}
+
+t_status	fill_line(char *line, t_input *input)
 {
 	char		**words;
+	char		*texture_path;
 	t_status	status;
 
 	words = ft_split(line, ' ', true);
@@ -83,8 +117,18 @@ t_status	is_valid_line(char *line)
 	{
 		if (words[1] == NULL || (check_file(words[1], O_RDONLY) == false))
 			status = STAT_FALSE;
-		if (words[2] != NULL)
+		else if (words[2] != NULL)
 			status = STAT_FALSE;
+		else
+		{
+			texture_path = ft_strdup(words[1]);
+			if (texture_path == NULL)
+			{
+				ft_free_double((void **) words, -1);
+				return (status);
+			}
+			insert_texture_path(words[0], texture_path, input);
+		}
 	}
 	else if ((ft_strncmp(words[0], "F", 1) == 0) || \
 		(ft_strncmp(words[0], "C", 1) == 0))
@@ -94,31 +138,21 @@ t_status	is_valid_line(char *line)
 		status = check_color(words[1]);
 		if ((status == STAT_MEM_FAIL) || (status == STAT_FILE_ERR))
 		{
-			ft_free_double(words, -1);
+			ft_free_double((void **) words, -1);
 			return (status);
 		}
-		if (words[2] != NULL)
+		else if (words[2] != NULL)
 			status = STAT_FALSE;
+		else
+			insert_color(words[0], words[1], input);
 	}
 	else
 		status = STAT_FALSE;
-	ft_free_double(words, -1);
+	ft_free_double((void **) words, -1);
 	return (status);
 }
 
-void	insert_texture_path(t_direction dir, char *texture_path, t_input *input)
-{
-	if (dir == DIR_NORTH)
-		input->n_tex_path = texture_path;
-	else if (dir == DIR_SOUTH)
-		input->s_tex_path = texture_path;
-	else if (dir == DIR_WEST)
-		input->w_tex_path = texture_path;
-	else if (dir == DIR_EAST)
-		input->e_tex_path = texture_path;
-}
-
-t_status	inspect_line(char *line)
+t_status	inspect_line(char *line, t_input *input)
 {
 	char		*trimmed;
 	t_status	status_line;
@@ -131,7 +165,7 @@ t_status	inspect_line(char *line)
 		ft_free(trimmed);
 		return(STAT_FALSE);
 	}
-	status_line = is_valid_line(trimmed);
+	status_line = fill_line(trimmed, input);
 	ft_free(trimmed);
 	return (status_line);
 }
@@ -145,12 +179,12 @@ t_status	inspect_file(t_input *input)
 	if (check_file(input->file_name, O_RDONLY) == false)
 		return (STAT_FILE_ERR);
 	fd = open(input->file_name, O_RDONLY);
-	while (true);
+	while (true)
 	{
 		new_line = get_next_line(fd);
 		if (new_line == NULL)
 			break ;
-		status = inspect_line(new_line);
+		status = inspect_line(new_line, input);
 		if (status != STAT_TRUE)
 			break;
 	}
