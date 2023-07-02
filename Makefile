@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/07/01 22:12:49 by fra           ########   odam.nl          #
+#    Updated: 2023/07/02 00:42:19 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,11 @@ BLUE = \x1b[34;01m
 RESET = \x1b[0m
 YELLOW = \x1b[33;01m
 
-all: $(MLX42) $(LIBFT) 
-#$(NAME)
+all: $(MLX42) $(LIBFT) $(NAME)
+	@clear
+
+run: all
+	@./$(NAME) maps/test1.cub
 
 $(MLX42):
 	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build
