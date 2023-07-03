@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fill_info.c                                        :+:    :+:            */
+/*   get_config.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 02:03:33 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 15:46:24 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,46 +86,4 @@ t_status	fill_line(char *line, t_input *input)
 	}
 	ft_free_double((void **) words, -1);
 	return (status);
-}
-
-bool	got_all_config(t_input *input)
-{
-	if (input->n_tex_path == NULL)
-		return (false);
-	else if (input->s_tex_path == NULL)
-		return (false);
-	else if (input->w_tex_path == NULL)
-		return (false);
-	else if (input->e_tex_path == NULL)
-		return (false);
-	else if (input->floor_rgb == -1)
-		return (false);
-	else if (input->ceil_rgb == -1)
-		return (false);
-	else
-		return (true);
-}
-
-t_status	get_config(int32_t fd, t_input *input)
-{
-	char		*new_line;
-	t_status	status;
-
-	status = STAT_TRUE;
-	while (status == STAT_TRUE)
-	{
-		new_line = get_next_line(fd);
-		if ((new_line == NULL) || got_all_config(input))
-		{
-			ft_free(new_line);
-			break ;
-		}
-		if (ft_is_empty_str(new_line) == false)
-			status = fill_line(new_line, input);
-		ft_free(new_line);
-	}
-	if ((got_all_config(input) == false) && (status == STAT_TRUE))
-		return (STAT_FALSE);
-	else
-		return (status);
 }

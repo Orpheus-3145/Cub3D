@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 02:04:47 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 15:45:18 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct	s_input
 
 typedef struct	s_cube
 {
-	t_input	*map;
+	t_input	*input;
 }	t_cube;
 
 bool		check_input(int32_t argc, char **argv);
@@ -90,32 +90,40 @@ t_status	fill_line(char *line, t_input *input);
 
 bool		got_all_config(t_input *input);
 
-t_status	get_config(int32_t fd, t_input *input);
 
+t_cube		*create_cube(void);
 
+t_input		*create_input(void);
 
-t_input		*create_input(char *file_name);
+t_map		*create_map(void);
+
+void		free_cube(t_cube *cube);
 
 void		free_input(t_input *input);
 
-t_status	fetch_info(t_input *input);
 
-t_input		*parse_input(int32_t argc, char **argv);
+t_status	get_config(int32_t fd, t_input *input);
+
+t_status	get_map(int32_t fd, t_input *input);
+
+void		parse_input(t_cube *cube);
 
 
-void		find_size_map(char **map_array, uint32_t *height, uint32_t *width);
+uint32_t	find_height(char **map_array);
+
+uint32_t	find_width(char **map_array);
 
 t_xy_point	find_start_pos(char **map_array);
 
 t_direction	find_start_face(char **map_array, t_xy_point pos);
 
-t_map		*create_map(char **map_array);
-
-t_status	get_map(int32_t fd, t_input *input);
+t_status	insert_map_info(t_map *map, char *map_array);
 
 
 void		print_rgb(int32_t rgb);
 
 void		print_input(t_input *input);
+
+void    	kill_program(t_cube *cube, int32_t exit_status, const char *message);
 
 #endif

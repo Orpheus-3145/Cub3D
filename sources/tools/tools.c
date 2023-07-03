@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 01:06:12 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/03 15:23:36 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,15 @@ void	print_input(t_input *input)
 			ft_printf("facing dir: %c\n", input->map->map_array[input->map->start_pos.y][input->map->start_pos.x]);
 		}
 	}
+}
+
+void	kill_program(t_cube *cube, int32_t exit_status, const char *message)
+{
+	free_cube(cube);
+	ft_printf("cube3d: ");
+	if (exit_status == EXIT_SUCCESS)
+		ft_printf("%s\n", message);
+	else if (exit_status == EXIT_FAILURE)
+		perror(message);
+	exit(exit_status);
 }
