@@ -6,17 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 18:16:52 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 00:11:08 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_status	validate_map(char **map)
-{
-	map++;
-	return (STAT_TRUE);
-}
 
 bool	check_row(char *row)
 {

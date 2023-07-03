@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 17:33:40 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 01:08:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,19 @@ bool		check_row(char *row);
 bool		check_col(char **matrix, uint32_t column, uint32_t height);
 
 t_status	check_walls(char **map);
+
+
+bool	node_doesnt_exist(t_list *stack, t_xy_point to_check);
+
+t_list	*new_node(t_xy_point point);
+
+void	append_node(t_list **stack, t_list *node);
+
+void	drop_node(t_list **stack);
+
+t_xy_point	*get_coor_node(t_list *stack);
+
+
+t_status	flood_fill(t_map *map);
 
 #endif
