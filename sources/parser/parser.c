@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 15:46:47 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 22:03:35 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ t_status	get_map(int32_t fd, t_input *input)
 		new_line = get_next_line(fd);
 	}
 	if (line_map)
-	{
-		status = insert_map_info(input->map, line_map);
+	{	
+		status = validate_map(line_map);
+		if (status == STAT_TRUE)
+			status = insert_map_info(input->map, line_map);
 		ft_free(line_map);
 		return (status);
 	}
@@ -105,6 +107,6 @@ void	parse_input(t_cube *cube)
 	}
 	else if (status == STAT_FALSE)
 		kill_program(cube, EXIT_SUCCESS, "error");
-	else
-		print_input(cube->input);
+	// else
+	// 	print_input(cube->input);
 }

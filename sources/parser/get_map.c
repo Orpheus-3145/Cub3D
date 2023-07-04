@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 17:34:15 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 22:02:58 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,10 @@ t_direction	find_start_face(char **map_array, t_xy_point pos)
 t_status	insert_map_info(t_map *map, char *map_array)
 {
 	char		**map_2d;
-	t_status	status;
 	
 	map_2d = ft_split(map_array, '|', false);
 	if (map_2d == NULL)
 		return (STAT_MEM_FAIL);
-	status = check_walls(map_2d);
-	if (status != STAT_TRUE)
-	{
-		ft_free_double((void **) map_2d, -1);
-		return (status);
-	}
 	map->map_array = map_2d;
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);

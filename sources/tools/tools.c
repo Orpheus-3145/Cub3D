@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 15:23:36 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 20:31:28 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,37 @@ void	kill_program(t_cube *cube, int32_t exit_status, const char *message)
 	else if (exit_status == EXIT_FAILURE)
 		perror(message);
 	exit(exit_status);
+}
+
+char **rect_map(char *line_map)
+{
+	char		**raw_map;
+	char		**map;
+	uint32_t	height;
+	uint32_t	width;
+	uint32_t	i;
+
+	raw_map = ft_split(line_map, '|', false);
+	if (raw_map == NULL)
+		return (NULL);
+	height = find_height(raw_map);
+	width = find_width(raw_map);
+	map = ft_calloc(sizeof(char *), height + 1);
+	if (map == NULL)
+		return (ft_free_double((void **) raw_map, -1));
+	i = 0;
+	while (i < height)
+	{
+		map[i] = ft_calloc(sizeof(char), width + 1);
+		if (map[i] == NULL)
+		{
+			ft_free_double((void **) raw_map, -1);
+			return (ft_free_double((void **) map, i));
+		}
+		ft_memset(map[i], ' ', width);
+		ft_memcpy(map[i], raw_map[i], ft_strlen(raw_map[i]));
+		i++;
+	}
+	ft_free_double((void **) raw_map, -1);
+	return (map);
 }
