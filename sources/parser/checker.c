@@ -6,27 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 01:50:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 01:09:12 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	check_input(int32_t argc, char **argv)
-{
-	uint32_t	len_file;
-
-	if (argc != 2)
-		return (false);
-	len_file = ft_strlen(argv[1]);
-	if ((argv[1][len_file - 4] != '.') || \
-		(argv[1][len_file - 3] != 'c') || \
-		(argv[1][len_file - 2] != 'u') || \
-		(argv[1][len_file - 1] != 'b'))
-		return (false);
-	else
-		return (true);	
-}
 
 bool	check_file(char *file_name, int32_t mode)
 {

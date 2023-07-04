@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:05:17 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 15:27:37 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 23:19:07 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_map	*create_map(void)
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
 		return (NULL);
-	map->map_array = NULL;
+	map->map_2d = NULL;
 	map->height = 0;
 	map->width = 0;
 	map->start_pos = (t_xy_point) {-1, -1};
@@ -72,7 +72,7 @@ void	free_cube(t_cube *cube)
 void	free_input(t_input *input)
 {
 	if (input->map)
-		ft_free_double((void **) input->map->map_array, -1);
+		ft_free_double((void **) input->map->map_2d, -1);
 	ft_free(input->map);
 	ft_free(input->n_tex_path);
 	ft_free(input->s_tex_path);

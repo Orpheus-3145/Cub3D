@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 20:31:28 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 01:43:01 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,37 @@ void	print_input(t_input *input)
 		if (input->map)
 		{
 			ft_printf("2D map:\n");
-			ft_print_double(input->map->map_array, "\t");
+			ft_print_double(input->map->map_2d, "\t");
 			ft_printf("\n");
 			ft_printf("height: %u\n", input->map->height);
 			ft_printf("width: %u\n", input->map->width);
 			ft_printf("starting pos: (%d,%d)\n", input->map->start_pos.x, input->map->start_pos.y);
-			ft_printf("facing dir: %c\n", input->map->map_array[input->map->start_pos.y][input->map->start_pos.x]);
+			ft_printf("facing dir: %c\n", input->map->map_2d[input->map->start_pos.y][input->map->start_pos.x]);
 		}
 	}
 }
 
-void	kill_program(t_cube *cube, int32_t exit_status, const char *message)
+void	kill_program(t_cube *cube, t_status status)
 {
+	int32_t	exit_status;
+
 	free_cube(cube);
 	ft_printf("cube3d: ");
-	if (exit_status == EXIT_SUCCESS)
-		ft_printf("%s\n", message);
-	else if (exit_status == EXIT_FAILURE)
-		perror(message);
+	if (status == STAT_FALSE)
+	{
+		exit_status = EXIT_SUCCESS;
+		ft_printf("error\n");
+	}
+	else
+	{
+		exit_status = EXIT_FAILURE;
+		if (status == STAT_MEM_FAIL)
+			perror("memory fail");
+		else if (status == STAT_FILE_ERR)
+			perror("error opening file");
+		else
+			perror("generic error");
+	}
 	exit(exit_status);
 }
 

@@ -1,58 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_map.c                                          :+:    :+:            */
+/*   get_map_info.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 22:02:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/04 23:18:47 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-uint32_t	find_height(char **map_array)
+uint32_t	find_height(char **map_2d)
 {
 	uint32_t	cnt;
 
 	cnt = 0;
-	while (*map_array)
+	while (*map_2d)
 	{
 		cnt++;
-		map_array++;
+		map_2d++;
 	}
 	return (cnt);
 }
 
-uint32_t	find_width(char **map_array)
+uint32_t	find_width(char **map_2d)
 {
 	uint32_t	max_width;
 	uint32_t	width;
 
 	max_width = 0;
-	while (*map_array)
+	while (*map_2d)
 	{
-		width = ft_strlen(*map_array);
+		width = ft_strlen(*map_2d);
 		if (max_width < width)
 			max_width = width;
-		map_array++;
+		map_2d++;
 	}
 	return (max_width);
 }
 
-t_xy_point	find_start_pos(char **map_array)
+t_xy_point	find_start_pos(char **map_2d)
 {
 	uint32_t	i;
 	uint32_t	j;
 
 	i = 0;
-	while (map_array[i])
+	while (map_2d[i])
 	{
 		j = 0;
-		while (map_array[i][j])
+		while (map_2d[i][j])
 		{
-			if (ft_strchr(" 10", map_array[i][j]) == NULL)
+			if (ft_strchr(" 10", map_2d[i][j]) == NULL)
 				return ((t_xy_point) {j, i});
 			j++;
 		}
@@ -61,13 +61,13 @@ t_xy_point	find_start_pos(char **map_array)
 	return ((t_xy_point) {-1, -1});
 }
 
-t_direction	find_start_face(char **map_array, t_xy_point pos)
+t_direction	find_start_face(char **map_2d, t_xy_point pos)
 {
 	char	pos_to_check;
 
 	if ((pos.x == -1) || (pos.y == -1))
 		return (DIR_ERROR);
-	pos_to_check = map_array[pos.y][pos.x];
+	pos_to_check = map_2d[pos.y][pos.x];
 	if (pos_to_check == 'N')
 		return (DIR_NORTH);
 	else if (pos_to_check == 'S')
@@ -80,17 +80,11 @@ t_direction	find_start_face(char **map_array, t_xy_point pos)
 		return (DIR_ERROR);
 }
 
-t_status	insert_map_info(t_map *map, char *map_array)
+void	get_map_info(t_map *map, char **map_2d)
 {
-	char		**map_2d;
-	
-	map_2d = ft_split(map_array, '|', false);
-	if (map_2d == NULL)
-		return (STAT_MEM_FAIL);
-	map->map_array = map_2d;
+	map->map_2d = map_2d;
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);
 	map->start_pos = find_start_pos(map_2d);
 	map->start_face = find_start_face(map_2d, map->start_pos);
-	return (STAT_TRUE);
 }

@@ -6,12 +6,13 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 20:39:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 01:48:06 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
+# define MASK '|'
 # include <stdlib.h>    			// malloc(), free()
 # include <unistd.h>    			// write(), read(), open()
 # include <fcntl.h>					// to open files (O_CREAT, O_WRONLY, O_RDONLY ..)
@@ -47,7 +48,7 @@ typedef struct s_xy_point
 
 typedef struct	s_map
 {
-	char		**map_array;
+	char		**map_2d;
 	uint32_t	height;
 	uint32_t	width;
 	t_xy_point	start_pos;
@@ -73,6 +74,7 @@ typedef struct	s_cube
 
 bool		check_input(int32_t argc, char **argv);
 
+
 bool		check_file(char *file_name, int32_t mode);
 
 t_status	check_color(char *color_seq);
@@ -88,8 +90,6 @@ t_status	insert_color(char *type, char *color, t_input *input);
 
 t_status	fill_line(char *line, t_input *input);
 
-bool		got_all_config(t_input *input);
-
 
 t_cube		*create_cube(void);
 
@@ -102,6 +102,8 @@ void		free_cube(t_cube *cube);
 void		free_input(t_input *input);
 
 
+bool		got_all_config(t_input *input);
+
 t_status	get_config(int32_t fd, t_input *input);
 
 t_status	get_map(int32_t fd, t_input *input);
@@ -109,24 +111,22 @@ t_status	get_map(int32_t fd, t_input *input);
 void		parse_input(t_cube *cube);
 
 
-uint32_t	find_height(char **map_array);
+uint32_t	find_height(char **map_2d);
 
-uint32_t	find_width(char **map_array);
+uint32_t	find_width(char **map_2d);
 
-t_xy_point	find_start_pos(char **map_array);
+t_xy_point	find_start_pos(char **map_2d);
 
-t_direction	find_start_face(char **map_array, t_xy_point pos);
+t_direction	find_start_face(char **map_2d, t_xy_point pos);
 
-t_status	insert_map_info(t_map *map, char *map_array);
-
-t_status	validate_map(char *line_map);
+void		get_map_info(t_map *map, char **map_2d);
 
 
 void		print_rgb(int32_t rgb);
 
 void		print_input(t_input *input);
 
-void    	kill_program(t_cube *cube, int32_t exit_status, const char *message);
+void		kill_program(t_cube *cube, t_status status);
 
 char 		**rect_map(char *line_map);
 
@@ -137,7 +137,20 @@ t_status	check_col(char **map, uint32_t column);
 
 t_status	check_walls(char **map);
 
-t_status	flood_fill(char **map, t_xy_point start_pos, t_list **stack);
+t_status	check_start_pos(char **map, t_xy_point origin);
+
+t_status	validate_map(char **map_2d);
+
+
+t_status	check_flood_fill(char **map);
+
+void		reset_map(char **map, t_xy_point start_pos, char face, char mask);
+
+t_status	check_point(char **map, t_xy_point check, t_list *stack);
+
+t_status	ff_algorithm(char **map, t_xy_point start_pos, t_list **stack, char mask);
+
+t_status	flood_fill(char **map, t_xy_point start_point, char mask);
 
 
 t_status	create_new_node(t_xy_point point, t_list **stack);

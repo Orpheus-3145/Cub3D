@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 22:03:35 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 01:44:27 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_status	get_map(int32_t fd, t_input *input)
 {
 	char		*line_map;
 	char		*new_line;
+	char		**map_2d;
 	t_status	status;
 
 	new_line = get_next_line(fd);
@@ -76,10 +77,15 @@ t_status	get_map(int32_t fd, t_input *input)
 	}
 	if (line_map)
 	{	
-		status = validate_map(line_map);
-		if (status == STAT_TRUE)
-			status = insert_map_info(input->map, line_map);
+		map_2d = rect_map(line_map);
 		ft_free(line_map);
+		if (map_2d == NULL)
+			return (STAT_MEM_FAIL);
+		status = validate_map(map_2d);
+		if (status == STAT_TRUE)
+			get_map_info(input->map, map_2d);
+		else
+			ft_free_double((void **) map_2d, -1);
 		return (status);
 	}
 	else
@@ -92,21 +98,18 @@ void	parse_input(t_cube *cube)
 	int32_t		fd;
 
 	if (check_file(cube->input->file_name, O_RDONLY) == false)
-		kill_program(cube, EXIT_FAILURE, "memory fail");
+		kill_program(cube, STAT_FILE_ERR);
 	fd = open(cube->input->file_name, O_RDONLY);
 	status = get_config(fd, cube->input);
-	if (status == STAT_TRUE)
-		status = get_map(fd, cube->input);
-	close(fd);
-	if ((status == STAT_MEM_FAIL) || (status == STAT_FILE_ERR))
+	if (status != STAT_TRUE)
 	{
-		if (status == STAT_MEM_FAIL)
-			kill_program(cube, EXIT_FAILURE, "memory fail");
-		else if (status == STAT_MEM_FAIL)
-			kill_program(cube, EXIT_FAILURE, "error opening file");
+		close(fd);
+		kill_program(cube, status);
 	}
-	else if (status == STAT_FALSE)
-		kill_program(cube, EXIT_SUCCESS, "error");
-	// else
-	// 	print_input(cube->input);
+	status = get_map(fd, cube->input);
+	close(fd);
+	if (status != STAT_TRUE)
+		kill_program(cube, status);
+	else
+		print_input(cube->input);
 }
