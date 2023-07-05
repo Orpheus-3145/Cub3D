@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:05:17 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 23:19:07 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 17:44:17 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ t_cube	*create_cube(void)
 	cube = ft_calloc(sizeof(t_cube), 1);
 	if (cube == NULL)
 		return (NULL);
+	cube->hor_pix = WIDTH * REDUCT_RATE;
+	cube->ver_pix = HEIGHT * REDUCT_RATE;
+	cube->win = NULL;
+	cube->img = NULL;
 	cube->input = create_input();
 	if (cube->input == NULL)
 		return (ft_free(cube));
@@ -65,6 +69,8 @@ void	free_cube(t_cube *cube)
 	if (cube)
 	{
 		free_input(cube->input);
+		if (cube->win)
+			mlx_terminate(cube->win);
 		ft_free(cube);
 	}
 }

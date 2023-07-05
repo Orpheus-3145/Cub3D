@@ -6,13 +6,24 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 01:48:06 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/05 18:02:37 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 # define MASK '|'
+# define REDUCT_RATE 0.8
+# define BPP 4	
+# define RGBA_BK 0xFFFFFFFF		// color of background of window (white)
+# define RGBA_GRID 0x00FF00FF	// color of grid (green)				// bytes of every pixel (int type)
+# ifdef __APPLE__				
+#  define WIDTH 2400			// horizonal pixels on Mac
+#  define HEIGHT 1350			// vertical pixels on Mac
+# elif defined(__linux__)	
+#  define WIDTH 800				// horizonal pixels on Linux
+#  define HEIGHT 450			// vertical pixels on Linux
+# endif
 # include <stdlib.h>    			// malloc(), free()
 # include <unistd.h>    			// write(), read(), open()
 # include <fcntl.h>					// to open files (O_CREAT, O_WRONLY, O_RDONLY ..)
@@ -21,6 +32,7 @@
 # include <errno.h>					// errorno global var
 # include <stddef.h>				// NULL, type size_t
 # include <stdio.h>					// printf(), perror(), strerror()
+# include "MLX42/MLX42.h"		// graphic library
 # include "libft.h"
 
 typedef enum	s_direction
@@ -69,7 +81,11 @@ typedef struct	s_input
 
 typedef struct	s_cube
 {
-	t_input	*input;
+	t_input		*input;
+	mlx_t		*win;
+	mlx_image_t	*img;
+	uint32_t	hor_pix;
+	uint32_t	ver_pix;
 }	t_cube;
 
 bool		check_input(int32_t argc, char **argv);
@@ -158,5 +174,17 @@ t_status	create_new_node(t_xy_point point, t_list **stack);
 void		drop_node(t_list **stack);
 
 void		free_stack(t_list **stack);
+
+
+void		close_app(void *param);
+
+t_status	set_image_in_win(t_cube *cube, int32_t w, int32_t h, int32_t bk_color);
+
+t_status	start_app(t_cube *cube);
+
+void		esc_hook(void *param);
+
+void		resize_hook(int32_t width, int32_t height, void *param);
+
 
 #endif
