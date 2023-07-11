@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 01:43:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/11 23:41:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,32 @@ char **rect_map(char *line_map)
 	}
 	ft_free_double((void **) raw_map, -1);
 	return (map);
+}
+
+char **rotate_matrix(t_cube *cube)
+{
+	char		**rot_mat;
+	uint32_t	i;
+	uint32_t	j;
+	uint32_t	height;
+
+	height = cube->input->map->height;
+	rot_mat = ft_calloc(cube->input->map->width, sizeof(char *));
+	if (rot_mat == NULL)
+		return (NULL);
+	i = 0;
+	while (i < cube->input->map->width)
+	{
+		rot_mat[i] = ft_calloc(height, sizeof(char));
+		if (rot_mat[i] == NULL)
+			return (ft_free_double((void **) rot_mat, -1));
+		j = 0;
+		while (j < height)
+		{
+			rot_mat[i][j] = cube->input->map->map_2d[height - j - 1][i];
+			j++;
+		}
+		i++;
+	}
+	return (rot_mat);
 }

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 18:02:37 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/11 21:17:46 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ void		print_input(t_input *input);
 void		kill_program(t_cube *cube, t_status status);
 
 char 		**rect_map(char *line_map);
+
+char		**rotate_matrix(t_cube *cube);
 
 
 t_status	check_row(char *row);

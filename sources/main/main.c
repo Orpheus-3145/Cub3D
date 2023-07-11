@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 17:59:47 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/11 23:37:35 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	main(int argc, char **argv)
 		kill_program(cube, STAT_MEM_FAIL);
 	if (check_input(argc, argv) == false)
 		kill_program(NULL, STAT_FALSE);
-	else
-		cube->input->file_name = argv[1];
+	cube->input->file_name = argv[1];
 	parse_input(cube);
 	if (start_app(cube) == STAT_TRUE)
 		mlx_loop(cube->win);
