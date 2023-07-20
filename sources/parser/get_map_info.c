@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/04 23:18:47 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 uint32_t	find_height(char **map_2d)
 {

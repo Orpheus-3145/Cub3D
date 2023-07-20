@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 01:37:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 t_status	check_row(char *row)
 {
@@ -21,11 +21,11 @@ t_status	check_row(char *row)
 		if (*row == '\0')
 			break;
 		else if (*row != '1')
-			return (STAT_FALSE);
+			return (STAT_PARSE_ERR);
 		while (ft_strchr("01NSWE", *row))
 			row++;
 		if (*(row - 1) != '1')
-			return (STAT_FALSE);
+			return (STAT_PARSE_ERR);
 	}
 	return (STAT_TRUE);
 }
@@ -42,11 +42,11 @@ t_status	check_col(char **map, uint32_t column)
 		if (map[j] == NULL)
 			break ;
 		else if (map[j][column] != '1')
-			return (STAT_FALSE);
+			return (STAT_PARSE_ERR);
 		while (map[j] && ft_strchr("01NSWE", map[j][column]))
 			j++; 
 		if (map[j - 1][column] != '1')
-			return (STAT_FALSE);
+			return (STAT_PARSE_ERR);
 		else if (map[j] == NULL)
 			break ;
 	}
@@ -60,15 +60,15 @@ t_status	check_walls(char **map)
 	i = 0;
 	while (map[i])
 	{
-		if (check_row(map[i]) == STAT_FALSE)
-			return (STAT_FALSE);
+		if (check_row(map[i]) == STAT_PARSE_ERR)
+			return (STAT_PARSE_ERR);
 		i++;
 	}
 	i = 0;
 	while (map[0][i])
 	{
-		if (check_col(map, i) == STAT_FALSE)
-			return (STAT_FALSE);
+		if (check_col(map, i) == STAT_PARSE_ERR)
+			return (STAT_PARSE_ERR);
 		i++;
 	}
 	return (STAT_TRUE);
@@ -88,7 +88,7 @@ t_status	check_start_pos(char **map, t_xy_point origin)
 			if ((i == origin.x) && (j == origin.y))
 				i++;
 			else if (ft_strchr("NSWE", map[j][i]))
-				return (STAT_FALSE);
+				return (STAT_PARSE_ERR);
 			else
 				i++;
 		}
@@ -104,9 +104,9 @@ t_status	validate_map(char **map)
 
 	start_pos = find_start_pos(map);
 	if (start_pos.x == -1)
-		return (STAT_FALSE);
-	else if (check_start_pos(map, start_pos) == STAT_FALSE)
-		return (STAT_FALSE);
+		return (STAT_PARSE_ERR);
+	else if (check_start_pos(map, start_pos) == STAT_PARSE_ERR)
+		return (STAT_PARSE_ERR);
 	status = check_walls(map);
 	if (status == STAT_TRUE)
 		status = flood_fill(map, start_pos, MASK);

@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 01:09:12 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 bool	check_file(char *file_name, int32_t mode)
 {
@@ -30,7 +30,7 @@ t_status	check_color(char *color_seq)
 	int32_t		nbr;
 	uint32_t	i;
 
-	status = STAT_FALSE;
+	status = STAT_PARSE_ERR;
 	if (color_seq == NULL)
 		return (status);
 	ints = ft_split(color_seq, ',', true);

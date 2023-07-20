@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 15:04:58 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:24:20 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 void	print_rgb(int32_t rgb)
 {
@@ -66,22 +66,17 @@ void	kill_program(t_cube *cube, t_status status)
 	int32_t	exit_status;
 
 	free_cube(cube);
-	ft_printf("cube3d: ");
-	if (status == STAT_FALSE)
-	{
-		exit_status = EXIT_SUCCESS;
-		ft_printf("error\n");
-	}
+	exit_status = EXIT_FAILURE;
+	if (status == STAT_MEM_FAIL)
+		perror("cub3d: memory fail :::");
+	else if (status == STAT_FILE_ERR)
+		perror("cub3d: error opening file :::");
+	else if (status == STAT_PARSE_ERR)
+		ft_putstr_fd("cub3d: parsing error ::::", 2);
+	else if (status == STAT_FALSE)
+		ft_putstr_fd("cub3d: generic error ::::", 2);
 	else
-	{
-		exit_status = EXIT_FAILURE;
-		if (status == STAT_MEM_FAIL)
-			perror("memory fail");
-		else if (status == STAT_FILE_ERR)
-			perror("error opening file");
-		else
-			perror("generic error");
-	}
+		exit_status = EXIT_SUCCESS;
 	exit(exit_status);
 }
 

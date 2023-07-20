@@ -6,11 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:30:51 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/20 17:19:05 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:32:20 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 void	free_input(t_input *input)
 {
@@ -38,8 +38,8 @@ void	free_app(t_app *app)
 {
 	if (app)
 	{
-		// if (app->win)
-		// 	mlx_terminate(app->win);
+		if (app->win)
+			mlx_terminate(app->win);
 		ft_free(app);
 	}
 }

@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 17:25:33 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:33:41 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate)
 {

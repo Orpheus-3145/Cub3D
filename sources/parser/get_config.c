@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 17:05:20 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 t_status	insert_texture_path(char *dir, char *texture_path, t_input *input)
 {
@@ -38,7 +38,7 @@ t_status	insert_texture_path(char *dir, char *texture_path, t_input *input)
 		return (STAT_TRUE);
 	}
 	else
-		return (ft_free(texture_path), STAT_FALSE);
+		return (ft_free(texture_path), STAT_PARSE_ERR);
 }
 
 t_status	insert_color(char *type, char *color, t_input *input)
@@ -51,7 +51,7 @@ t_status	insert_color(char *type, char *color, t_input *input)
 	else if ((ft_strncmp(type, "C", 1) == 0) && (input->ceil_rgb == -1))
 		to_set = &input->ceil_rgb;
 	else
-		return (STAT_FALSE);
+		return (STAT_PARSE_ERR);
 	rgb = ft_split(color, ',', true);
 	if (rgb == NULL)
 		return (STAT_MEM_FAIL);
@@ -73,7 +73,7 @@ t_status	fill_line(char *line, t_input *input)
 	words = ft_split(line, ' ', true);
 	if (words == NULL)
 		return (STAT_MEM_FAIL);
-	status = STAT_FALSE;
+	status = STAT_PARSE_ERR;
 	if (is_direction(words[0]) == true)
 	{
 		if ((check_file(words[1], O_RDONLY) == true) && (words[2] == NULL))

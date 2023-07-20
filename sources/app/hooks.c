@@ -6,11 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/20 17:21:27 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:28:32 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+# include"cub3d/cub3d.h"
 
 void	esc_hook(void *param)
 {
@@ -18,8 +18,7 @@ void	esc_hook(void *param)
 
 	cube = (t_cube *) param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))
-		mlx_close_window(cube->app->win);
-		// kill_app(cube);
+		kill_app(param);
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)

@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 15:02:16 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d/cub3d.h"
 
 bool	got_all_config(t_input *input)
 {
@@ -49,7 +49,7 @@ t_status	get_config(int32_t fd, t_input *input)
 		ft_free(new_line);
 	}
 	if ((got_all_config(input) == false) && (status == STAT_TRUE))
-		return (STAT_FALSE);
+		return (STAT_PARSE_ERR);
 	else
 		return (status);
 }
@@ -89,7 +89,7 @@ t_status	get_map(int32_t fd, t_input *input)
 		return (status);
 	}
 	else
-		return (STAT_FALSE);
+		return (STAT_PARSE_ERR);
 }
 
 t_status	parse_input(t_input *input, char *file_name)
