@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/11 23:41:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 09:37:51 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	kill_program(t_cube *cube, t_status status)
 	exit(exit_status);
 }
 
-char **rect_map(char *line_map)
+char	**rect_map(char *line_map)
 {
 	char		**raw_map;
 	char		**map;

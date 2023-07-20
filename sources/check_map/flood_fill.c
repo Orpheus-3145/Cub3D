@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 01:34:26 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 09:36:57 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ t_status	ff_algorithm(char **map, t_xy_point start_pos, t_list **stack, char mas
 	}
 	if (*stack == NULL)
 		return (STAT_TRUE);
-	else
-		return (ff_algorithm(map, *((t_xy_point *) (*stack)->content), stack, mask));
+	return (ff_algorithm(map, *((t_xy_point *) (*stack)->content), stack, mask));
 }
 
 t_status	flood_fill(char **map, t_xy_point start_point, char mask)

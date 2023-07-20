@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cube.c                                             :+:    :+:            */
+/*   init.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fra <fra@student.codam.nl>                   +#+                     */
+/*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/07/03 15:05:17 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/05 17:44:17 by fra           ########   odam.nl         */
+/*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
+/*   Updated: 2023/07/20 10:30:41 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_cube	*create_cube(void)
+t_cube	*init_cube(void)
 {
 	t_cube  *cube;
 
 	cube = ft_calloc(sizeof(t_cube), 1);
 	if (cube == NULL)
 		return (NULL);
-	cube->hor_pix = WIDTH * REDUCT_RATE;
-	cube->ver_pix = HEIGHT * REDUCT_RATE;
-	cube->win = NULL;
-	cube->img = NULL;
-	cube->input = create_input();
+	cube->input = init_input();
 	if (cube->input == NULL)
+		return (ft_free(cube));
+	cube->app = init_app();
+	if (cube->app == NULL)
 		return (ft_free(cube));
 	else
 		return (cube);
 }
 
-t_input	*create_input(void)
+t_input	*init_input(void)
 {
 	t_input	*input;
 
@@ -38,7 +37,7 @@ t_input	*create_input(void)
 	if (input == NULL)
 		return (NULL);
 	input->file_name = NULL;
-	input->map = create_map();
+	input->map = init_map();
 	if (input->map == NULL)
 		return (ft_free(input));
 	input->n_tex_path = NULL;
@@ -50,7 +49,7 @@ t_input	*create_input(void)
 	return (input);
 }
 
-t_map	*create_map(void)
+t_map	*init_map(void)
 {
 	t_map	*map;
 	map = ft_calloc(sizeof(t_map), 1);
@@ -64,25 +63,30 @@ t_map	*create_map(void)
 	return (map);
 }
 
-void	free_cube(t_cube *cube)
+t_app	*init_app(void)
 {
-	if (cube)
-	{
-		free_input(cube->input);
-		if (cube->win)
-			mlx_terminate(cube->win);
-		ft_free(cube);
-	}
-}
+	t_app *app;
 
-void	free_input(t_input *input)
-{
-	if (input->map)
-		ft_free_double((void **) input->map->map_2d, -1);
-	ft_free(input->map);
-	ft_free(input->n_tex_path);
-	ft_free(input->s_tex_path);
-	ft_free(input->w_tex_path);
-	ft_free(input->e_tex_path);
-	ft_free(input);
+	app = ft_calloc(1, sizeof(t_app));
+	if (app == NULL)
+		return (NULL);
+	app->hor_pix = WIDTH * REDUCT_RATE;
+	app->ver_pix = HEIGHT * REDUCT_RATE;
+	app->img = NULL;
+	app->win = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	if (app->win == NULL)
+		return (ft_free(app));
+	else
+	{
+		mlx_loop_hook(app->win, &esc_hook, app);
+		mlx_close_hook(app->win, &kill_app, app);
+		mlx_resize_hook(app->win, &resize_hook, app);
+		if (set_image_in_win(app, WIDTH, HEIGHT, RGBA_BK) == STAT_MEM_FAIL)
+		{
+			free_app(app);
+			return (NULL);
+		}
+		else
+			return (app);
+	}
 }

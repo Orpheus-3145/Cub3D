@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/11 23:37:35 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 10:25:50 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,23 @@ bool	check_input(int32_t argc, char **argv)
 	if (argc != 2)
 		return (false);
 	len_file = ft_strlen(argv[1]);
-	if ((argv[1][len_file - 4] != '.') || \
-		(argv[1][len_file - 3] != 'c') || \
-		(argv[1][len_file - 2] != 'u') || \
-		(argv[1][len_file - 1] != 'b'))
-		return (false);
-	else
-		return (true);	
+	return (ft_strncmp(argv[1] + len_file - 4, ".cub", 4) == 0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_cube	*cube;
 
-	cube = create_cube();
+	cube = init_cube();
 	if (cube == NULL)
 		kill_program(cube, STAT_MEM_FAIL);
 	if (check_input(argc, argv) == false)
 		kill_program(NULL, STAT_FALSE);
 	cube->input->file_name = argv[1];
 	parse_input(cube);
-	if (start_app(cube) == STAT_TRUE)
-		mlx_loop(cube->win);
+	cube->app = init_app();
+	if (cube->app)
+		mlx_loop(cube->app->win);
 	else
 		kill_program(cube, STAT_MEM_FAIL);
 	free_cube(cube);

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/11 21:17:46 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 10:27:22 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct	s_map
 
 typedef struct	s_input
 {
-	char	*file_name;
 	t_map	*map;
+	char	*file_name;
 	char	*n_tex_path;
 	char	*s_tex_path;
 	char	*w_tex_path;
@@ -79,13 +79,18 @@ typedef struct	s_input
 	int32_t	ceil_rgb;
 }   t_input;
 
-typedef struct	s_cube
+typedef struct	s_app
 {
-	t_input		*input;
 	mlx_t		*win;
 	mlx_image_t	*img;
 	uint32_t	hor_pix;
 	uint32_t	ver_pix;
+}	t_app;
+
+typedef struct	s_cube
+{
+	t_input		*input;
+	t_app		*app;
 }	t_cube;
 
 bool		check_input(int32_t argc, char **argv);
@@ -107,15 +112,25 @@ t_status	insert_color(char *type, char *color, t_input *input);
 t_status	fill_line(char *line, t_input *input);
 
 
-t_cube		*create_cube(void);
+t_cube		*init_cube(void);
 
-t_input		*create_input(void);
+t_app		*init_app(void);
 
-t_map		*create_map(void);
+t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color);
 
-void		free_cube(t_cube *cube);
+t_input		*init_input(void);
+
+t_map		*init_map(void);
+
+t_cube		*free_cube(t_cube *cube);
 
 void		free_input(t_input *input);
+
+void		free_input(t_input *input);
+
+void		free_map(t_map *map);
+
+void		free_app(t_app *app);
 
 
 bool		got_all_config(t_input *input);
@@ -178,11 +193,11 @@ void		drop_node(t_list **stack);
 void		free_stack(t_list **stack);
 
 
-void		close_app(void *param);
+void		kill_app(void *param);
 
-t_status	set_image_in_win(t_cube *cube, int32_t w, int32_t h, int32_t bk_color);
 
-t_status	start_app(t_cube *cube);
+
+// t_status	init_app(t_cube *cube);
 
 void		esc_hook(void *param);
 
