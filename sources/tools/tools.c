@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 09:37:51 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 15:04:58 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	print_input(t_input *input)
 {
 	if (input)
 	{
-		if (input->file_name)
-			ft_printf("file name: %s\n", input->file_name);
 		if (input->n_tex_path)
 			ft_printf("north text path: %s\n", input->n_tex_path);
 		if (input->s_tex_path)

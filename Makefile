@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/07/11 23:33:54 by fra           ########   odam.nl          #
+#    Updated: 2023/07/20 15:06:46 by faru          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
 CC  := gcc
 IFLAGS := -Iinclude -I$(MLX42_DIR)/include -I$(LIBFT_DIR)/include
 CFLAGS := -Wall -Wextra -Werror -g3 -fsanitize=address
-CFLAGS += -g3 -fsanitize=address
+CFLAGS += -g3 #-fsanitize=address
 
 LFLAGS := -L$(MLX42_DIR)/build -lmlx42 -L$(LIBFT_DIR) -lft
 ifeq ($(shell uname -s),Darwin)			# Mac

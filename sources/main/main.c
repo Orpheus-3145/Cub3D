@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 10:25:50 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 17:24:44 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,22 @@ bool	check_input(int32_t argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_cube	*cube;
+	t_status status;
 
+	if (check_input(argc, argv) == false)
+		kill_program(NULL, STAT_FALSE);
 	cube = init_cube();
 	if (cube == NULL)
 		kill_program(cube, STAT_MEM_FAIL);
-	if (check_input(argc, argv) == false)
-		kill_program(NULL, STAT_FALSE);
-	cube->input->file_name = argv[1];
-	parse_input(cube);
-	cube->app = init_app();
-	if (cube->app)
+	status = parse_input(cube->input, argv[1]);
+	if (status == STAT_TRUE)
+	{
+		print_input(cube->input);
+		set_up_app(cube, HEIGHT, WIDTH, REDUCT_RATE);
 		mlx_loop(cube->app->win);
+		free_cube(cube);
+	}
 	else
-		kill_program(cube, STAT_MEM_FAIL);
-	free_cube(cube);
+		kill_program(cube, status);
 	return (EXIT_SUCCESS);
 }

@@ -6,28 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/20 10:30:41 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 15:14:48 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_cube	*init_cube(void)
-{
-	t_cube  *cube;
-
-	cube = ft_calloc(sizeof(t_cube), 1);
-	if (cube == NULL)
-		return (NULL);
-	cube->input = init_input();
-	if (cube->input == NULL)
-		return (ft_free(cube));
-	cube->app = init_app();
-	if (cube->app == NULL)
-		return (ft_free(cube));
-	else
-		return (cube);
-}
 
 t_input	*init_input(void)
 {
@@ -36,7 +19,6 @@ t_input	*init_input(void)
 	input = ft_calloc(sizeof(t_input), 1);
 	if (input == NULL)
 		return (NULL);
-	input->file_name = NULL;
 	input->map = init_map();
 	if (input->map == NULL)
 		return (ft_free(input));
@@ -70,23 +52,26 @@ t_app	*init_app(void)
 	app = ft_calloc(1, sizeof(t_app));
 	if (app == NULL)
 		return (NULL);
-	app->hor_pix = WIDTH * REDUCT_RATE;
-	app->ver_pix = HEIGHT * REDUCT_RATE;
+	app->hor_pix = 0;
+	app->ver_pix = 0;
 	app->img = NULL;
-	app->win = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
-	if (app->win == NULL)
-		return (ft_free(app));
-	else
-	{
-		mlx_loop_hook(app->win, &esc_hook, app);
-		mlx_close_hook(app->win, &kill_app, app);
-		mlx_resize_hook(app->win, &resize_hook, app);
-		if (set_image_in_win(app, WIDTH, HEIGHT, RGBA_BK) == STAT_MEM_FAIL)
-		{
-			free_app(app);
-			return (NULL);
-		}
-		else
-			return (app);
+	app->win = NULL;
+	return (app);
 	}
+
+t_cube	*init_cube(void)
+{
+	t_cube  *cube;
+
+	cube = ft_calloc(sizeof(t_cube), 1);
+	if (cube == NULL)
+		return (NULL);
+	cube->input = init_input();
+	if (cube->input == NULL)
+		return (free_cube(cube));
+	cube->app = init_app();
+	if (cube->app == NULL)
+		return (free_cube(cube));
+	else
+		return (cube);
 }

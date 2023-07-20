@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/03 15:46:24 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 17:05:20 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_status	insert_texture_path(char *dir, char *texture_path, t_input *input)
 		return (STAT_TRUE);
 	}
 	else
-		return (STAT_FALSE);
+		return (ft_free(texture_path), STAT_FALSE);
 }
 
 t_status	insert_color(char *type, char *color, t_input *input)

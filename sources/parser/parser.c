@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/11 21:24:23 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/20 15:02:16 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,17 @@ t_status	get_map(int32_t fd, t_input *input)
 		return (STAT_FALSE);
 }
 
-void	parse_input(t_cube *cube)
+t_status	parse_input(t_input *input, char *file_name)
 {
 	t_status	status;
 	int32_t		fd;
 
-	if (check_file(cube->input->file_name, O_RDONLY) == false)
-		kill_program(cube, STAT_FILE_ERR);
-	fd = open(cube->input->file_name, O_RDONLY);
-	status = get_config(fd, cube->input);
-	if (status != STAT_TRUE)
-	{
-		close(fd);
-		kill_program(cube, status);
-	}
-	status = get_map(fd, cube->input);
+	if (check_file(file_name, O_RDONLY) == false)
+		return (STAT_FILE_ERR);
+	fd = open(file_name, O_RDONLY);
+	status = get_config(fd, input);
+	if (status == STAT_TRUE)
+		status = get_map(fd, input);
 	close(fd);
-	if (status != STAT_TRUE)
-		kill_program(cube, status);
-	else
-		print_input(cube->input);
+	return (status);
 }

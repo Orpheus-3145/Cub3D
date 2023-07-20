@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/20 10:27:22 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 17:21:27 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 void	esc_hook(void *param)
 {
-	t_app	*app;
+	t_cube	*cube;
 
-	app = (t_app *) param;
-	if (mlx_is_key_down(app->win, MLX_KEY_ESCAPE))
-		kill_app(app);
+	cube = (t_cube *) param;
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))
+		mlx_close_window(cube->app->win);
+		// kill_app(cube);
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)
 {
-	t_app	*app;
+	t_cube	*cube;
 
-	app = (t_app *) param;
-	app->hor_pix = width * REDUCT_RATE;
-	app->ver_pix = height * REDUCT_RATE;
-	set_image_in_win(app, width, height, RGBA_BK);
+	cube = (t_cube *) param;
+	cube->app->hor_pix = width * REDUCT_RATE;
+	cube->app->ver_pix = height * REDUCT_RATE;
+	set_image_in_win(cube->app, width, height, RGBA_BK);
 }

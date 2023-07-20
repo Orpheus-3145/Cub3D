@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 10:27:22 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/20 17:24:49 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct	s_map
 typedef struct	s_input
 {
 	t_map	*map;
-	char	*file_name;
 	char	*n_tex_path;
 	char	*s_tex_path;
 	char	*w_tex_path;
@@ -116,6 +115,8 @@ t_cube		*init_cube(void);
 
 t_app		*init_app(void);
 
+t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate);
+
 t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color);
 
 t_input		*init_input(void);
@@ -139,7 +140,7 @@ t_status	get_config(int32_t fd, t_input *input);
 
 t_status	get_map(int32_t fd, t_input *input);
 
-void		parse_input(t_cube *cube);
+t_status	parse_input(t_input *input, char *file_name);
 
 
 uint32_t	find_height(char **map_2d);
