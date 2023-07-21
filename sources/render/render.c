@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/21 17:06:21 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/21 18:02:45 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	update_img(t_cube *cube)
 		wall_color = RGBA_GRID;
 		floor_color = cube->input->floor_rgb;
 		ceil_color = cube->input->ceil_rgb;
+		// ft_printf("ceil: %d floor: %d\n", ceil_color, floor_color);
 		if (side == 1)
 		{
 			wall_color >>= 8;

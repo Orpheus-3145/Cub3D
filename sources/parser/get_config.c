@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 18:03:20 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_status	insert_color(char *type, char *color, t_input *input)
 	*to_set |= ft_atoi(rgb[1]);
 	*to_set <<= 8;
 	*to_set |= ft_atoi(rgb[2]);
+	*to_set <<= 8;
+	*to_set |= 255;
 	ft_free_double((void **) rgb, -1);
 	return (STAT_TRUE);
 }

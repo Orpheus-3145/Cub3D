@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:07:31 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:11:30 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 17:39:33 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ uint32_t	find_width(char **map_2d);
 t_xy_point	find_start_pos(char **map_2d);
 
 t_direction	find_start_face(char **map_2d, t_xy_point pos);
+
+t_vector	find_direction(t_direction dir);
+
+t_vector	find_plane(t_direction dir);
 
 void		get_map_info(t_map *map, char **map_2d);
 

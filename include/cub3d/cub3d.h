@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:12:18 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 17:56:49 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define CUBE3D_H
 # define MASK '|'
 # define REDUCT_RATE 0.8
+# define FOV .66
 # define BPP 4	
+# define ROT_SPEED .3
 # define RGBA_BK 0xFFFFFFFF		// color of background of window (white)
 # define RGBA_GRID 0x00FF00FF	// color of grid (green)				// bytes of every pixel (int type)
 # ifdef __APPLE__				
-#  define WIDTH 2400			// horizonal pixels on Mac
-#  define HEIGHT 1350			// vertical pixels on Mac
+#  define WIDTH 1000			// horizonal pixels on Mac
+#  define HEIGHT 470			// vertical pixels on Mac
 # elif defined(__linux__)	
 #  define WIDTH 800				// horizonal pixels on Linux
 #  define HEIGHT 450			// vertical pixels on Linux
@@ -33,6 +35,7 @@
 # include <stddef.h>				// NULL, type size_t
 # include <stdio.h>					// printf(), perror(), strerror()
 # include "MLX42/MLX42.h"			// graphic library
+# include <math.h>					// sin(), cos(), ...
 # include "libft.h"
 # include "cub3d/enum.h"
 # include "app/app.h"
@@ -40,5 +43,6 @@
 # include "init/init.h"
 # include "main/main.h"
 # include "parser/parser.h"
+# include "render/render.h"
 # include "tools/tools.h"
 #endif

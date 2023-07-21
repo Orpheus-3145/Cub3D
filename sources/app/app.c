@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 10:24:17 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/21 17:56:11 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_ra
 	mlx_loop_hook(cube->app->win, &esc_hook, cube);
 	mlx_close_hook(cube->app->win, &kill_app, cube);
 	mlx_resize_hook(cube->app->win, &resize_hook, cube);
+	mlx_key_hook(cube->app->win, &rotate_hook, cube);
 	if (set_image_in_win(cube->app, width, height, RGBA_BK) == STAT_MEM_FAIL)
 		return (STAT_MEM_FAIL);
 	else
+	{
+		update_img(cube);
 		return (STAT_TRUE);
+	}
 }
 
 t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color)

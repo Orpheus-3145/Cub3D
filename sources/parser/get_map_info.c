@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 17:58:09 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,34 @@ t_direction	find_start_face(char **map_2d, t_xy_point pos)
 		return (DIR_ERROR);
 }
 
+t_vector	find_direction(t_direction dir)
+{
+	if (dir == DIR_NORTH)
+		return ((t_vector) {0, -1});
+	else if (dir == DIR_SOUTH)
+		return ((t_vector) {0, 1});
+	else if (dir == DIR_WEST)
+		return ((t_vector) {-1, 0});
+	else if (dir == DIR_EAST)
+		return ((t_vector) {1, 0});
+	else
+		return ((t_vector) {0, 0});
+}
+
+t_vector	find_plane(t_direction dir)
+{
+	if (dir == DIR_NORTH)
+		return ((t_vector) {FOV, 0});
+	else if (dir == DIR_SOUTH)
+		return ((t_vector) {-FOV, 0});
+	else if (dir == DIR_WEST)
+		return ((t_vector) {0, -FOV});
+	else if (dir == DIR_EAST)
+		return ((t_vector) {0, FOV});
+	else
+		return ((t_vector) {0, 0});
+}
+
 void	get_map_info(t_map *map, char **map_2d)
 {
 	map->map_2d = map_2d;
@@ -87,4 +115,6 @@ void	get_map_info(t_map *map, char **map_2d)
 	map->width = find_width(map_2d);
 	map->start_pos = find_start_pos(map_2d);
 	map->start_face = find_start_face(map_2d, map->start_pos);
+	map->dir = find_direction(map->start_face);
+	map->plane = find_plane(map->start_face);
 }

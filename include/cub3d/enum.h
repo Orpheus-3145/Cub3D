@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:10:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 17:28:31 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct s_xy_point
 	long	y;
 }	t_xy_point;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
 typedef struct	s_map
 {
 	char		**map_2d;
@@ -45,6 +51,8 @@ typedef struct	s_map
 	uint32_t	width;
 	t_xy_point	start_pos;
 	t_direction	start_face;
+	t_vector	dir;
+	t_vector	plane;
 }	t_map;
 
 typedef struct	s_input
