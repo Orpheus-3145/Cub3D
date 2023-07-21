@@ -6,3 +6,4 @@ a.*
 .DS_Store
 .idea*
 !*/cub3d
+prov_test
