@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 00:32:41 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/21 10:24:17 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	kill_app(void *param)
 	if (param)
 	{
 		cube = (t_cube *) param;
-		
 		free_cube(cube);
 	}
 	exit(EXIT_SUCCESS);
