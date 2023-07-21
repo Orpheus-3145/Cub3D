@@ -5,5 +5,5 @@ a.*
 .vscode
 .DS_Store
 .idea*
+cub3d
 !*/cub3d
-prov_test
