@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/21 23:23:32 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/22 01:28:52 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,7 @@
 void	update_img(t_cube *cube)
 {
 	uint32_t	x;
-	// char		**map;
-	t_vector	pos;				// starting point of the player
-	// t_vector	dir;				// direction of the player (N, S, O, W)
-	// t_vector	plane;				// plane perpendicular to direction
-	// t_timeval	time;				// for fps print
-	// t_timeval	old_time;
+	t_vector	pos;
 	double		cam_x;				// x-coordinate in camera space
 	t_vector	ray_dir;			// ray direction
 	int32_t		map_x;				// start_pos in map coordinates
@@ -39,18 +34,10 @@ void	update_img(t_cube *cube)
 	int			floor_color;			// RGBA of the floor
 	int			ceil_color;			// RGBA of the ceiling
 	int			tmp_y;				// tmp var to render the wall-column
-	// double		frame_time;			// delta fps
-	// double		curr_fps;			// inverse of frame_time
 
-	// map = cube->input->map->map_2d;
-	// start = cube->input->map->start_pos;
-	// dir = get_vect_from_dir(cube->input->map->start_face);
-	// plane = (t_vector) {0 + amount, 0.66};	// it must be perpendicular to direction
-	pos = (t_vector) {cube->input->map->pos_map.x + 0.5, cube->input->map->pos_map.y + 0.5};
+	pos = (t_vector) {cube->input->map->pos_map.x, cube->input->map->pos_map.y};
 	// gettimeofday(&time, NULL);
 	x = 0;
-	// printf("start dirs x: %ld, y: %ld\n", cube->input->map->pos.x, cube->input->map->pos.y);
-	// printf("dir x: %f, y: %f\n", cube->input->map->dir.x, cube->input->map->dir.y);
 	while (x < cube->app->hor_pix)
 	{
 		cam_x = 2 * x / (double) cube->app->ver_pix - 1;	// x coor in camera space
@@ -95,18 +82,24 @@ void	update_img(t_cube *cube)
 			{
 				side_dist.x += delta_side_dist.x;
 				map_x += step_x;
-				side = 0;
+				if (step_x > 0)
+					side = DIR_EAST;
+				else
+					side = DIR_WEST;
 			}
 			else
 			{
 				side_dist.y += delta_side_dist.y;
 				map_y += step_y;
-				side = 1;
+				if (step_y > 0)
+					side = DIR_SOUTH;
+				else
+					side = DIR_NORTH;
 			}
 			hit = cube->input->map->map_2d[map_y][map_x] == '1';
 		}
 		// calculate ray distance
-		if (side == 0)
+		if ((side == DIR_EAST) || (side == DIR_WEST))
 			perp_wall_dist = side_dist.x - delta_side_dist.x;
 		else
 			perp_wall_dist = side_dist.y - delta_side_dist.y;
@@ -122,7 +115,7 @@ void	update_img(t_cube *cube)
 		floor_color = cube->input->floor_rgb;
 		ceil_color = cube->input->ceil_rgb;
 		// ft_printf("ceil: %d floor: %d\n", ceil_color, floor_color);
-		if (side == 1)
+		if ((side == DIR_EAST) || (side == DIR_WEST))
 		{
 			wall_color >>= 8;
 			wall_color <<= 8;
@@ -138,9 +131,6 @@ void	update_img(t_cube *cube)
 			else	// draw walls
 				mlx_put_pixel(cube->app->img, (uint32_t) x, (uint32_t) tmp_y++, wall_color);
 		}
-			// ft_printf("rendering point (%d; %d)\n", x++, tmp_y);
-		// draw floor
-		// draw ceiling
 		x++;
 	}
 	// fps stuff
