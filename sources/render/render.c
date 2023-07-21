@@ -6,18 +6,17 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/21 18:02:45 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/21 23:23:32 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-
 void	update_img(t_cube *cube)
 {
 	uint32_t	x;
 	// char		**map;
-	// t_xy_point	start;				// starting point of the player
+	t_vector	pos;				// starting point of the player
 	// t_vector	dir;				// direction of the player (N, S, O, W)
 	// t_vector	plane;				// plane perpendicular to direction
 	// t_timeval	time;				// for fps print
@@ -47,17 +46,18 @@ void	update_img(t_cube *cube)
 	// start = cube->input->map->start_pos;
 	// dir = get_vect_from_dir(cube->input->map->start_face);
 	// plane = (t_vector) {0 + amount, 0.66};	// it must be perpendicular to direction
+	pos = (t_vector) {cube->input->map->pos_map.x + 0.5, cube->input->map->pos_map.y + 0.5};
 	// gettimeofday(&time, NULL);
 	x = 0;
-	printf("start dirs x: %ld, y: %ld\n", cube->input->map->start_pos.x, cube->input->map->start_pos.y);
-	printf("dir x: %f, y: %f\n", cube->input->map->dir.x, cube->input->map->dir.y);
+	// printf("start dirs x: %ld, y: %ld\n", cube->input->map->pos.x, cube->input->map->pos.y);
+	// printf("dir x: %f, y: %f\n", cube->input->map->dir.x, cube->input->map->dir.y);
 	while (x < cube->app->hor_pix)
 	{
 		cam_x = 2 * x / (double) cube->app->ver_pix - 1;	// x coor in camera space
 		ray_dir.x = cube->input->map->dir.x + cube->input->map->plane.x * cam_x;
 		ray_dir.y = cube->input->map->dir.y + cube->input->map->plane.y * cam_x;
-		map_x = (int) cube->input->map->start_pos.x;
-		map_y = (int) cube->input->map->start_pos.y;
+		map_x = (int) pos.x;
+		map_y = (int) pos.y;
 		if (ray_dir.x == 0)
 			delta_side_dist.x = 1e30;
 		else
@@ -71,22 +71,22 @@ void	update_img(t_cube *cube)
 		if (ray_dir.x < 0)
 		{
 			step_x = -1;
-			side_dist.x = (cube->input->map->start_pos.x - map_x) * delta_side_dist.x;
+			side_dist.x = (pos.x - map_x) * delta_side_dist.x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist.x = (map_x + 1 - cube->input->map->start_pos.x) * delta_side_dist.x;
+			side_dist.x = (map_x + 1 - pos.x) * delta_side_dist.x;
 		}
 		if (ray_dir.y < 0)
 		{
 			step_y = -1;
-			side_dist.y = (cube->input->map->start_pos.y - map_y) * delta_side_dist.y;
+			side_dist.y = (pos.y - map_y) * delta_side_dist.y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist.y = (map_y + 1 - cube->input->map->start_pos.y) * delta_side_dist.y;
+			side_dist.y = (map_y + 1 - pos.y) * delta_side_dist.y;
 		}
 		// DDA
 		while (hit == 0)

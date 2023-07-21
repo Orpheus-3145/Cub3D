@@ -6,16 +6,27 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 17:56:11 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/21 22:58:42 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
+void	set_pos_pix(t_map *map)
+{
+	double x;
+	double y;
+
+	x = (double) map->pos_map.x * SIZE_SQUARE;
+	y = (double) map->pos_map.y * SIZE_SQUARE;
+	map->pos_pix = (t_vector) {x, y};
+}
+
 t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate)
 {
 	cube->app->hor_pix = width * red_rate;
 	cube->app->ver_pix = height * red_rate;
+	set_pos_pix(cube->input->map);
 	cube->app->win = mlx_init(width, height, "CUB3D", true);
 	if (cube->app->win == NULL)
 		return (STAT_MEM_FAIL);

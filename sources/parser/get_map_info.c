@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 17:58:09 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/21 23:21:17 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_direction	find_start_face(char **map_2d, t_xy_point pos)
 {
 	char	pos_to_check;
 
-	if ((pos.x == -1) || (pos.y == -1))
+	if ((pos.x == -1.) || (pos.y == -1.))
 		return (DIR_ERROR);
 	pos_to_check = map_2d[pos.y][pos.x];
 	if (pos_to_check == 'N')
@@ -113,8 +113,8 @@ void	get_map_info(t_map *map, char **map_2d)
 	map->map_2d = map_2d;
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);
-	map->start_pos = find_start_pos(map_2d);
-	map->start_face = find_start_face(map_2d, map->start_pos);
+	map->pos_map = find_start_pos(map_2d);
+	map->start_face = find_start_face(map_2d, map->pos_map);
 	map->dir = find_direction(map->start_face);
 	map->plane = find_plane(map->start_face);
 }
