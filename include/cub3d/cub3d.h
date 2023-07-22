@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 22:32:44 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/22 01:45:07 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define FOV .66
 # define BPP 4	
 # define ROT_SPEED .3
+# define MOV_SPEED .5
 # define SIZE_SQUARE 50.
 # define RGBA_BK 0xFFFFFFFF		// color of background of window (white)
 # define RGBA_GRID 0x00FF00FF	// color of grid (green)				// bytes of every pixel (int type)

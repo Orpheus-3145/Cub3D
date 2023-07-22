@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/22 01:28:52 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/22 01:58:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	update_img(t_cube *cube)
 {
 	uint32_t	x;
-	t_vector	pos;
+	t_vector	pos;				// s
 	double		cam_x;				// x-coordinate in camera space
 	t_vector	ray_dir;			// ray direction
 	int32_t		map_x;				// start_pos in map coordinates
@@ -31,11 +31,11 @@ void	update_img(t_cube *cube)
 	int			draw_start;			// first pixel of the column of the wall
 	int			draw_end;			// last pixel of the column of the wall
 	int			wall_color;			// RGBA of the wall
-	int			floor_color;			// RGBA of the floor
+	int			floor_color;		// RGBA of the floor
 	int			ceil_color;			// RGBA of the ceiling
 	int			tmp_y;				// tmp var to render the wall-column
 
-	pos = (t_vector) {cube->input->map->pos_map.x, cube->input->map->pos_map.y};
+	pos = (t_vector) {cube->input->map->pos_map.x + 0.5, cube->input->map->pos_map.y + 0.5};
 	// gettimeofday(&time, NULL);
 	x = 0;
 	while (x < cube->app->hor_pix)
@@ -58,22 +58,22 @@ void	update_img(t_cube *cube)
 		if (ray_dir.x < 0)
 		{
 			step_x = -1;
-			side_dist.x = (pos.x - map_x) * delta_side_dist.x;
+			side_dist.x = ((double) (pos.x - map_x)) * delta_side_dist.x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist.x = (map_x + 1 - pos.x) * delta_side_dist.x;
+			side_dist.x = ((double) (map_x + 1 - pos.x)) * delta_side_dist.x;
 		}
 		if (ray_dir.y < 0)
 		{
 			step_y = -1;
-			side_dist.y = (pos.y - map_y) * delta_side_dist.y;
+			side_dist.y = ((double) (pos.y - map_y)) * delta_side_dist.y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist.y = (map_y + 1 - pos.y) * delta_side_dist.y;
+			side_dist.y = ((double) (map_y + 1 - pos.y)) * delta_side_dist.y;
 		}
 		// DDA
 		while (hit == 0)
