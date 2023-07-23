@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 23:21:17 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:31:35 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint32_t	find_width(char **map_2d)
 	return (max_width);
 }
 
-t_xy_point	find_start_pos(char **map_2d)
+t_vector	find_pos_map(char **map_2d)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -53,21 +53,31 @@ t_xy_point	find_start_pos(char **map_2d)
 		while (map_2d[i][j])
 		{
 			if (ft_strchr(" 10", map_2d[i][j]) == NULL)
-				return ((t_xy_point) {j, i});
+				return ((t_vector) {j + 0.5, i + 0.5});
 			j++;
 		}
 		i++;
 	}
-	return ((t_xy_point) {-1, -1});
+	return ((t_vector) {-1, -1});
 }
 
-t_direction	find_start_face(char **map_2d, t_xy_point pos)
+t_vector	find_pos_pix(t_vector pos_map)
+{
+	double x;
+	double y;
+
+	x = (double) pos_map.x * SIZE_SQUARE;
+	y = (double) pos_map.y * SIZE_SQUARE;
+	return (t_vector) {x, y};
+}
+
+t_direction	find_start_face(char **map_2d, t_vector pos)
 {
 	char	pos_to_check;
 
 	if ((pos.x == -1.) || (pos.y == -1.))
 		return (DIR_ERROR);
-	pos_to_check = map_2d[pos.y][pos.x];
+	pos_to_check = map_2d[ft_part_int(pos.y)][ft_part_int(pos.x)];
 	if (pos_to_check == 'N')
 		return (DIR_NORTH);
 	else if (pos_to_check == 'S')
@@ -113,7 +123,8 @@ void	get_map_info(t_map *map, char **map_2d)
 	map->map_2d = map_2d;
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);
-	map->pos_map = find_start_pos(map_2d);
+	map->pos_map = find_pos_map(map_2d);
+	map->pos_pix = find_pos_pix(map->pos_map);
 	map->start_face = find_start_face(map_2d, map->pos_map);
 	map->dir = find_direction(map->start_face);
 	map->plane = find_plane(map->start_face);

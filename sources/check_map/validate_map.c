@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 23:19:24 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:38:18 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,17 @@ t_status	check_start_pos(char **map, t_xy_point origin)
 t_status	validate_map(char **map)
 {
 	t_status	status;
-	t_xy_point	start_pos;
+	t_vector	start_tmp;
+	t_xy_point	start;
 
-	start_pos = find_start_pos(map);
-	if (start_pos.x == -1)
+	start_tmp = find_pos_map(map);
+	start = (t_xy_point) {ft_part_int(start_tmp.x), ft_part_int(start_tmp.y)};
+	if (start.x == -1)
 		return (STAT_PARSE_ERR);
-	else if (check_start_pos(map, start_pos) == STAT_PARSE_ERR)
+	else if (check_start_pos(map, start) == STAT_PARSE_ERR)
 		return (STAT_PARSE_ERR);
 	status = check_walls(map);
 	if (status == STAT_TRUE)
-		status = flood_fill(map, start_pos, MASK);
+		status = flood_fill(map, start, MASK);
 	return (status);
 }

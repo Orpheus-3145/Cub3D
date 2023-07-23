@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 20:53:06 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:43:11 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	print_input(t_input *input)
 			ft_printf("\n");
 			ft_printf("height: %u\n", input->map->height);
 			ft_printf("width: %u\n", input->map->width);
-			ft_printf("starting pos: (%d,%d)\n", input->map->pos_map.x, input->map->pos_map.y);
-			ft_printf("facing dir: %c\n", input->map->map_2d[input->map->pos_map.y][input->map->pos_map.x]);
+			printf("starting pos: (%f,%f)\n", input->map->pos_map.x, input->map->pos_map.y);
+			ft_printf("facing dir: %c\n", input->map->map_2d[ft_part_int(input->map->pos_map.y)][ft_part_int(input->map->pos_map.x)]);
 		}
 	}
 }

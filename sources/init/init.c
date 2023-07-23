@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/21 23:24:04 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:28:36 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_map	*init_map(void)
 	map->height = 0;
 	map->width = 0;
 	map->start_face = DIR_NORTH;
-	map->pos_map = (t_xy_point) {-1, -1};
+	map->pos_map = (t_vector) {-1., -1.};
 	map->pos_pix = (t_vector) {-1., -1.};
 	map->dir = (t_vector) {-1., -1.};
 	map->plane = (t_vector) {-1., -1.};
@@ -59,6 +59,7 @@ t_app	*init_app(void)
 	app->ver_pix = 0;
 	app->img = NULL;
 	app->win = NULL;
+	app->frame_time = 0.;
 	return (app);
 	}
 

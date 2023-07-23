@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/22 01:58:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:52:59 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	update_img(t_cube *cube)
 {
 	uint32_t	x;
-	t_vector	pos;				// s
 	double		cam_x;				// x-coordinate in camera space
 	t_vector	ray_dir;			// ray direction
 	int32_t		map_x;				// start_pos in map coordinates
@@ -27,24 +26,26 @@ void	update_img(t_cube *cube)
 	int			hit;				// flag that tells if a wall was hit
 	int			side;				// side of the wall, NS or WE
 	double		perp_wall_dist;		// distance from the starting pos until the closest wall
-	int			line_height;		// hight (in pixel) of the rendered wall
+	long		line_height;		// hight (in pixel) of the rendered wall
 	int			draw_start;			// first pixel of the column of the wall
 	int			draw_end;			// last pixel of the column of the wall
 	int			wall_color;			// RGBA of the wall
 	int			floor_color;		// RGBA of the floor
 	int			ceil_color;			// RGBA of the ceiling
 	int			tmp_y;				// tmp var to render the wall-column
+	t_timeval	start_time; 		// beginning of refreshing pizels
+	t_timeval	end_time; 			// ending of refreshing pizels
 
-	pos = (t_vector) {cube->input->map->pos_map.x + 0.5, cube->input->map->pos_map.y + 0.5};
-	// gettimeofday(&time, NULL);
+	printf("start pos, x: %f, y: %f\n", cube->input->map->pos_map.x, cube->input->map->pos_map.y);
+	gettimeofday(&start_time, NULL);
 	x = 0;
 	while (x < cube->app->hor_pix)
 	{
 		cam_x = 2 * x / (double) cube->app->ver_pix - 1;	// x coor in camera space
 		ray_dir.x = cube->input->map->dir.x + cube->input->map->plane.x * cam_x;
 		ray_dir.y = cube->input->map->dir.y + cube->input->map->plane.y * cam_x;
-		map_x = (int) pos.x;
-		map_y = (int) pos.y;
+		map_x = ft_part_int(cube->input->map->pos_map.x);
+		map_y = ft_part_int(cube->input->map->pos_map.y);
 		if (ray_dir.x == 0)
 			delta_side_dist.x = 1e30;
 		else
@@ -58,22 +59,22 @@ void	update_img(t_cube *cube)
 		if (ray_dir.x < 0)
 		{
 			step_x = -1;
-			side_dist.x = ((double) (pos.x - map_x)) * delta_side_dist.x;
+			side_dist.x = ((double) (cube->input->map->pos_map.x - map_x)) * delta_side_dist.x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist.x = ((double) (map_x + 1 - pos.x)) * delta_side_dist.x;
+			side_dist.x = ((double) (map_x + 1 - cube->input->map->pos_map.x)) * delta_side_dist.x;
 		}
 		if (ray_dir.y < 0)
 		{
 			step_y = -1;
-			side_dist.y = ((double) (pos.y - map_y)) * delta_side_dist.y;
+			side_dist.y = ((double) (cube->input->map->pos_map.y - map_y)) * delta_side_dist.y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist.y = ((double) (map_y + 1 - pos.y)) * delta_side_dist.y;
+			side_dist.y = ((double) (map_y + 1 - cube->input->map->pos_map.y)) * delta_side_dist.y;
 		}
 		// DDA
 		while (hit == 0)
@@ -103,7 +104,7 @@ void	update_img(t_cube *cube)
 			perp_wall_dist = side_dist.x - delta_side_dist.x;
 		else
 			perp_wall_dist = side_dist.y - delta_side_dist.y;
-		line_height = (int) (cube->app->ver_pix / perp_wall_dist);	// height of the wall to draw
+		line_height = ft_part_int(cube->app->ver_pix / perp_wall_dist);	// height of the wall to draw
 		// finding lowest and hightest pixel to draw
 		draw_start = line_height * -1 / 2 + cube->app->ver_pix / 2;
 		if (draw_start < 0)
@@ -114,7 +115,6 @@ void	update_img(t_cube *cube)
 		wall_color = RGBA_GRID;
 		floor_color = cube->input->floor_rgb;
 		ceil_color = cube->input->ceil_rgb;
-		// ft_printf("ceil: %d floor: %d\n", ceil_color, floor_color);
 		if ((side == DIR_EAST) || (side == DIR_WEST))
 		{
 			wall_color >>= 8;
@@ -133,10 +133,8 @@ void	update_img(t_cube *cube)
 		}
 		x++;
 	}
-	// fps stuff
-	// old_time = time;
-	// gettimeofday(&time, NULL);
-	// frame_time = ft_delta_time(old_time, time);
-	// curr_fps = 1 / frame_time;
-	// printf("fps: %f\n", curr_fps);
+	gettimeofday(&end_time, NULL);
+	// printf("old: %ld.%ld\nnew: %ld.%ld\ndelta: %f\n", start_time.tv_sec, start_time.tv_usec, end_time.tv_sec, end_time.tv_usec, ft_delta_time(start_time, end_time));
+	cube->app->frame_time = (double) ft_delta_time(start_time, end_time) / 1000.;
+	printf("fps: %f\n", 1. / cube->app->frame_time);
 }

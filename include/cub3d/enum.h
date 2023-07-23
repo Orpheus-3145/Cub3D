@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/21 23:18:28 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/23 15:28:16 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_map
 	uint32_t	height;
 	uint32_t	width;
 	t_direction	start_face;
-	t_xy_point	pos_map;
+	t_vector	pos_map;
 	t_vector	pos_pix;
 	t_vector	dir;
 	t_vector	plane;
@@ -73,6 +73,7 @@ typedef struct	s_app
 	mlx_image_t	*img;
 	uint32_t	hor_pix;
 	uint32_t	ver_pix;
+	double		frame_time;
 }	t_app;
 
 typedef struct	s_cube
