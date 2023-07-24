@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/23 15:28:36 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:25:38 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ t_input	*init_input(void)
 	input = ft_calloc(sizeof(t_input), 1);
 	if (input == NULL)
 		return (NULL);
-	input->map = init_map();
-	if (input->map == NULL)
-		return (ft_free(input));
 	input->n_tex_path = NULL;
 	input->s_tex_path = NULL;
 	input->w_tex_path = NULL;
 	input->e_tex_path = NULL;
 	input->floor_rgb = -1;
 	input->ceil_rgb = -1;
+	input->map_2d = NULL;
 	return (input);
 }
 
@@ -72,6 +70,9 @@ t_cube	*init_cube(void)
 		return (NULL);
 	cube->input = init_input();
 	if (cube->input == NULL)
+		return (free_cube(cube));
+	cube->map = init_map();
+	if (cube->map == NULL)
 		return (free_cube(cube));
 	cube->app = init_app();
 	if (cube->app == NULL)

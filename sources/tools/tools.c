@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 15:43:11 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:36:35 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,37 @@ void	print_rgb(int32_t rgb)
 	ft_printf("%d, %d, %d\n",r_rgb, g_rgb, b_rgb);
 }
 
-void	print_input(t_input *input)
+void	print_input(t_cube *cube)
 {
-	if (input)
+	if (cube)
 	{
-		if (input->n_tex_path)
-			ft_printf("north text path: %s\n", input->n_tex_path);
-		if (input->s_tex_path)
-			ft_printf("south text path: %s\n", input->s_tex_path);
-		if (input->w_tex_path)
-			ft_printf("west text path: %s\n", input->w_tex_path);
-		if (input->e_tex_path)
-			ft_printf("east text path: %s\n", input->e_tex_path);
-		if (input->floor_rgb != -1)
+		if (cube->input->n_tex_path)
+			ft_printf("north text path: %s\n", cube->input->n_tex_path);
+		if (cube->input->s_tex_path)
+			ft_printf("south text path: %s\n", cube->input->s_tex_path);
+		if (cube->input->w_tex_path)
+			ft_printf("west text path: %s\n", cube->input->w_tex_path);
+		if (cube->input->e_tex_path)
+			ft_printf("east text path: %s\n", cube->input->e_tex_path);
+		if (cube->input->floor_rgb != -1)
 		{
 			ft_printf("floor RGB: ");
-			print_rgb(input->floor_rgb);
+			print_rgb(cube->input->floor_rgb);
 		}
-		if (input->ceil_rgb != -1)
+		if (cube->input->ceil_rgb != -1)
 		{
 			ft_printf("ceil RGB: ");
-			print_rgb(input->ceil_rgb);
+			print_rgb(cube->input->ceil_rgb);
 		}
-		if (input->map)
+		if (cube->map)
 		{
 			ft_printf("2D map:\n");
-			ft_print_double(input->map->map_2d, "\t");
+			ft_print_double(cube->map->map_2d, "\t");
 			ft_printf("\n");
-			ft_printf("height: %u\n", input->map->height);
-			ft_printf("width: %u\n", input->map->width);
-			printf("starting pos: (%f,%f)\n", input->map->pos_map.x, input->map->pos_map.y);
-			ft_printf("facing dir: %c\n", input->map->map_2d[ft_part_int(input->map->pos_map.y)][ft_part_int(input->map->pos_map.x)]);
+			ft_printf("height: %u\n", cube->map->height);
+			ft_printf("width: %u\n", cube->map->width);
+			printf("starting pos: (%f,%f)\n", cube->map->pos_map.x, cube->map->pos_map.y);
+			ft_printf("facing dir: %c\n", cube->map->map_2d[ft_part_int(cube->map->pos_map.y)][ft_part_int(cube->map->pos_map.x)]);
 		}
 	}
 }
@@ -120,12 +120,12 @@ char **rotate_matrix(t_cube *cube)
 	uint32_t	j;
 	uint32_t	height;
 
-	height = cube->input->map->height;
-	rot_mat = ft_calloc(cube->input->map->width, sizeof(char *));
+	height = cube->map->height;
+	rot_mat = ft_calloc(cube->map->width, sizeof(char *));
 	if (rot_mat == NULL)
 		return (NULL);
 	i = 0;
-	while (i < cube->input->map->width)
+	while (i < cube->map->width)
 	{
 		rot_mat[i] = ft_calloc(height, sizeof(char));
 		if (rot_mat[i] == NULL)
@@ -133,7 +133,7 @@ char **rotate_matrix(t_cube *cube)
 		j = 0;
 		while (j < height)
 		{
-			rot_mat[i][j] = cube->input->map->map_2d[height - j - 1][i];
+			rot_mat[i][j] = cube->map->map_2d[height - j - 1][i];
 			j++;
 		}
 		i++;

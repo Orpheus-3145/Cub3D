@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:27:01 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,9 @@ t_status	get_map(int32_t fd, t_input *input)
 		if (map_2d == NULL)
 			return (STAT_MEM_FAIL);
 		status = validate_map(map_2d);
-		if (status == STAT_TRUE)
-			get_map_info(input->map, map_2d);
-		else
+		if (status != STAT_TRUE)
 			ft_free_double((void **) map_2d, -1);
+		input->map_2d = map_2d;
 		return (status);
 	}
 	else

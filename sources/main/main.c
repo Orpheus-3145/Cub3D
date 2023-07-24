@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:30:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:35:45 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char **argv)
 	status = parse_input(cube->input, argv[1]);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);
-	print_input(cube->input);
+	get_map_info(cube->map, cube->input->map_2d);
+	print_input(cube);
 	set_up_app(cube, HEIGHT, WIDTH, REDUCT_RATE);
 	mlx_loop(cube->app->win);
 	free_cube(cube);

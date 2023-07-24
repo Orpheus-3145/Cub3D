@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:11:40 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:12:06 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:36:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // tools.c
 void		print_rgb(int32_t rgb);
 
-void		print_input(t_input *input);
+void		print_input(t_cube *cube);
 
 void		kill_program(t_cube *cube, t_status status);
 

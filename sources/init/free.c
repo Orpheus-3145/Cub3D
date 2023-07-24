@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:30:51 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/20 21:32:20 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:28:19 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	free_input(t_input *input)
 {
 	if (input)
 	{
-		free_map(input->map);
 		ft_free(input->n_tex_path);
 		ft_free(input->s_tex_path);
 		ft_free(input->w_tex_path);
@@ -49,6 +48,7 @@ t_cube	*free_cube(t_cube *cube)
 	if (cube)
 	{
 		free_input(cube->input);
+		free_map(cube->map);
 		free_app(cube->app);
 		ft_free(cube);
 	}

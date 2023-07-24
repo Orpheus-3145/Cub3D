@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/23 15:52:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:34:08 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	update_img(t_cube *cube)
 	t_timeval	start_time; 		// beginning of refreshing pizels
 	t_timeval	end_time; 			// ending of refreshing pizels
 
-	printf("start pos, x: %f, y: %f\n", cube->input->map->pos_map.x, cube->input->map->pos_map.y);
+	printf("start pos, x: %f, y: %f\n", cube->map->pos_map.x, cube->map->pos_map.y);
 	gettimeofday(&start_time, NULL);
 	x = 0;
 	while (x < cube->app->hor_pix)
 	{
 		cam_x = 2 * x / (double) cube->app->ver_pix - 1;	// x coor in camera space
-		ray_dir.x = cube->input->map->dir.x + cube->input->map->plane.x * cam_x;
-		ray_dir.y = cube->input->map->dir.y + cube->input->map->plane.y * cam_x;
-		map_x = ft_part_int(cube->input->map->pos_map.x);
-		map_y = ft_part_int(cube->input->map->pos_map.y);
+		ray_dir.x = cube->map->dir.x + cube->map->plane.x * cam_x;
+		ray_dir.y = cube->map->dir.y + cube->map->plane.y * cam_x;
+		map_x = ft_part_int(cube->map->pos_map.x);
+		map_y = ft_part_int(cube->map->pos_map.y);
 		if (ray_dir.x == 0)
 			delta_side_dist.x = 1e30;
 		else
@@ -59,22 +59,22 @@ void	update_img(t_cube *cube)
 		if (ray_dir.x < 0)
 		{
 			step_x = -1;
-			side_dist.x = ((double) (cube->input->map->pos_map.x - map_x)) * delta_side_dist.x;
+			side_dist.x = ((double) (cube->map->pos_map.x - map_x)) * delta_side_dist.x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist.x = ((double) (map_x + 1 - cube->input->map->pos_map.x)) * delta_side_dist.x;
+			side_dist.x = ((double) (map_x + 1 - cube->map->pos_map.x)) * delta_side_dist.x;
 		}
 		if (ray_dir.y < 0)
 		{
 			step_y = -1;
-			side_dist.y = ((double) (cube->input->map->pos_map.y - map_y)) * delta_side_dist.y;
+			side_dist.y = ((double) (cube->map->pos_map.y - map_y)) * delta_side_dist.y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist.y = ((double) (map_y + 1 - cube->input->map->pos_map.y)) * delta_side_dist.y;
+			side_dist.y = ((double) (map_y + 1 - cube->map->pos_map.y)) * delta_side_dist.y;
 		}
 		// DDA
 		while (hit == 0)
@@ -97,7 +97,7 @@ void	update_img(t_cube *cube)
 				else
 					side = DIR_NORTH;
 			}
-			hit = cube->input->map->map_2d[map_y][map_x] == '1';
+			hit = cube->map->map_2d[map_y][map_x] == '1';
 		}
 		// calculate ray distance
 		if ((side == DIR_EAST) || (side == DIR_WEST))

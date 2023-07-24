@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 15:28:16 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:22:55 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ typedef struct	s_map
 
 typedef struct	s_input
 {
-	t_map	*map;
 	char	*n_tex_path;
 	char	*s_tex_path;
 	char	*w_tex_path;
 	char	*e_tex_path;
 	int32_t	floor_rgb;
 	int32_t	ceil_rgb;
+	char	**map_2d;
 }   t_input;
 
 typedef struct	s_app
@@ -79,6 +79,7 @@ typedef struct	s_app
 typedef struct	s_cube
 {
 	t_input		*input;
+	t_map	*map;
 	t_app		*app;
 }	t_cube;
 
