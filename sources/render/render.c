@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 13:34:08 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 15:19:39 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	update_img(t_cube *cube)
 	t_timeval	start_time; 		// beginning of refreshing pizels
 	t_timeval	end_time; 			// ending of refreshing pizels
 
-	printf("start pos, x: %f, y: %f\n", cube->map->pos_map.x, cube->map->pos_map.y);
+	// printf("start pos, x: %f, y: %f\n", cube->map->pos_map.x, cube->map->pos_map.y);
 	gettimeofday(&start_time, NULL);
 	x = 0;
 	while (x < cube->app->hor_pix)

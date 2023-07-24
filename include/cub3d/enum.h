@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 13:22:55 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 13:39:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef struct	s_app
 
 typedef struct	s_cube
 {
-	t_input		*input;
+	t_input	*input;
 	t_map	*map;
-	t_app		*app;
+	t_app	*app;
 }	t_cube;
 
 #endif
