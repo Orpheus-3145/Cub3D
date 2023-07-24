@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 17:36:40 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:26:42 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,56 +84,56 @@ void mov_hook(mlx_key_data_t keydata, void *param)
 	// move on
 	if ((keydata.action == MLX_PRESS) && (keydata.key == MLX_KEY_W))
 	{
-		// printf("before movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("before movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		if (is_valid_pos(map, map->dir, mov_speed) == true)
 		{
 			map->pos_map.x += map->dir.x * mov_speed;
 			map->pos_map.y += map->dir.y * mov_speed;
 
 		}
-		// printf("after movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("after movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		update_img(cube);
 	}
 	// move backwards if no wall behind you
 	if ((keydata.action == MLX_PRESS) && (keydata.key == MLX_KEY_S))
 	{
 		rot_vect = rotate_vector(map->dir, M_PI);
-		// printf("before movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("before movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		if (is_valid_pos(map, rot_vect, mov_speed) == true)
 		{
 			map->pos_map.x += rot_vect.x * mov_speed;
 			map->pos_map.y += rot_vect.y * mov_speed;
 
 		}
-		// printf("after movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("after movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		update_img(cube);
 	}
 	// move left
 	if ((keydata.action == MLX_PRESS) && (keydata.key == MLX_KEY_A))
 	{
 		rot_vect = rotate_vector(map->dir, LEFT_ROTATION);
-		// printf("before movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("before movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		if (is_valid_pos(map, rot_vect, mov_speed) == true)
 		{
 			map->pos_map.x += rot_vect.x * mov_speed;
 			map->pos_map.y += rot_vect.y * mov_speed;
 
 		}
-		// printf("after movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("after movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		update_img(cube);
 	}
 	//move right
 	if ((keydata.action == MLX_PRESS) && (keydata.key == MLX_KEY_D))
 	{
 		rot_vect = rotate_vector(map->dir, RIGHT_ROTATION);
-		// printf("before movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("before movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		if (is_valid_pos(map, rot_vect, mov_speed) == true)
 		{
 			map->pos_map.x += rot_vect.x * mov_speed;
 			map->pos_map.y += rot_vect.y * mov_speed;
 
 		}
-		// printf("after movement\nx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
+		printf("after movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		update_img(cube);
 	}
 }

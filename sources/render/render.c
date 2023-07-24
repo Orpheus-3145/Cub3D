@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 17:36:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:52:05 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	draw_column(t_cube *cube, t_direction side, long line_height, uint32_t colu
 	row = 0;
 	while (row < cube->app->ver_pix)
 	{
-		// check that!
 		if (row < (uint32_t) draw_start)	// draw floor
-			mlx_put_pixel(cube->app->img, column, row++, cube->input->floor_rgb);
-		else if (row > (uint32_t) draw_end) // draw ceiling
 			mlx_put_pixel(cube->app->img, column, row++, cube->input->ceil_rgb);
-		else	// draw walls
+		else if (row > (uint32_t) draw_end) // draw ceiling
+			mlx_put_pixel(cube->app->img, column, row++, cube->input->floor_rgb);
+		else								// draw walls
 			mlx_put_pixel(cube->app->img, column, row++, wall_color);
 	}
 }
@@ -129,14 +128,16 @@ t_direction	dda_algorithm(t_map *map, t_vector *side_dist, t_vector delta_side_d
 // find the height of the wall of the column x
 t_direction	find_line_height(t_cube *cube, uint32_t x, long *line_height)
 {
+	double		camera_x;
 	t_vector	ray_dir;			// ray direction
 	t_vector	side_dist;			// distance to closest wall
 	t_vector	delta_side_dist;	// distance from closest wall to nex closest wall
 	t_xy_point	step;				// positive or negative x and y direction
 	t_direction	side;				// side of the wall, NS or WE
 
-	ray_dir.x = cube->map->dir.x + cube->map->plane.x * (2 * x / (double) cube->app->ver_pix - 1);
-	ray_dir.y = cube->map->dir.y + cube->map->plane.y * (2 * x / (double) cube->app->ver_pix - 1);
+	camera_x = 2 * x / (double) (cube->app->hor_pix - 1) - 1;
+	ray_dir.x = cube->map->dir.x + cube->map->plane.x * camera_x;
+	ray_dir.y = cube->map->dir.y + cube->map->plane.y * camera_x;
 	set_delta_dist(&delta_side_dist, ray_dir);
 	set_side_dist(&side_dist, cube->map->pos_map, delta_side_dist, ray_dir);
 	set_step(ray_dir, &step);
@@ -165,7 +166,6 @@ void	update_img(t_cube *cube)
 		x++;
 	}
 	gettimeofday(&end_time, NULL);
-	// printf("old: %ld.%ld\nnew: %ld.%ld\ndelta: %f\n", start_time.tv_sec, start_time.tv_usec, end_time.tv_sec, end_time.tv_usec, ft_delta_time(start_time, end_time));
 	cube->app->frame_time = (double) ft_delta_time(start_time, end_time) / 1000.;
 	printf("fps: %f\n", 1. / cube->app->frame_time);
 }
