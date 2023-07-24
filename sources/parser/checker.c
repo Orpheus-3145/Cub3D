@@ -6,33 +6,20 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:34:44 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-bool	check_file(char *file_name, int32_t mode)
+t_status check_color(char *color_seq)
 {
-	int32_t	fd;
-	bool	status;
+	char **ints;
+	int32_t nbr;
+	uint32_t i;
 
-	fd = open(file_name, mode);
-	status = fd != -1;
-	close(fd);
-	return (status);
-}
-
-t_status	check_color(char *color_seq)
-{
-	t_status	status;
-	char		**ints;
-	int32_t		nbr;
-	uint32_t	i;
-
-	status = STAT_PARSE_ERR;
-	if (color_seq == NULL)
-		return (status);
+	if ((color_seq == NULL) || (ft_count_occ(color_seq, ',') != 2))
+		return (STAT_PARSE_ERR);
 	ints = ft_split(color_seq, ',', true);
 	if (ints == NULL)
 		return (STAT_MEM_FAIL);
@@ -40,38 +27,39 @@ t_status	check_color(char *color_seq)
 	while (ints[i])
 	{
 		if (ft_is_int(ints[i]) == false)
-			break ;
+			break;
 		nbr = ft_atoi(ints[i]);
 		if ((nbr < 0) || (nbr > 255))
-			break ;
-		if (i == 2)
-			status = STAT_TRUE;
+			break;
 		i++;
 	}
-	ft_free_double((void **) ints, -1);
-	return (status);
+	ft_free_double((void **)ints, -1);
+	if (i == 3)
+		return (STAT_TRUE);
+	else
+		return (STAT_PARSE_ERR);
 }
 
-bool	is_direction(char *to_check)
+bool is_direction(char *to_check)
 {
 	if (to_check == NULL)
 		return (false);
-	else if ((ft_strncmp(to_check, "NO", 2) == 0) || \
-			(ft_strncmp(to_check, "SO", 2) == 0) || \
-			(ft_strncmp(to_check, "WE", 2) == 0) || \
-			(ft_strncmp(to_check, "EA", 2) == 0))
+	else if ((ft_strncmp(to_check, "NO", 2) == 0) ||
+			 (ft_strncmp(to_check, "SO", 2) == 0) ||
+			 (ft_strncmp(to_check, "WE", 2) == 0) ||
+			 (ft_strncmp(to_check, "EA", 2) == 0))
 		return (true);
 	else
 		return (false);
 }
 
-bool	is_ceil_floor(char *to_check)
+bool is_ceil_floor(char *to_check)
 {
 	if (to_check == NULL)
 		return (false);
-	else if ((ft_strncmp(to_check, "F", 1) == 0) || \
-			(ft_strncmp(to_check, "C", 1) == 0))
-			
+	else if ((ft_strncmp(to_check, "F", 1) == 0) ||
+			 (ft_strncmp(to_check, "C", 1) == 0))
+
 		return (true);
 	else
 		return (false);

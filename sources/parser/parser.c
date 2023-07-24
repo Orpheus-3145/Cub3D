@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:14:22 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:35:25 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,24 @@ t_status	get_config(int32_t fd, t_input *input)
 		return (status);
 }
 
+t_status	validate_map(char **map)
+{
+	t_status	status;
+	t_vector	start_tmp;
+	t_xy_point	start;
+
+	start_tmp = find_pos_map(map);
+	start = (t_xy_point) {ft_part_int(start_tmp.x), ft_part_int(start_tmp.y)};
+	if (start.x == -1)
+		return (STAT_PARSE_ERR);
+	else if (check_start_pos(map, start) == STAT_PARSE_ERR)
+		return (STAT_PARSE_ERR);
+	status = check_walls(map);
+	if (status == STAT_TRUE)
+		status = flood_fill(map, start, MASK);
+	return (status);
+}
+
 t_status	get_map(int32_t fd, t_input *input)
 {
 	char		*line_map;
@@ -96,7 +114,7 @@ t_status	parse_input(t_input *input, char *file_name)
 	t_status	status;
 	int32_t		fd;
 
-	if (check_file(file_name, O_RDONLY) == false)
+	if (ft_check_file(file_name, O_RDONLY, CUBE_FILE_EXT) == false)
 		return (STAT_FILE_ERR);
 	fd = open(file_name, O_RDONLY);
 	status = get_config(fd, input);

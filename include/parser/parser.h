@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:07:31 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 15:30:57 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:34:55 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # include "cub3d/cub3d.h"
 
 // checker.c
-bool		check_file(char *file_name, int32_t mode);
-
 t_status	check_color(char *color_seq);
 
 bool		is_direction(char *to_check);
@@ -51,6 +49,8 @@ void		get_map_info(t_map *map, char **map_2d);
 bool		got_all_config(t_input *input);
 
 t_status	get_config(int32_t fd, t_input *input);
+
+t_status	validate_map(char **map_2d);
 
 t_status	get_map(int32_t fd, t_input *input);
 

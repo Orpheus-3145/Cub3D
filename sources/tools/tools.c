@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 13:36:35 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:22:30 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,4 @@ char **rotate_matrix(t_cube *cube)
 	}
 	return (rot_mat);
 }
+

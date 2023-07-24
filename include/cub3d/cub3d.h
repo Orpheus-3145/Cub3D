@@ -6,12 +6,14 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:13:53 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:09:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
+# define CUBE_FILE_EXT ".cub"
+# define TEXT_FILE_EXT ".png"
 # define MASK '|'
 # define REDUCT_RATE 0.8
 # define FOV .66
@@ -47,7 +49,6 @@
 # include "app/app.h"
 # include "check_map/check_map.h"
 # include "init/init.h"
-# include "main/main.h"
 # include "parser/parser.h"
 # include "render/render.h"
 # include "tools/tools.h"

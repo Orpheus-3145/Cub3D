@@ -1,30 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   validate_map.c                                     :+:    :+:            */
+/*   check_map.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 15:38:18 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:02:14 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	check_row(char *row)
+t_status	check_surroundings(char **map, uint32_t x, uint32_t y, uint32_t row_col)
 {
-	while (*row)
+	if (row_col == 0)
 	{
-		while (*row == ' ')
-			row++;
-		if (*row == '\0')
-			break;
-		else if (*row != '1')
+		if (map[y][x] != '1')
 			return (STAT_PARSE_ERR);
-		while (ft_strchr("01NSWE", *row))
-			row++;
-		if (*(row - 1) != '1')
+		else if (y && (map[y - 1][x] == '0'))
+			return (STAT_PARSE_ERR);
+		else if (map[y + 1] && (map[y + 1][x] == '0'))
+			return (STAT_PARSE_ERR);
+		else
+			return (STAT_TRUE);
+	}
+	else if (row_col == 1)
+	{
+		if (map[y][x] != '1')
+			return (STAT_PARSE_ERR);
+		else if (x && (map[y][x - 1] == '0'))
+			return (STAT_PARSE_ERR);
+		else if (map[y][x + 1] && (map[y][x + 1] == '0'))
+			return (STAT_PARSE_ERR);
+		else
+			return (STAT_TRUE);
+	}
+	else
+		return (STAT_FALSE);
+}
+
+t_status	check_row(char **map, uint32_t row)
+{
+	uint32_t	j;
+
+	j = 0;
+	while (map[row][j])
+	{
+		while (map[row][j] == ' ')
+			j++;
+		if (map[row][j] == '\0')
+			break;
+		else if (check_surroundings(map, j, row, 0) == STAT_PARSE_ERR)
+			return (STAT_PARSE_ERR);
+		while (ft_strchr("01NSWE", map[row][j]))
+			j++;
+		if (check_surroundings(map, j - 1, row, 0) == STAT_PARSE_ERR)
 			return (STAT_PARSE_ERR);
 	}
 	return (STAT_TRUE);
@@ -41,14 +72,12 @@ t_status	check_col(char **map, uint32_t column)
 			j++;
 		if (map[j] == NULL)
 			break ;
-		else if (map[j][column] != '1')
+		else if (check_surroundings(map, column, j, 1) == STAT_PARSE_ERR)
 			return (STAT_PARSE_ERR);
 		while (map[j] && ft_strchr("01NSWE", map[j][column]))
-			j++; 
-		if (map[j - 1][column] != '1')
+			j++;
+		if (check_surroundings(map, column, j - 1, 1) == STAT_PARSE_ERR)
 			return (STAT_PARSE_ERR);
-		else if (map[j] == NULL)
-			break ;
 	}
 	return (STAT_TRUE);
 }
@@ -60,7 +89,7 @@ t_status	check_walls(char **map)
 	i = 0;
 	while (map[i])
 	{
-		if (check_row(map[i]) == STAT_PARSE_ERR)
+		if (check_row(map, i) == STAT_PARSE_ERR)
 			return (STAT_PARSE_ERR);
 		i++;
 	}
@@ -95,22 +124,4 @@ t_status	check_start_pos(char **map, t_xy_point origin)
 		j++;
 	}
 	return (STAT_TRUE);
-}
-
-t_status	validate_map(char **map)
-{
-	t_status	status;
-	t_vector	start_tmp;
-	t_xy_point	start;
-
-	start_tmp = find_pos_map(map);
-	start = (t_xy_point) {ft_part_int(start_tmp.x), ft_part_int(start_tmp.y)};
-	if (start.x == -1)
-		return (STAT_PARSE_ERR);
-	else if (check_start_pos(map, start) == STAT_PARSE_ERR)
-		return (STAT_PARSE_ERR);
-	status = check_walls(map);
-	if (status == STAT_TRUE)
-		status = flood_fill(map, start, MASK);
-	return (status);
 }

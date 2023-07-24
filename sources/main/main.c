@@ -6,29 +6,19 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:10:37 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:23:45 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-
-void	check_args(int32_t argc, char **argv)
-{
-	uint32_t	len_file;
-
-	if (argc != 2)
-		kill_program(NULL, STAT_PARSE_ERR);
-	len_file = ft_strlen(argv[1]);
-	if (ft_strncmp(argv[1] + len_file - 4, ".cub", 4) != 0)
-		kill_program(NULL, STAT_PARSE_ERR);
-}
 
 int	main(int argc, char **argv)
 {
 	t_cube	*cube;
 	t_status status;
 
-	check_args(argc, argv);
+	if (argc != 2)
+		kill_program(NULL, STAT_PARSE_ERR);
 	cube = init_cube();
 	if (cube == NULL)
 		kill_program(cube, STAT_MEM_FAIL);

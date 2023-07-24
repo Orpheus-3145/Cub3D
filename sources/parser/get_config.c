@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:14:42 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 00:36:38 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,15 @@ t_status	fill_line(char *line, t_input *input)
 	if (words == NULL)
 		return (STAT_MEM_FAIL);
 	status = STAT_PARSE_ERR;
-	if (is_direction(words[0]) == true)
+	if ((is_direction(words[0]) == true) && (words[2] == NULL))
 	{
-		if ((check_file(words[1], O_RDONLY) == true) && (words[2] == NULL))
+		if (ft_check_file(words[1], O_RDONLY, TEXT_FILE_EXT) == true)
 			status = insert_texture_path(words[0], words[1], input);
 	}
-	else if (is_ceil_floor(words[0]) == true)
+	else if ((is_ceil_floor(words[0]) == true) && (words[2] == NULL))
 	{
-		if ((check_color(words[1]) == STAT_TRUE) && (words[2] == NULL))
+		status = check_color(words[1]);
+		if (status == STAT_TRUE)
 			status = insert_color(words[0], words[1], input);
 	}
 	ft_free_double((void **) words, -1);

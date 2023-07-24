@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:35:24 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 20:39:43 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 23:58:56 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void		drop_node(t_list **stack);
 
 void		free_stack(t_list **stack);
 
-// validate_map.c
-t_status	check_row(char *row);
+// check_map.c
+t_status	check_surroundings(char **map, uint32_t x, uint32_t y, uint32_t row_col);
+
+t_status	check_row(char **map, uint32_t row);
 
 t_status	check_col(char **map, uint32_t column);
 
 t_status	check_walls(char **map);
 
 t_status	check_start_pos(char **map, t_xy_point origin);
-
-t_status	validate_map(char **map_2d);
 
 #endif
