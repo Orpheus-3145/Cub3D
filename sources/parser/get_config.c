@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:08:12 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:14:42 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_status	insert_color(char *type, char *color, t_input *input)
 	char	**rgb;
 	int32_t	*to_set;
 
-	if ((ft_strncmp(type, "F", 1) == 0) && (input->floor_rgb == RGBA_RED))
+	if ((ft_strncmp(type, "F", 1) == 0) && ((uint32_t) input->floor_rgb == RGBA_RED))
 		to_set = &input->floor_rgb;
-	else if ((ft_strncmp(type, "C", 1) == 0) && (input->ceil_rgb == RGBA_GREEN))
+	else if ((ft_strncmp(type, "C", 1) == 0) && ((uint32_t) input->ceil_rgb == RGBA_GREEN))
 		to_set = &input->ceil_rgb;
 	else
 		return (STAT_PARSE_ERR);

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:09:18 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:13:53 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # define SIZE_SQUARE 50.
 # define LEFT_ROTATION M_PI_2 * -1
 # define RIGHT_ROTATION M_PI_2
-# define RGBA_RED (int32_t) 0xFF0000FF
-# define RGBA_GREEN (int32_t) 0x00FF00FF
-# define RGBA_BLUE (int32_t) 0x0000FFFF
-# define RGBA_BLACK (int32_t) 0xFFFFFFFF
+# define RGBA_RED (uint32_t) 0xFF0000FF
+# define RGBA_GREEN (uint32_t) 0x00FF00FF
+# define RGBA_BLUE (uint32_t) 0x0000FFFF
+# define RGBA_BLACK (uint32_t) 0xFFFFFFFF
 # ifdef __APPLE__				
 #  define WIDTH 1000			// horizonal pixels on Mac
 #  define HEIGHT 470			// vertical pixels on Mac
