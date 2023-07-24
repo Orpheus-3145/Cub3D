@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 15:19:30 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 17:36:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void resize_hook(int32_t width, int32_t height, void *param)
 	cube = (t_cube *)param;
 	cube->app->hor_pix = width * REDUCT_RATE;
 	cube->app->ver_pix = height * REDUCT_RATE;
-	set_image_in_win(cube->app, width, height, RGBA_BK);
+	set_image_in_win(cube->app, width, height, RGBA_BLACK);
 }
 
 bool	is_valid_pos(t_map *map, t_vector rot_vect, double mov_speed)

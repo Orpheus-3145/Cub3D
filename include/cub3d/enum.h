@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 13:39:04 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 16:20:45 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_input
 	char	*s_tex_path;
 	char	*w_tex_path;
 	char	*e_tex_path;
+	int32_t	wall_rgb;
 	int32_t	floor_rgb;
 	int32_t	ceil_rgb;
 	char	**map_2d;

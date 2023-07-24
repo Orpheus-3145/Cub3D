@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 14:09:30 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:09:18 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 # define MASK '|'
 # define REDUCT_RATE 0.8
 # define FOV .66
-# define BPP 4	
+# define BPP 4	                // bytes of every pixel (int type)
 # define ROT_SPEED 30.
 # define MOV_SPEED 500.
 # define SIZE_SQUARE 50.
 # define LEFT_ROTATION M_PI_2 * -1
 # define RIGHT_ROTATION M_PI_2
-# define RGBA_BK 0xFFFFFFFF		// color of background of window (white)
-# define RGBA_GRID 0x00FF00FF	// color of grid (green)				// bytes of every pixel (int type)
+# define RGBA_RED (int32_t) 0xFF0000FF
+# define RGBA_GREEN (int32_t) 0x00FF00FF
+# define RGBA_BLUE (int32_t) 0x0000FFFF
+# define RGBA_BLACK (int32_t) 0xFFFFFFFF
 # ifdef __APPLE__				
 #  define WIDTH 1000			// horizonal pixels on Mac
 #  define HEIGHT 470			// vertical pixels on Mac

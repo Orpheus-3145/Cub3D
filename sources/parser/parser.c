@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 13:27:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 18:08:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ bool	got_all_config(t_input *input)
 		return (false);
 	else if (input->e_tex_path == NULL)
 		return (false);
-	else if (input->floor_rgb == -1)
+	else if (input->floor_rgb == RGBA_RED)
 		return (false);
-	else if (input->ceil_rgb == -1)
+	else if (input->ceil_rgb == RGBA_GREEN)
 		return (false);
 	else
 		return (true);
@@ -81,6 +81,7 @@ t_status	get_map(int32_t fd, t_input *input)
 		ft_free(line_map);
 		if (map_2d == NULL)
 			return (STAT_MEM_FAIL);
+		// ft_print_double(map_2d, "--> ");
 		status = validate_map(map_2d);
 		if (status != STAT_TRUE)
 			ft_free_double((void **) map_2d, -1);

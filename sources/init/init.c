@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 13:25:38 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/24 16:23:27 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ t_input	*init_input(void)
 	input->s_tex_path = NULL;
 	input->w_tex_path = NULL;
 	input->e_tex_path = NULL;
-	input->floor_rgb = -1;
-	input->ceil_rgb = -1;
+	input->floor_rgb = RGBA_RED;
+	input->ceil_rgb = RGBA_GREEN;
+	input->wall_rgb = RGBA_BLUE;
 	input->map_2d = NULL;
 	return (input);
 }
