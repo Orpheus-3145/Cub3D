@@ -58,14 +58,18 @@ typedef struct	s_map
 
 typedef struct	s_input
 {
-	char	*n_tex_path;
-	char	*s_tex_path;
-	char	*w_tex_path;
-	char	*e_tex_path;
-	int32_t	wall_rgb;
-	int32_t	floor_rgb;
-	int32_t	ceil_rgb;
-	char	**map_2d;
+	char			*n_tex_path;
+	char			*s_tex_path;
+	char			*w_tex_path;
+	char			*e_tex_path;
+	mlx_texture_t	*n_tex;
+	mlx_texture_t	*s_tex;
+	mlx_texture_t	*e_tex;
+	mlx_texture_t	*w_tex;
+	int32_t			wall_rgb;
+	int32_t			floor_rgb;
+	int32_t			ceil_rgb;
+	char			**map_2d;
 }   t_input;
 
 typedef struct	s_app
@@ -79,9 +83,13 @@ typedef struct	s_app
 
 typedef struct	s_cube
 {
-	t_input	*input;
-	t_map	*map;
-	t_app	*app;
+	t_input		*input;
+	t_map		*map;
+	t_app		*app;
+	t_vector	ray_dir;
+	t_vector	side_dist;
+	t_vector	delta_side_dist;
+	t_direction	side;
 }	t_cube;
 
 #endif

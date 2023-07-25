@@ -23,8 +23,58 @@ void	set_edges(long ver_pixels, long line_height, int32_t *draw_start, int32_t *
 		*draw_end = ver_pixels - 1;
 }
 
+int	pick_pixel(mlx_texture_t *tex, int x, int y)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+	int	index;
+
+	index = y * 63 * 4 + x * 4;
+	r = tex->pixels[index];
+	g = tex->pixels[index + 1];
+	b = tex->pixels[index + 2];
+	a = tex->pixels[index + 3];
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	get_pixel(t_input *input, t_direction side, t_vector tex)
+{
+	int	coordinate[2];
+
+	coordinate[0] = (int)round(tex.x);
+	coordinate[1] = (int)round(tex.y);
+	if (side == DIR_NORTH)
+		return (pick_pixel(input->n_tex, coordinate[0], coordinate[1]));
+	else if (side == DIR_SOUTH)
+		return (pick_pixel(input->s_tex, coordinate[0], coordinate[1]));
+	else if (side == DIR_EAST)
+		return (pick_pixel(input->e_tex, coordinate[0], coordinate[1]));
+	else if (side == DIR_WEST)
+		return (pick_pixel(input->w_tex, coordinate[0], coordinate[1]));
+	return (0);
+}
+
+// calculates current position in texture and returns associated pixel in texture.
+int	get_wall_pixel(t_cube *cube, uint32_t row, long draw_start, long line_height)
+{
+	t_vector	tex;				// texture coordinate to give to get_pixel
+	double		tex_x;				// horizontal texture coordinate
+
+	if (cube->side == DIR_NORTH || cube->side == DIR_SOUTH)
+		tex_x = cube->map->pos_map.x + cube->side_dist.x * cube->ray_dir.x;
+	else
+		tex_x = cube->map->pos_map.y + cube->side_dist.y * cube->ray_dir.y;
+	tex.x = (int)(tex_x * 64);
+	if ((cube->side == DIR_EAST || cube->side == DIR_WEST) && cube->ray_dir.x > 0)
+		tex.x = 64 - tex.x - 1;
+	tex.y = (int)(((row - draw_start) * 64) / line_height);
+	return (get_pixel(cube->input, cube->side, tex));
+}
+
 // draw the column
-void	draw_column(t_cube *cube, t_direction side, long line_height, uint32_t column)
+void	draw_column(t_cube *cube, long line_height, uint32_t column)
 {
 	int32_t		draw_start;			// first pixel of the column of the wall
 	int32_t		draw_end;			// last pixel of the column of the wall
@@ -32,13 +82,6 @@ void	draw_column(t_cube *cube, t_direction side, long line_height, uint32_t colu
 	uint32_t	row;				// tmp var to render the wall-columnwall_color = RGBA_GRID;
 
 	set_edges(cube->app->ver_pix, line_height, &draw_start, &draw_end);
-	wall_color = cube->input->wall_rgb;
-	if ((side == DIR_EAST) || (side == DIR_WEST))
-	{
-		wall_color >>= 8;
-		wall_color <<= 8;
-		wall_color |= 128;
-	}
 	row = 0;
 	while (row < cube->app->ver_pix)
 	{
@@ -47,7 +90,10 @@ void	draw_column(t_cube *cube, t_direction side, long line_height, uint32_t colu
 		else if (row > (uint32_t) draw_end) // draw ceiling
 			mlx_put_pixel(cube->app->img, column, row++, cube->input->floor_rgb);
 		else								// draw walls
+		{
+			wall_color = get_wall_pixel(cube, row, draw_start, line_height);
 			mlx_put_pixel(cube->app->img, column, row++, wall_color);
+		}
 	}
 }
 
@@ -146,6 +192,13 @@ t_direction	find_line_height(t_cube *cube, uint32_t x, long *line_height)
 		*line_height = ft_part_int(cube->app->ver_pix / (side_dist.x - delta_side_dist.x));
 	else
 		*line_height = ft_part_int(cube->app->ver_pix / (side_dist.y - delta_side_dist.y));
+	cube->ray_dir.x = ray_dir.x;
+	cube->ray_dir.y = ray_dir.y;
+	cube->side_dist.x = side_dist.x;
+	cube->side_dist.y = side_dist.y;
+	cube->delta_side_dist.x = delta_side_dist.x;
+	cube->delta_side_dist.y = delta_side_dist.y;
+	cube->side = side;
 	return (side);
 }
 
@@ -153,7 +206,7 @@ void	update_img(t_cube *cube)
 {
 	uint32_t	x;
 	long		line_height;		// hight (in pixel) of the rendered wall
-	t_direction	side;				// side of the wall, NS or WE
+//	t_direction	side;				// side of the wall, NS or WE
 	t_timeval	start_time; 		// beginning of refreshing pizels
 	t_timeval	end_time; 			// ending of refreshing pizels
 
@@ -161,8 +214,8 @@ void	update_img(t_cube *cube)
 	x = 0;
 	while (x < cube->app->hor_pix)
 	{
-		side = find_line_height(cube, x, &line_height);
-		draw_column(cube, side, line_height, x);
+		cube->side = find_line_height(cube, x, &line_height);
+		draw_column(cube, line_height, x);
 		x++;
 	}
 	gettimeofday(&end_time, NULL);
