@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 10:39:40 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 12:38:42 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/25 17:29:58 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,7 @@ int32_t	pick_pixel(mlx_texture_t *tex, int32_t x, int32_t y)
 	int32_t	a;
 	int32_t	index;
 
-	index = y * 64 * 4 + x * 4;
-	if (tex->pixels == NULL)
-	{
-		ft_printf("halo\n");
-		return (RGBA_RED);
-	}
+	index = (y % tex->width) * tex->width * 4 +(x % tex->width) * 4;
 	r = tex->pixels[index];
 	g = tex->pixels[index + 1];
 	b = tex->pixels[index + 2];
@@ -33,37 +28,50 @@ int32_t	pick_pixel(mlx_texture_t *tex, int32_t x, int32_t y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int32_t	get_pixel(t_app *app, t_direction side, t_vector tex)
+mlx_texture_t	*get_texture(t_app *app, t_direction side)
 {
-	int32_t	coordinate[2];
-
-	coordinate[0] = (int32_t) round(tex.x);
-	coordinate[1] = (int32_t) round(tex.y);
 	if (side == DIR_NORTH)
-		return (pick_pixel(app->n_tex, coordinate[0], coordinate[1]));
+		return (app->n_tex);
 	else if (side == DIR_SOUTH)
-		return (pick_pixel(app->s_tex, coordinate[0], coordinate[1]));
+		return (app->s_tex);
 	else if (side == DIR_EAST)
-		return (pick_pixel(app->e_tex, coordinate[0], coordinate[1]));
-	else if (side == DIR_WEST)
-		return (pick_pixel(app->w_tex, coordinate[0], coordinate[1]));
-	else
-		return (0);
+		return (app->e_tex);
+	return (app->w_tex);
 }
 
-// calculates current position in texture and returns associated pixel in texture.
-int32_t	get_wall_pixel(t_cube *cube, uint32_t row, long draw_start, t_data_dda *data)
+uint32_t	get_wall_color(t_data_dda *data)
 {
-	t_vector	tex;	// texture coordinate to give to get_pixel
-	double		tex_x;	// horizontal texture coordinate
+	data->wall_texture.y = (int)data->texture_pos & (data->tmp->height - 1);
+	data->texture_pos += data->step;
+	return (pick_pixel(data->tmp, \
+			(int)round(data->wall_texture.x), \
+			(int)round(data->wall_texture.y)));
+}		
 
-	if ((data->side == DIR_NORTH) || (data->side == DIR_SOUTH))
-		tex_x = cube->map->pos_map.x + data->side_dist.x * data->ray_dir.x;
+void	get_wall_attributes(t_cube *cube, t_data_dda *d)
+{
+	int	pitch;
+
+	// Not yet known, need to read the website
+	pitch = 100;
+	d->draw_start = (-d->line_height + cube->app->ver_pix) / 2 + pitch;
+	if (d->draw_start < 0)
+		d->draw_start = 0;
+	d->draw_end = (d->line_height + cube->app->ver_pix) / 2 + pitch; 
+	if ((uint32_t) d->draw_end >= cube->app->ver_pix)
+		d->draw_end = cube->app->ver_pix - 1;
+	d->tmp = get_texture(cube->app, d->side);
+	if (d->side == DIR_EAST || d->side == DIR_WEST)
+		d->wall_x = cube->map->pos_map.y + d->perp_wall_dist * d->ray_dir.y;
 	else
-		tex_x = cube->map->pos_map.y + data->side_dist.y * data->ray_dir.y;
-	tex.x = (int32_t) (tex_x * 64);
-	if (((data->side == DIR_EAST) || (data->side == DIR_WEST)) && (data->ray_dir.x > 0))
-		tex.x = 64 - tex.x - 1;
-	tex.y = (int32_t) (((row - draw_start) * 64) / data->line_height);
-	return (get_pixel(cube->app, data->side, tex));
+		d->wall_x = cube->map->pos_map.x + d->perp_wall_dist * d->ray_dir.x;
+	d->wall_x -= floor(d->wall_x);
+	d->wall_texture.x = (int)(d->wall_x * (double)(d->tmp->width));
+	if ((side == DIR_EAST || side == DIR_WEST) && d->ray_dir.x > 0)
+		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
+	if ((side == DIR_NORTH || side == DIR_SOUTH) && d->ray_dir.y < 0)
+		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
+	d->step = 1.0 * d->tmp->height / d->line_height;
+	d->texture_pos = (d->draw_start - pitch + \
+		(d->line_height - cube->app->ver_pix) / 2) * d->step;
 }

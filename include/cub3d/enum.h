@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 12:20:07 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/25 17:11:08 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,24 @@ typedef struct	s_cube
 	t_input		*input;
 	t_map		*map;
 	t_app		*app;
-	t_vector	ray_dir;
-	t_vector	side_dist;
-	t_vector	delta_side_dist;
-	t_xy_point	step;
-	t_direction	side;
 }	t_cube;
 
 typedef struct	s_data_dda
 {
-	long		line_height;		// height of the column
-	t_vector	ray_dir;			// ray direction
-	t_vector	side_dist;			// distance to closest wall
-	t_vector	delta_side_dist;	// distance from closest wall to nex closest wall
-	t_xy_point	step;				// positive or negative x and y direction
-	t_direction	side;				// side of the wall, N, S, W or E
+	long			line_height;		// Height of the column
+	t_vector		ray_dir;			// Ray direction
+	t_vector		side_dist;			// Distance to closest wall
+	t_vector		delta_side_dist;	// Distance from closest wall to nex closest wall
+	t_xy_point		step;				// Positive or negative x and y direction
+	t_direction		side;				// Side of the wall, N, S, W or E
+	mlx_texture_t	*tmp;				// Texture we use to get pixel from. It is just a pointer to main texture.
+	int32_t			draw_start;			// First pixel of the column of the wall
+	int32_t			draw_end;			// Last pixel of the column of the wall
+	double			perp_wall_dist;		// Perpendeculat distance to wall
+	double			wall_x;				// Where exactly the wall was hit
+	t_vector		wall_texture;		// Where exactly the wall was hit
+	double			step;				// Amount of to increase texture coordinate per pix
+	double			texture_pos;		// Starting texture coordinate
 }	t_data_dda;
 
 #endif
