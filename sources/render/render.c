@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 15:13:42 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/25 17:56:06 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,21 @@
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 {
-	int32_t		draw_start;	// first pixel of the column of the wall
-	int32_t		draw_end;	// last pixel of the column of the wall
 	int32_t		wall_color;	// RGBA of the wall
-	uint32_t	row;		// tmp var to render the wall-columnwall_color = RGBA_GRID;
+	double		row;		// tmp var to render the wall-columnwall_color = RGBA_GRID;
 
-	draw_start = (data->line_height * -1 + cube->app->ver_pix) / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = (data->line_height + cube->app->ver_pix) / 2;
-	if ((uint32_t) draw_end >= cube->app->ver_pix)
-		draw_end = cube->app->ver_pix - 1;
-	row = 0;
-	while (row < cube->app->ver_pix)
+	get_wall_attributes(cube, data);
+	row = -1;
+	while (++row < cube->app->ver_pix)
 	{
-		if (row < (uint32_t) draw_start)	// draw floor
-			mlx_put_pixel(cube->app->screen, column, row++, cube->input->ceil_rgb);
-		else if (row > (uint32_t) draw_end) // draw ceiling
-			mlx_put_pixel(cube->app->screen, column, row++, cube->input->floor_rgb);
+		if (row < (uint32_t) data->draw_start)	// draw floor
+			mlx_put_pixel(cube->app->screen, column, row, cube->input->ceil_rgb);
+		else if (row > (uint32_t) data->draw_end) // draw ceiling
+			mlx_put_pixel(cube->app->screen, column, row, cube->input->floor_rgb);
 		else								// draw walls
 		{
-			wall_color = get_wall_pixel(cube, row, draw_start, data);
-			// wall_color = RGBA_GREEN;
-			// if ((data->side == DIR_EAST) || (data->side == DIR_WEST))
-			// {
-			// 	wall_color >>= 8;
-			// 	wall_color <<= 8;
-			// 	wall_color |= 128;
-			// }
-			mlx_put_pixel(cube->app->screen, column, row++, wall_color);
+			wall_color = get_wall_color(data);
+			mlx_put_pixel(cube->app->screen, column, row, wall_color);
 		}
 	}
 }
@@ -122,9 +108,10 @@ void	fill_column_info(t_cube *cube, uint32_t x, t_data_dda *data)
 	side_dist_and_step(data, cube->map->pos_map);
 	dda_algorithm(cube->map, data);
 	if ((data->side == DIR_EAST) || (data->side == DIR_WEST))
-		data->line_height = ft_part_int(cube->app->ver_pix / (data->side_dist.x - data->delta_side_dist.x));
+		data->perp_wall_dist = data->side_dist.x - data->delta_side_dist.x;
 	else
-		data->line_height = ft_part_int(cube->app->ver_pix / (data->side_dist.y - data->delta_side_dist.y));
+		data->perp_wall_dist = data->side_dist.y - data->delta_side_dist.y;
+	data->line_height = (int)(cube->app->ver_pix / data->perp_wall_dist);
 }
 
 // update img with raycasting logic
