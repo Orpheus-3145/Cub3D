@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 10:39:40 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 12:38:42 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/25 15:12:18 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ int32_t	pick_pixel(mlx_texture_t *tex, int32_t x, int32_t y)
 	int32_t	a;
 	int32_t	index;
 
-	index = y * 64 * 4 + x * 4;
-	if (tex->pixels == NULL)
-	{
-		ft_printf("halo\n");
-		return (RGBA_RED);
-	}
+	// index = y * 64 * 4 + x * 4;
+	index = (y % tex->width) * tex->width * 4 +(x % tex->width) * 4;
 	r = tex->pixels[index];
 	g = tex->pixels[index + 1];
 	b = tex->pixels[index + 2];

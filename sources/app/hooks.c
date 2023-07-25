@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 12:29:07 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/25 16:29:51 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,52 @@ void mov_hook(mlx_key_data_t keydata, void *param)
 		}
 		// printf("after movement\tx -> %ld  y -> %ld\n", ft_part_int(map->pos_map.x), ft_part_int(map->pos_map.y));
 		update_img(cube);
+	}
+}
+
+float	find_alpha(map_t *map, int32_t radius, point2d_t cursor_pos)
+{
+	bool	sign;
+	float	d;
+	float	alpha;
+
+	sign = false;
+	if (radius < 0)
+	{
+		sign = true;
+		radius *= -1;
+	}
+	d = distance(find_focus(map), cursor_pos);
+	alpha = ((float) radius / d);
+	if (sign)
+		alpha *= -1;
+	return (alpha);
+}
+
+void	rotate_hook(mouse_key_t b, action_t act, modifier_key_t k, void *param)
+{
+	cube_t			*cube;
+	static int32_t	c_x;
+	static int32_t	c_y;
+	int32_t			n_x;
+	int32_t			n_y;
+
+	cube = (cube_t *) param;
+	k += 1;
+	if (b != MLX_MOUSE_BUTTON_LEFT)
+		return ;
+	else if (act == MLX_PRESS)
+		mlx_get_mouse_pos(cube->win, &c_x, &c_y);
+	else if (act == MLX_RELEASE)
+	{
+		mlx_get_mouse_pos(cube->win, &n_x, &n_y);
+		ft_memset(cube->img->pixels, RGBA_BK, cube->hor_pix * cube->ver_pix * BPP);
+		if (ft_mod(n_x - c_x) > ft_mod(n_y - c_y))
+			rotate_map(p, 'x', find_alpha(p, n_x - c_x, (point2d_t){n_x, n_y}));
+		else
+			rotate_map(p, 'y', find_alpha(p, n_y - c_y, (point2d_t){n_x, n_y}));
+		render_map(p);
+		c_x = 0;
+		c_y = 0;
 	}
 }
