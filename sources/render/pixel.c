@@ -42,7 +42,7 @@ mlx_texture_t	*get_texture(t_app *app, t_direction side)
 uint32_t	get_wall_color(t_data_dda *data)
 {
 	data->wall_texture.y = (int)data->texture_pos & (data->tmp->height - 1);
-	data->texture_pos += data->step;
+	data->texture_pos += data->progress;
 	return (pick_pixel(data->tmp, \
 			(int)round(data->wall_texture.x), \
 			(int)round(data->wall_texture.y)));
@@ -67,11 +67,11 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 		d->wall_x = cube->map->pos_map.x + d->perp_wall_dist * d->ray_dir.x;
 	d->wall_x -= floor(d->wall_x);
 	d->wall_texture.x = (int)(d->wall_x * (double)(d->tmp->width));
-	if ((side == DIR_EAST || side == DIR_WEST) && d->ray_dir.x > 0)
+	if ((d->side == DIR_EAST || d->side == DIR_WEST) && d->ray_dir.x > 0)
 		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
-	if ((side == DIR_NORTH || side == DIR_SOUTH) && d->ray_dir.y < 0)
+	if ((d->side == DIR_NORTH || d->side == DIR_SOUTH) && d->ray_dir.y < 0)
 		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
-	d->step = 1.0 * d->tmp->height / d->line_height;
+	d->progress = 1.0 * d->tmp->height / d->line_height;
 	d->texture_pos = (d->draw_start - pitch + \
-		(d->line_height - cube->app->ver_pix) / 2) * d->step;
+		(d->line_height - cube->app->ver_pix) / 2) * d->progress;
 }

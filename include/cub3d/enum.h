@@ -103,7 +103,7 @@ typedef struct	s_data_dda
 	double			perp_wall_dist;		// Perpendeculat distance to wall
 	double			wall_x;				// Where exactly the wall was hit
 	t_vector		wall_texture;		// Where exactly the wall was hit
-	double			step;				// Amount of to increase texture coordinate per pix
+	double			progress;			// Amount to increase texture coordinate per pix
 	double			texture_pos;		// Starting texture coordinate
 }	t_data_dda;
 
