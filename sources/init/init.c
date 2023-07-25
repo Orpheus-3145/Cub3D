@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 18:23:17 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 12:20:07 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,14 @@ t_app	*init_app(void)
 	app = ft_calloc(1, sizeof(t_app));
 	if (app == NULL)
 		return (NULL);
+	app->win = NULL;
+	app->screen = NULL;
+	app->n_tex = NULL;
+	app->s_tex = NULL;
+	app->w_tex = NULL;
+	app->e_tex = NULL;
 	app->hor_pix = 0;
 	app->ver_pix = 0;
-	app->img = NULL;
-	app->win = NULL;
 	app->frame_time = 0.;
 	return (app);
 	}

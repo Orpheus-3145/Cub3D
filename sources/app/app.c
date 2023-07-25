@@ -6,12 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 18:16:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 12:20:07 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-
 
 t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate)
 {
@@ -19,18 +18,27 @@ t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_ra
 	cube->app->ver_pix = height * red_rate;
 	cube->app->win = mlx_init(width, height, "CUB3D", true);
 	if (cube->app->win == NULL)
-		return (STAT_MEM_FAIL);
+		return (STAT_MLX_ERR);
+	cube->app->n_tex = mlx_load_png(cube->input->n_tex_path);
+	if (cube->app->n_tex == NULL)
+		return (STAT_MLX_ERR);
+	cube->app->s_tex = mlx_load_png(cube->input->s_tex_path);
+	if (cube->app->s_tex == NULL)
+		return (STAT_MLX_ERR);
+	cube->app->w_tex = mlx_load_png(cube->input->w_tex_path);
+	if (cube->app->w_tex == NULL)
+		return (STAT_MLX_ERR);
+	cube->app->e_tex = mlx_load_png(cube->input->e_tex_path);
+	if (cube->app->e_tex == NULL)
+		return (STAT_MLX_ERR);
 	mlx_loop_hook(cube->app->win, &esc_hook, cube);
 	mlx_close_hook(cube->app->win, &kill_app, cube);
 	mlx_resize_hook(cube->app->win, &resize_hook, cube);
 	mlx_key_hook(cube->app->win, &mov_hook, cube);
-	if (set_image_in_win(cube->app, width, height, RGBA_BLACK) == STAT_MEM_FAIL)
-		return (STAT_MEM_FAIL);
+	if (set_image_in_win(cube->app, width, height, RGBA_BLACK) == STAT_MLX_ERR)
+		return (STAT_MLX_ERR);
 	else
-	{
-		update_img(cube);
 		return (STAT_TRUE);
-	}
 }
 
 t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color)
@@ -40,20 +48,20 @@ t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color)
 
 	start_x = (w - app->hor_pix) / 2;
 	start_y = (h - app->ver_pix) / 2;
-	if (! app->img)
+	if (! app->screen)
 	{
-		app->img = mlx_new_image(app->win, app->hor_pix, app->ver_pix);
-		if (! app->img)
-			return (STAT_MEM_FAIL);
-		mlx_image_to_window(app->win, app->img, start_x, start_y);
+		app->screen = mlx_new_image(app->win, app->hor_pix, app->ver_pix);
+		if (! app->screen)
+			return (STAT_MLX_ERR);
+		mlx_image_to_window(app->win, app->screen, start_x, start_y);
 	}
 	else
 	{
-		app->img->instances[0].x = start_x;
-		app->img->instances[0].y = start_y;
-		mlx_resize_image(app->img, app->hor_pix, app->ver_pix);
+		app->screen->instances[0].x = start_x;
+		app->screen->instances[0].y = start_y;
+		mlx_resize_image(app->screen, app->hor_pix, app->ver_pix);
 	}
-	ft_memset(app->img->pixels, bk_color, app->hor_pix * app->ver_pix * BPP);
+	ft_memset(app->screen->pixels, bk_color, app->hor_pix * app->ver_pix * BPP);
 	return (STAT_TRUE);
 }
 

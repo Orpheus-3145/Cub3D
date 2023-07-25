@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:30:51 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/24 13:28:19 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 12:22:33 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,14 @@ void	free_app(t_app *app)
 	if (app)
 	{
 		if (app->win)
+		{
+			mlx_delete_texture(app->n_tex);
+			mlx_delete_texture(app->s_tex);
+			mlx_delete_texture(app->w_tex);
+			mlx_delete_texture(app->e_tex);
+			mlx_delete_image(app->win, app->screen);
 			mlx_terminate(app->win);
+		}
 		ft_free(app);
 	}
 }
