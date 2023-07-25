@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tools.h                                            :+:    :+:            */
+/*   pov.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/07/20 21:11:40 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 22:33:36 by fra           ########   odam.nl         */
+/*   Created: 2023/07/25 21:31:19 by fra           #+#    #+#                 */
+/*   Updated: 2023/07/25 22:30:13 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOOLS_H
-# define TOOLS_H
+#ifndef POV_H
+# define POV_H
 # include "cub3d/cub3d.h"
 
-// tools.c
-void		print_rgb(int32_t rgb);
+bool	is_valid_pos(t_map *map, t_vector rot_vect, double mov_speed);
 
-void		print_input(t_cube *cube);
+void    rotate_pov(t_cube *cube, double radiants);
 
-void		kill_program(t_cube *cube, t_status status);
+void	mov_pov(t_cube *cube, double scalar, double radiants);
 
-char		**rect_map(char *line_map);
-
-char		**rotate_matrix(t_cube *cube);
-
-double      find_radiants(t_cube *cube, int32_t radius, t_xy_point crs_pos);
-
-bool		is_arrow(mlx_key_data_t keydata);
-
-bool		is_wasd(mlx_key_data_t keydata);
 
 #endif

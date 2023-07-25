@@ -6,12 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:35:24 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/24 23:58:56 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 21:31:44 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CHECK_MAP_H
+# define CHECK_MAP_H
 # include "cub3d/cub3d.h"
 
 // flood_fill.c

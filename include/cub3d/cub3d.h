@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 00:09:57 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 21:32:47 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # include "check_map/check_map.h"
 # include "init/init.h"
 # include "parser/parser.h"
+# include "pov/pov.h"
 # include "render/render.h"
 # include "tools/tools.h"
 # include "vector/vector.h"

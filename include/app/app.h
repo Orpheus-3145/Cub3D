@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 14:43:00 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 22:01:28 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		esc_hook(void *param);
 
 void		resize_hook(int32_t width, int32_t height, void *param);
 
-void	    mov_hook(mlx_key_data_t keydata, void *param);
+void	    key_hook(mlx_key_data_t keydata, void *param);
+
+void	    mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 #endif

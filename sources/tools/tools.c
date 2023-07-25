@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 00:22:30 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/25 22:32:50 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,3 +141,45 @@ char **rotate_matrix(t_cube *cube)
 	return (rot_mat);
 }
 
+double	find_radiants(t_cube *cube, int32_t radius, t_xy_point crs_pos)
+{
+	bool		sign;
+	double		distance;
+	double		alpha;
+	t_xy_point	centre;
+
+	centre = (t_xy_point) {cube->app->hor_pix / 2, cube->app->ver_pix / 2};
+	sign = false;
+	if (radius < 0)
+	{
+		sign = true;
+		radius *= -1;
+	}
+	distance = sqrt(ft_pow(crs_pos.x - centre.x, 2) + ft_pow(crs_pos.y - centre.y, 2));
+	alpha = ((double) radius / distance);
+	if (sign)
+		alpha *= -1;
+	return (alpha);
+}
+
+bool	is_arrow(mlx_key_data_t keydata)
+{
+	if ((keydata.action == MLX_PRESS) && \
+		((keydata.key == MLX_KEY_LEFT) || \
+		(keydata.key == MLX_KEY_RIGHT)))
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_wasd(mlx_key_data_t keydata)
+{
+	if ((keydata.action == MLX_PRESS) && \
+		((keydata.key == MLX_KEY_W) || \
+		(keydata.key == MLX_KEY_A) || \
+		(keydata.key == MLX_KEY_S) || \
+		(keydata.key == MLX_KEY_D)))
+		return (true);
+	else
+		return (false);
+}
