@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/23 15:31:35 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/26 18:01:50 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	get_map_info(t_map *map, char **map_2d)
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);
 	map->pos_map = find_pos_map(map_2d);
-	map->pos_pix = find_pos_pix(map->pos_map);
 	map->start_face = find_start_face(map_2d, map->pos_map);
 	map->dir = find_direction(map->start_face);
 	map->plane = find_plane(map->start_face);

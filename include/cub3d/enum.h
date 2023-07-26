@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 17:11:08 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/26 18:02:24 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct	s_map
 	uint32_t	width;
 	t_direction	start_face;
 	t_vector	pos_map;
-	t_vector	pos_pix;
 	t_vector	dir;
 	t_vector	plane;
 }	t_map;

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 17:31:49 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/26 18:04:21 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rotate_pov(t_cube *cube, double radiants)
 {
 	cube->map->dir = rotate_vector(cube->map->dir, radiants);
-	// cube->map->plane = rotate_vector(cube->map->plane, radiants);
+	cube->map->plane = rotate_vector(cube->map->plane, radiants);
 	update_img(cube);
 }
 
