@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 10:39:40 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 17:56:22 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/26 15:16:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 	int	pitch;
 
 	// Not yet known, need to read the website
-	pitch = 100;
+	pitch = 0;
 	d->draw_start = (-d->line_height + cube->app->ver_pix) / 2 + pitch;
 	if (d->draw_start < 0)
 		d->draw_start = 0;

@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 17:51:47 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 17:31:44 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/26 16:01:44 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			side_dist_and_step(t_data_dda *data, t_vector pos_map);
 
 void			dda_algorithm(t_map *map, t_data_dda *data);
 
-void			fill_column_info(t_cube *cube, uint32_t x, t_data_dda *data);
+void	        fill_column_info(t_map *map, t_data_dda *data);
 
 void			update_img(t_cube *cube);
 

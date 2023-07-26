@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/25 22:32:42 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/26 15:02:21 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	cube = (t_cube *) param;
 	if (is_arrow(keydata) == true)
 	{
-		radiants = ROT_SPEED * cube->app->frame_time;
+		radiants = ROT_SPEED;// * cube->app->frame_time;
 		if (keydata.key == MLX_KEY_LEFT)
 			radiants *= -1;
 		rotate_pov(cube, radiants);
@@ -54,7 +54,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			radiants = LEFT_ROTATION;
 		else if (keydata.key == MLX_KEY_D)
 			radiants = RIGHT_ROTATION;
-		scalar = MOV_SPEED * cube->app->frame_time;
+		scalar = MOV_SPEED;// * cube->app->frame_time;
 		mov_pov(cube, scalar, radiants);
 	}
 }
