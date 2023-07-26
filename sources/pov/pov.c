@@ -36,11 +36,15 @@ bool	is_valid_pos(t_map *map, t_vector rot_vect, double scalar)
 void	mov_pov(t_cube *cube, double scalar, double radiants)
 {
 	t_vector	rot_vect;
+	t_vector	tmp;
 	
 	rot_vect = rotate_vector(cube->map->dir, radiants);
+	rot_vect.x *= cube->app->frame_time * 10;
+	rot_vect.y *= cube->app->frame_time * 10;
 	if (is_valid_pos(cube->map, rot_vect, scalar) == true)
 	{
-		cube->map->pos_map = sum_vector(cube->map->pos_map, prod_scalar(rot_vect, scalar));
+		tmp = sum_vector(cube->map->pos_map, prod_scalar(rot_vect, scalar));
+		cube->map->pos_map = tmp;
 		update_img(cube);
 	}
 	else

@@ -18,11 +18,11 @@
 # define REDUCT_RATE 0.8
 # define FOV .66
 # define BPP 4	                // bytes of every pixel (int type)
-# define ROT_SPEED (double) M_PI_4 / 2
+# define ROT_SPEED (double) M_PI
 # define MOV_SPEED 1.
 # define SIZE_SQUARE 50.
-# define LEFT_ROTATION M_PI_2 * -1
-# define RIGHT_ROTATION M_PI_2
+# define LEFT_ROTATION (double) M_PI_2 * -1
+# define RIGHT_ROTATION (double) M_PI_2
 # define RGBA_RED 0xFF0000FF
 # define RGBA_GREEN 0x00FF00FF
 # define RGBA_BLUE 0x0000FFFF
