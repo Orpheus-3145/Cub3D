@@ -30,11 +30,17 @@ void	    key_hook(mlx_key_data_t keydata, void *param);
 
 void	    mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
-// alternative.c
-int         get_key_type(t_cube *cube);
+// hook_wasd.c
+void        loop_hook_a(void *param);
+void        loop_hook_d(void *param);
+void        loop_hook_s(void *param);
+void        loop_hook_w(void *param);
 
-void        loop_hook_rotate(void *param);
+// hook_arrows.c
+void        loop_hook_right(void *param);
+void        loop_hook_left(void *param);
 
-void        loop_hook_walk(void *param);
+// hook_jump.c
+void        loop_hook_jump(void *param);
 
 #endif

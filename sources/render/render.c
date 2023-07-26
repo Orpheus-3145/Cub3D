@@ -137,7 +137,6 @@ void	update_img(t_cube *cube)
 	uint32_t	x;			// current column
 	t_timeval	start_time; // beginning of refreshing pizels
 	t_timeval	end_time; 	// ending of refreshing pizels
-	t_data_dda	data;		// info to draw the column
 	double		camera_x;
 
 	gettimeofday(&start_time, NULL);
@@ -145,10 +144,10 @@ void	update_img(t_cube *cube)
 	while (x < cube->app->hor_pix)
 	{
 		camera_x = 2 * x / (double) (cube->app->hor_pix - 1) - 1;
-		data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
-		fill_column_info(cube->map, &data);
-		data.line_height = (int) (cube->app->ver_pix / data.perp_wall_dist);
-		draw_column(cube, x, &data);
+		cube->data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
+		fill_column_info(cube->map, &(cube->data));
+		cube->data.line_height = (int) (cube->app->ver_pix / cube->data.perp_wall_dist);
+		draw_column(cube, x, &(cube->data));
 		x++;
 	}
 	gettimeofday(&end_time, NULL);

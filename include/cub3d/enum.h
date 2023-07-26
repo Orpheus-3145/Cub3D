@@ -81,13 +81,6 @@ typedef struct	s_app
 	double			frame_time;
 }	t_app;
 
-typedef struct	s_cube
-{
-	t_input		*input;
-	t_map		*map;
-	t_app		*app;
-}	t_cube;
-
 typedef struct	s_data_dda
 {
 	long			line_height;		// Height of the column
@@ -104,6 +97,15 @@ typedef struct	s_data_dda
 	t_vector		wall_texture;		// Where exactly the wall was hit
 	double			progress;			// Amount to increase texture coordinate per pix
 	double			texture_pos;		// Starting texture coordinate
+	int				pitch;				// offset value for walls to draw higher or lower
 }	t_data_dda;
+
+typedef struct	s_cube
+{
+	t_input		*input;
+	t_map		*map;
+	t_app		*app;
+	t_data_dda	data;
+}	t_cube;
 
 #endif

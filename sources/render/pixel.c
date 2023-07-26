@@ -50,14 +50,10 @@ uint32_t	get_wall_color(t_data_dda *data)
 
 void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 {
-	int	pitch;
-
-	// Not yet known, need to read the website
-	pitch = 0;
-	d->draw_start = (-d->line_height + cube->app->ver_pix) / 2 + pitch;
+	d->draw_start = (-d->line_height + cube->app->ver_pix) / 2 + d->pitch;
 	if (d->draw_start < 0)
 		d->draw_start = 0;
-	d->draw_end = (d->line_height + cube->app->ver_pix) / 2 + pitch; 
+	d->draw_end = (d->line_height + cube->app->ver_pix) / 2 + d->pitch; 
 	if ((uint32_t) d->draw_end >= cube->app->ver_pix)
 		d->draw_end = cube->app->ver_pix - 1;
 	d->tmp = get_texture(cube->app, d->side);
@@ -72,6 +68,6 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 	if ((d->side == DIR_NORTH || d->side == DIR_SOUTH) && d->ray_dir.y < 0)
 		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
 	d->progress = 1.0 * d->tmp->height / d->line_height;
-	d->texture_pos = (d->draw_start - pitch + \
+	d->texture_pos = (d->draw_start - d->pitch + \
 		(d->line_height - cube->app->ver_pix) / 2) * d->progress;
 }
