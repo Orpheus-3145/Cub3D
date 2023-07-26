@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hooks.c                                            :+:    :+:            */
+/*   hooks_esc_resize_mouse.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 09:49:01 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/26 15:02:21 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 00:23:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ void	esc_hook(void *param)
 	cube = (t_cube *)param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))
 		kill_app(param);
-}
-
-void	resize_hook(int32_t width, int32_t height, void *param)
-{
-	t_cube *cube;
-
-	cube = (t_cube *)param;
-	cube->app->hor_pix = width * REDUCT_RATE;
-	cube->app->ver_pix = height * REDUCT_RATE;
-	set_image_in_win(cube->app, width, height, RGBA_BLACK);
 }
 
 void	mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)

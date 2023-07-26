@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 22:32:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 00:44:37 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ double	find_radiants(t_cube *cube, int32_t radius, t_xy_point crs_pos)
 	double		alpha;
 	t_xy_point	centre;
 
-	centre = (t_xy_point) {cube->app->hor_pix / 2, cube->app->ver_pix / 2};
+	centre = (t_xy_point) {cube->app->size_screen.x / 2, cube->app->size_screen.y / 2};
 	sign = false;
 	if (radius < 0)
 	{

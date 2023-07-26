@@ -6,19 +6,31 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 22:01:25 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 01:23:18 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate)
+t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 {
-	cube->app->hor_pix = width * red_rate;
-	cube->app->ver_pix = height * red_rate;
-	cube->app->win = mlx_init(width, height, "CUB3D", true);
+	cube->app->size_win = (t_xy_upoint) {width, height};
+	cube->app->win = mlx_init(cube->app->size_win.x, cube->app->size_win.y, "CUB3D", true);
 	if (cube->app->win == NULL)
 		return (STAT_MLX_ERR);
+	cube->app->size_screen = (t_xy_upoint) {width * SCREEN_RATE, height * SCREEN_RATE};
+	cube->app->pos_screen = (t_xy_upoint) {(cube->app->size_win.x - cube->app->size_screen.x) / 2, (cube->app->size_win.y - cube->app->size_screen.y) / 2};
+	cube->app->screen = mlx_new_image(cube->app->win, cube->app->size_screen.x, cube->app->size_screen.y);
+	if (cube->app->screen == NULL)
+		return (STAT_MLX_ERR);
+	mlx_image_to_window(cube->app->win, cube->app->screen, cube->app->pos_screen.x, cube->app->pos_screen.y);
+	cube->app->pos_minimap = (t_xy_upoint) {cube->app->pos_screen.x + width / 40, cube->app->pos_screen.y + height / 40};
+	cube->app->size_minimap = find_size_minimap(cube->map, cube->app, MINIMAP_RATE);
+	cube->app->minimap = mlx_new_image(cube->app->win, cube->app->size_minimap.x, cube->app->size_minimap.y);
+	if (cube->app->minimap == NULL)
+		return (STAT_MLX_ERR);
+	mlx_image_to_window(cube->app->win, cube->app->minimap, cube->app->pos_minimap.x, cube->app->pos_minimap.y);
+	ft_memset(cube->app->minimap->pixels, RGBA_GREEN, cube->app->size_minimap.x * cube->app->size_minimap.y * BPP);
 	cube->app->n_tex = mlx_load_png(cube->input->n_tex_path);
 	if (cube->app->n_tex == NULL)
 		return (STAT_MLX_ERR);
@@ -41,36 +53,7 @@ t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_ra
 	mlx_loop_hook(cube->app->win, &loop_hook_left, cube);
 	mlx_loop_hook(cube->app->win, &loop_hook_jump, cube);
 	mlx_close_hook(cube->app->win, &kill_app, cube);
-	mlx_resize_hook(cube->app->win, &resize_hook, cube);
 	mlx_mouse_hook(cube->app->win, &mouse_rotate_hook, cube);
-	//mlx_key_hook(cube->app->win, &key_hook, cube);
-	if (set_image_in_win(cube->app, width, height, RGBA_BLACK) == STAT_MLX_ERR)
-		return (STAT_MLX_ERR);
-	else
-		return (STAT_TRUE);
-}
-
-t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color)
-{
-	uint32_t	start_x;
-	uint32_t	start_y;
-
-	start_x = (w - app->hor_pix) / 2;
-	start_y = (h - app->ver_pix) / 2;
-	if (! app->screen)
-	{
-		app->screen = mlx_new_image(app->win, app->hor_pix, app->ver_pix);
-		if (! app->screen)
-			return (STAT_MLX_ERR);
-		mlx_image_to_window(app->win, app->screen, start_x, start_y);
-	}
-	else
-	{
-		app->screen->instances[0].x = start_x;
-		app->screen->instances[0].y = start_y;
-		mlx_resize_image(app->screen, app->hor_pix, app->ver_pix);
-	}
-	ft_memset(app->screen->pixels, bk_color, app->hor_pix * app->ver_pix * BPP);
 	return (STAT_TRUE);
 }
 

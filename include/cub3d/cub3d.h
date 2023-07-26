@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 17:16:09 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 01:11:53 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # define CUBE_FILE_EXT ".cub"
 # define TEXT_FILE_EXT ".png"
 # define MASK '|'
-# define REDUCT_RATE 0.8
+# define SCREEN_RATE 0.8
+# define MINIMAP_RATE 0.2
 # define FOV .66
 # define BPP 4	                // bytes of every pixel (int type)
 # define ROT_SPEED (double) M_PI
@@ -49,6 +50,7 @@
 # include "app/app.h"
 # include "check_map/check_map.h"
 # include "init/init.h"
+# include "minimap/minimap.h"
 # include "parser/parser.h"
 # include "pov/pov.h"
 # include "render/render.h"

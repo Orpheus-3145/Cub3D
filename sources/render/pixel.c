@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 10:39:40 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/26 15:16:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 00:44:13 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ uint32_t	get_wall_color(t_data_dda *data)
 
 void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 {
-	d->draw_start = (-d->line_height + cube->app->ver_pix) / 2 + d->pitch;
+	d->draw_start = (-d->line_height + cube->app->size_screen.y) / 2 + d->pitch;
 	if (d->draw_start < 0)
 		d->draw_start = 0;
-	d->draw_end = (d->line_height + cube->app->ver_pix) / 2 + d->pitch; 
-	if ((uint32_t) d->draw_end >= cube->app->ver_pix)
-		d->draw_end = cube->app->ver_pix - 1;
+	d->draw_end = (d->line_height + cube->app->size_screen.y) / 2 + d->pitch; 
+	if ((uint32_t) d->draw_end >= cube->app->size_screen.y)
+		d->draw_end = cube->app->size_screen.y - 1;
 	d->tmp = get_texture(cube->app, d->side);
 	if (d->side == DIR_EAST || d->side == DIR_WEST)
 		d->wall_x = cube->map->pos_map.y + d->perp_wall_dist * d->ray_dir.y;
@@ -69,5 +69,5 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 		d->wall_texture.x = d->tmp->width - d->wall_texture.x - 1;
 	d->progress = 1.0 * d->tmp->height / d->line_height;
 	d->texture_pos = (d->draw_start - d->pitch + \
-		(d->line_height - cube->app->ver_pix) / 2) * d->progress;
+		(d->line_height - cube->app->size_screen.y) / 2) * d->progress;
 }

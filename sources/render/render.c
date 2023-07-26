@@ -6,33 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/26 17:29:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 00:47:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-
-void	draw_img(mlx_image_t *screen, t_data_dda *data, uint32_t column, uint32_t row)
-{
-	int32_t	color;
-
-	color = RGBA_GREEN;
-	if ((data->side == DIR_NORTH) || (data->side == DIR_SOUTH))
-	{
-		color >>= 8;
-		color <<= 8;
-		color |= 127;
-	}
-	mlx_put_pixel(screen, column, row, color);
-}
-
-void	draw_texture(mlx_image_t *screen, t_data_dda *data, uint32_t column, uint32_t row)
-{
-	int32_t	color;
-
-	color = get_wall_color(data);
-	mlx_put_pixel(screen, column, row, color);
-}
 
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
@@ -42,7 +20,7 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 
 	get_wall_attributes(cube, data);
 	row = -1;
-	while (++row < cube->app->ver_pix)
+	while (++row < cube->app->size_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)	// draw floor
 			mlx_put_pixel(cube->app->screen, column, row, cube->input->ceil_rgb);
@@ -141,12 +119,12 @@ void	update_img(t_cube *cube)
 
 	gettimeofday(&start_time, NULL);
 	x = 0;
-	while (x < cube->app->hor_pix)
+	while (x < cube->app->size_screen.x)
 	{
-		camera_x = 2 * x / (double) (cube->app->hor_pix - 1) - 1;
+		camera_x = 2 * x / (double) (cube->app->size_screen.x - 1) - 1;
 		cube->data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
 		fill_column_info(cube->map, &(cube->data));
-		cube->data.line_height = (int) (cube->app->ver_pix / cube->data.perp_wall_dist);
+		cube->data.line_height = (int) (cube->app->size_screen.y / cube->data.perp_wall_dist);
 		draw_column(cube, x, &(cube->data));
 		x++;
 	}

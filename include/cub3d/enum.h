@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 18:02:24 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 01:14:00 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct s_xy_point
 	long	x;
 	long	y;
 }	t_xy_point;
+
+typedef struct s_xy_upoint
+{
+	uint32_t	x;
+	uint32_t	y;
+}	t_xy_upoint;
 
 typedef struct s_vector
 {
@@ -72,12 +78,16 @@ typedef struct	s_app
 {
 	mlx_t			*win;
 	mlx_image_t		*screen;
+	mlx_image_t		*minimap;
+	t_xy_upoint		size_win;
+	t_xy_upoint		size_screen;
+	t_xy_upoint		size_minimap;
+	t_xy_upoint		pos_screen;
+	t_xy_upoint		pos_minimap;
 	mlx_texture_t	*n_tex;
 	mlx_texture_t	*s_tex;
 	mlx_texture_t	*e_tex;
 	mlx_texture_t	*w_tex;
-	uint32_t		hor_pix;
-	uint32_t		ver_pix;
 	double			frame_time;
 }	t_app;
 

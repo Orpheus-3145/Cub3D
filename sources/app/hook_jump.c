@@ -15,9 +15,9 @@ void    loop_hook_jump(void *param)
     if (status)
     {
         if (reverse)
-            cube->data.pitch--;
+            cube->data.pitch -= 2;
         else
-            cube->data.pitch++;
+            cube->data.pitch += 2;
         if (cube->data.pitch >= range)
             reverse = -1;
         if (cube->data.pitch <= 0)

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 22:01:28 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 00:30:56 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 # include "cub3d/cub3d.h"
 
 // app.c
-t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_rate);
-
-t_status	set_image_in_win(t_app *app, int32_t w, int32_t h, int32_t bk_color);
+t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height);
 
 void		kill_app(void *param);
 
