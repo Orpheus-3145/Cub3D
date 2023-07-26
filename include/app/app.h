@@ -43,4 +43,7 @@ void        loop_hook_left(void *param);
 // hook_jump.c
 void        loop_hook_jump(void *param);
 
+// hook_mouse.c
+void        loop_hook_mouse(void *param);
+
 #endif

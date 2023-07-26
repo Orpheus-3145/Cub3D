@@ -40,9 +40,10 @@ t_status	set_up_app(t_cube *cube, uint32_t height, uint32_t width, double red_ra
 	mlx_loop_hook(cube->app->win, &loop_hook_right, cube);
 	mlx_loop_hook(cube->app->win, &loop_hook_left, cube);
 	mlx_loop_hook(cube->app->win, &loop_hook_jump, cube);
+	mlx_loop_hook(cube->app->win, &loop_hook_mouse, cube);
 	mlx_close_hook(cube->app->win, &kill_app, cube);
 	mlx_resize_hook(cube->app->win, &resize_hook, cube);
-	mlx_mouse_hook(cube->app->win, &mouse_rotate_hook, cube);
+	//mlx_mouse_hook(cube->app->win, &mouse_rotate_hook, cube);
 	//mlx_key_hook(cube->app->win, &key_hook, cube);
 	if (set_image_in_win(cube->app, width, height, RGBA_BLACK) == STAT_MLX_ERR)
 		return (STAT_MLX_ERR);
