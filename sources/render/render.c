@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/27 00:47:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:18:49 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,29 @@
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 {
-	int32_t		wall_color;	// RGBA of the wall
-	double		row;		// tmp var to render the wall-columnwall_color = RGBA_GRID;
+	int32_t		color;	// RGBA of the pixel
+	double		row;
 
 	get_wall_attributes(cube, data);
 	row = -1;
 	while (++row < cube->app->size_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)	// draw floor
-			mlx_put_pixel(cube->app->screen, column, row, cube->input->ceil_rgb);
+			color = cube->input->ceil_rgb;
 		else if (row > (uint32_t) data->draw_end) // draw ceiling
-			mlx_put_pixel(cube->app->screen, column, row, cube->input->floor_rgb);
+			color = cube->input->floor_rgb;
 		else								// draw walls
 		{
-			wall_color = get_wall_color(data);
-			mlx_put_pixel(cube->app->screen, column, row, wall_color);
+			color = get_wall_color(data);
+			// if ((data->side == DIR_WEST) || (data->side == DIR_EAST))
+			// {
+			// 	color <<= 8;
+			// 	color >>= 8;
+			// 	color |= 128;
+			// }
+
 		}
+		mlx_put_pixel(cube->app->screen, column, row, color);
 	}
 }
 
@@ -89,46 +96,32 @@ void	side_dist_and_step(t_data_dda *data, t_vector pos_map)
 	}
 }
 
-// find the height of the wall of the column x
-void	fill_column_info(t_map *map, t_data_dda *data)
-{
-	if (data->ray_dir.x == 0)
-		data->delta_side_dist.x = 1e30;
-	else
-		data->delta_side_dist.x = ft_dmod(1 / data->ray_dir.x);
-	if (data->ray_dir.y == 0)
-		data->delta_side_dist.y = 1e30;
-	else
-		data->delta_side_dist.y = ft_dmod(1 / data->ray_dir.y);
-	side_dist_and_step(data, map->pos_map);
-	dda_algorithm(map, data);
-	if ((data->side == DIR_EAST) || (data->side == DIR_WEST))
-		data->perp_wall_dist = data->side_dist.x - data->delta_side_dist.x;
-	else
-		data->perp_wall_dist = data->side_dist.y - data->delta_side_dist.y;
-	
-}
-
 // update img with raycasting logic
 void	update_img(t_cube *cube)
 {
-	uint32_t	x;			// current column
-	t_timeval	start_time; // beginning of refreshing pizels
-	t_timeval	end_time; 	// ending of refreshing pizels
+	uint32_t	x;
 	double		camera_x;
 
-	gettimeofday(&start_time, NULL);
 	x = 0;
 	while (x < cube->app->size_screen.x)
 	{
 		camera_x = 2 * x / (double) (cube->app->size_screen.x - 1) - 1;
 		cube->data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
-		fill_column_info(cube->map, &(cube->data));
-		cube->data.line_height = (int) (cube->app->size_screen.y / cube->data.perp_wall_dist);
-		draw_column(cube, x, &(cube->data));
-		x++;
+		if (cube->data.ray_dir.x == 0)
+			cube->data.delta_side_dist.x = 1e30;
+		else
+			cube->data.delta_side_dist.x = ft_dmod(1 / cube->data.ray_dir.x);
+		if (cube->data.ray_dir.y == 0)
+			cube->data.delta_side_dist.y = 1e30;
+		else
+			cube->data.delta_side_dist.y = ft_dmod(1 / cube->data.ray_dir.y);
+		side_dist_and_step(&cube->data, cube->map->pos_map);
+		dda_algorithm(cube->map, &cube->data);
+		if ((cube->data.side == DIR_EAST) || (cube->data.side == DIR_WEST))
+			cube->data.perp_wall_dist = cube->data.side_dist.x - cube->data.delta_side_dist.x;
+		else
+			cube->data.perp_wall_dist = cube->data.side_dist.y - cube->data.delta_side_dist.y;
+		cube->data.line_height = (int32_t) (cube->app->size_screen.y / cube->data.perp_wall_dist);
+		draw_column(cube, x++, &(cube->data));
 	}
-	gettimeofday(&end_time, NULL);
-	cube->app->frame_time = (double) ft_delta_time(start_time, end_time) / 1000.;
-	printf("fps: %f\n", 1. / cube->app->frame_time);
 }

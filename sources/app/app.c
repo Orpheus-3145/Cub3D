@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 02:53:00 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:30:22 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 	cube->app->win = mlx_init(cube->app->size_win.x, cube->app->size_win.y, "CUB3D", true);
 	if (cube->app->win == NULL)
 		return (STAT_MLX_ERR);
-	cube->app->size_screen = (t_xy_upoint) {width * SCREEN_RATE, height * SCREEN_RATE};
+	cube->app->size_screen = (t_xy_upoint) {width * SCREEN_SIZE_RATE, height * SCREEN_SIZE_RATE};
 	cube->app->pos_screen = (t_xy_upoint) {(cube->app->size_win.x - cube->app->size_screen.x) / 2, (cube->app->size_win.y - cube->app->size_screen.y) / 2};
 	cube->app->screen = mlx_new_image(cube->app->win, cube->app->size_screen.x, cube->app->size_screen.y);
 	if (cube->app->screen == NULL)
 		return (STAT_MLX_ERR);
 	mlx_image_to_window(cube->app->win, cube->app->screen, cube->app->pos_screen.x, cube->app->pos_screen.y);
 	cube->app->pos_minimap = (t_xy_upoint) {cube->app->pos_screen.x + width / 40, cube->app->pos_screen.y + height / 40};
-	update_unit_map(cube->map, cube->app, MINIMAP_RATE);
+	update_unit_map(cube->map, cube->app, MINIMAP_SIZE_RATE);
 	cube->app->size_minimap = (t_xy_upoint) {cube->map->width * cube->map->unit, cube->map->height * cube->map->unit};
 	cube->app->minimap = mlx_new_image(cube->app->win, cube->app->size_minimap.x, cube->app->size_minimap.y);
 	if (cube->app->minimap == NULL)
@@ -46,14 +46,9 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 		return (STAT_MLX_ERR);
 	cube->data.pitch = 0;
 	mlx_loop_hook(cube->app->win, &esc_hook, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_a, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_d, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_w, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_s, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_right, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_left, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_jump, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_mouse, cube);
+	mlx_loop_hook(cube->app->win, &key_move_hook, cube);
+	mlx_loop_hook(cube->app->win, &key_rotate_hook, cube);
+	// mlx_loop_hook(cube->app->win, &loop_hook_mouse, cube);
 	mlx_loop_hook(cube->app->win, &minimap_hook, cube);
 	mlx_close_hook(cube->app->win, &kill_app, cube);
 	mlx_mouse_hook(cube->app->win, &mouse_rotate_hook, cube);

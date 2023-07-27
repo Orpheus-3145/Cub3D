@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 02:51:09 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:06:25 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,22 @@ void	rotate_pov(t_cube *cube, double radiants)
 	update_img(cube);
 }
 
-// NB to check this function
-bool	is_valid_pos(t_map *map, t_vector rot_vect, double scalar)
+bool	check_radius(t_map *map, t_vector pos, double radius)
 {
-	t_vector	new_dir;
+	int32_t		degrees;
+	t_vector	radius_dir;
+	t_vector	circle_point;
 
-	new_dir = sum_vector(map->pos_map, prod_scalar(rot_vect, scalar));
-	// if (new_dir.x > (map->width - map->pos_map.x))
-	// 	return (false);
-	// else if (new_dir.y > (map->height - map->pos_map.y))
-	// 	return (false);
-	// else
-	return (map->map_2d[ft_part_int(new_dir.y)][ft_part_int(new_dir.x)] != '1');
+	degrees = 0;
+	while (degrees < 360)
+	{
+		radius_dir = (t_vector) {cos(from_deg_to_rad(degrees)), sin(from_deg_to_rad(degrees))};
+		circle_point = sum_vector(pos, prod_scalar(radius_dir, radius));
+		if (map->map_2d[ft_part_int(circle_point.y)][ft_part_int(circle_point.x)] == '1')
+			return (false);
+		degrees++;
+	}
+	return (true);
 }
 
 void	mov_pov(t_cube *cube, double scalar, double radiants)
@@ -39,13 +43,23 @@ void	mov_pov(t_cube *cube, double scalar, double radiants)
 	t_vector	tmp;
 	
 	rot_vect = rotate_vector(cube->map->dir, radiants);
-	rot_vect.x *= cube->app->frame_time * 10;
-	rot_vect.y *= cube->app->frame_time * 10;
-	if (is_valid_pos(cube->map, rot_vect, scalar) == true)
+	tmp = sum_vector(cube->map->pos_map, prod_scalar(rot_vect, scalar));
+	if (check_radius(cube->map, tmp, cube->map->radius))
 	{
-		tmp = sum_vector(cube->map->pos_map, prod_scalar(rot_vect, scalar));
 		cube->map->pos_map = tmp;
 		update_img(cube);
 	}
+	else if ((tmp.x * tmp.y) != 0)
+	{
+		if (check_radius(cube->map, (t_vector) {cube->map->pos_map.x, tmp.y}, cube->map->radius) == true)
+		{
+			cube->map->pos_map = (t_vector) {cube->map->pos_map.x, tmp.y};
+			update_img(cube);
+		}
+		else if (check_radius(cube->map, (t_vector) {tmp.x, cube->map->pos_map.y}, cube->map->radius) == true)
+		{
+			cube->map->pos_map = (t_vector) {tmp.x, cube->map->pos_map.y};
+			update_img(cube);
+		}
+	}
 }
-

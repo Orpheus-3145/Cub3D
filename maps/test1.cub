@@ -1,6 +1,6 @@
-NO ./maps/text/greystone.png
-SO ./maps/text/mossy.png
-WE ./maps/text/colorstone.png
+NO ./maps/text/redbrick.png
+SO ./maps/text/redbrick.png
+WE ./maps/text/redbrick.png
 EA ./maps/text/redbrick.png
 
 F 220,100,0

@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/27 02:36:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:16:48 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_map	*init_map(void)
 	map->pos_map = (t_vector) {-1., -1.};
 	map->dir = (t_vector) {-1., -1.};
 	map->plane = (t_vector) {-1., -1.};
+	map->radius = RADIUS;
 	return (map);
 }
 
@@ -66,9 +67,30 @@ t_app	*init_app(void)
 	app->s_tex = NULL;
 	app->w_tex = NULL;
 	app->e_tex = NULL;
-	app->frame_time = 0.;
 	return (app);
 	}
+
+t_data_dda	init_data(void)
+{
+	t_data_dda data;
+
+	data.line_height = 0;	
+	data.ray_dir = (t_vector) {0., 0.};
+	data.side_dist = (t_vector) {0., 0.};
+	data.delta_side_dist = (t_vector) {0., 0.};
+	data.step = (t_xy_point) {0, 0};
+	data.side = DIR_NORTH;
+	data.tmp = NULL;
+	data.draw_start = 0;
+	data.draw_end = 0;
+	data.perp_wall_dist = 0.;
+	data.wall_x = 0.;
+	data.wall_texture = (t_vector) {0., 0.};
+	data.progress = 0.;
+	data.texture_pos = 0.;
+	data.pitch = 0;
+	return (data);
+}
 
 t_cube	*init_cube(void)
 {
@@ -86,6 +108,6 @@ t_cube	*init_cube(void)
 	cube->app = init_app();
 	if (cube->app == NULL)
 		return (free_cube(cube));
-	else
-		return (cube);
+	cube->data = init_data();
+	return (cube);
 }

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 00:30:56 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:34:53 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,30 @@ void		kill_app(void *param);
 // hooks.c
 void		esc_hook(void *param);
 
-void		resize_hook(int32_t width, int32_t height, void *param);
+// void		resize_hook(int32_t width, int32_t height, void *param);
 
 void	    key_hook(mlx_key_data_t keydata, void *param);
 
 void	    mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 // hook_wasd.c
-void        loop_hook_a(void *param);
-void        loop_hook_d(void *param);
-void        loop_hook_s(void *param);
-void        loop_hook_w(void *param);
-
+// void        loop_hook_a(void *param);
+// void        loop_hook_d(void *param);
+// void        loop_hook_s(void *param);
+// void        loop_hook_w(void *param);
+void    key_move_hook(void *param);
 // hook_arrows.c
-void        loop_hook_right(void *param);
-void        loop_hook_left(void *param);
+// void        loop_hook_right(void *param);
+// void        loop_hook_left(void *param);
+
+void    key_rotate_hook(void *param);
 
 // hook_jump.c
 void        loop_hook_jump(void *param);
 
+void    minimap_hook(void *param);
+
 // hook_mouse.c
-void        loop_hook_mouse(void *param);
+// void        loop_hook_mouse(void *param);
 
 #endif

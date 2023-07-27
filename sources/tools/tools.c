@@ -6,60 +6,60 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 00:44:37 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:24:26 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-void	print_rgb(int32_t rgb)
-{
-	int32_t r_rgb;
-	int32_t g_rgb;
-	int32_t b_rgb;
+// void	print_rgb(int32_t rgb)
+// {
+// 	int32_t r_rgb;
+// 	int32_t g_rgb;
+// 	int32_t b_rgb;
 
-	b_rgb = rgb & 0xFF;
-	rgb >>= 8;
-	g_rgb = rgb & 0xFF;
-	rgb >>= 8;
-	r_rgb = rgb & 0xFF;
-	ft_printf("%d, %d, %d\n",r_rgb, g_rgb, b_rgb);
-}
+// 	b_rgb = rgb & 0xFF;
+// 	rgb >>= 8;
+// 	g_rgb = rgb & 0xFF;
+// 	rgb >>= 8;
+// 	r_rgb = rgb & 0xFF;
+// 	ft_printf("%d, %d, %d\n",r_rgb, g_rgb, b_rgb);
+// }
 
-void	print_input(t_cube *cube)
-{
-	if (cube)
-	{
-		if (cube->input->n_tex_path)
-			ft_printf("north text path: %s\n", cube->input->n_tex_path);
-		if (cube->input->s_tex_path)
-			ft_printf("south text path: %s\n", cube->input->s_tex_path);
-		if (cube->input->w_tex_path)
-			ft_printf("west text path: %s\n", cube->input->w_tex_path);
-		if (cube->input->e_tex_path)
-			ft_printf("east text path: %s\n", cube->input->e_tex_path);
-		if (cube->input->floor_rgb != -1)
-		{
-			ft_printf("floor RGB: ");
-			print_rgb(cube->input->floor_rgb);
-		}
-		if (cube->input->ceil_rgb != -1)
-		{
-			ft_printf("ceil RGB: ");
-			print_rgb(cube->input->ceil_rgb);
-		}
-		if (cube->map)
-		{
-			ft_printf("2D map:\n");
-			ft_print_double(cube->map->map_2d, "\t");
-			ft_printf("\n");
-			ft_printf("height: %u\n", cube->map->height);
-			ft_printf("width: %u\n", cube->map->width);
-			printf("starting pos: (%f,%f)\n", cube->map->pos_map.x, cube->map->pos_map.y);
-			ft_printf("facing dir: %c\n", cube->map->map_2d[ft_part_int(cube->map->pos_map.y)][ft_part_int(cube->map->pos_map.x)]);
-		}
-	}
-}
+// void	print_input(t_cube *cube)
+// {
+// 	if (cube)
+// 	{
+// 		if (cube->input->n_tex_path)
+// 			ft_printf("north text path: %s\n", cube->input->n_tex_path);
+// 		if (cube->input->s_tex_path)
+// 			ft_printf("south text path: %s\n", cube->input->s_tex_path);
+// 		if (cube->input->w_tex_path)
+// 			ft_printf("west text path: %s\n", cube->input->w_tex_path);
+// 		if (cube->input->e_tex_path)
+// 			ft_printf("east text path: %s\n", cube->input->e_tex_path);
+// 		if (cube->input->floor_rgb != -1)
+// 		{
+// 			ft_printf("floor RGB: ");
+// 			print_rgb(cube->input->floor_rgb);
+// 		}
+// 		if (cube->input->ceil_rgb != -1)
+// 		{
+// 			ft_printf("ceil RGB: ");
+// 			print_rgb(cube->input->ceil_rgb);
+// 		}
+// 		if (cube->map)
+// 		{
+// 			ft_printf("2D map:\n");
+// 			ft_print_double(cube->map->map_2d, "\t");
+// 			ft_printf("\n");
+// 			ft_printf("height: %u\n", cube->map->height);
+// 			ft_printf("width: %u\n", cube->map->width);
+// 			printf("starting pos: (%f,%f)\n", cube->map->pos_map.x, cube->map->pos_map.y);
+// 			ft_printf("facing dir: %c\n", cube->map->map_2d[ft_part_int(cube->map->pos_map.y)][ft_part_int(cube->map->pos_map.x)]);
+// 		}
+// 	}
+// }
 
 void	kill_program(t_cube *cube, t_status status)
 {
@@ -162,24 +162,34 @@ double	find_radiants(t_cube *cube, int32_t radius, t_xy_point crs_pos)
 	return (alpha);
 }
 
-bool	is_arrow(mlx_key_data_t keydata)
+// bool	is_arrow(mlx_key_data_t keydata)
+// {
+/* 	if ((keydata.action == MLX_PRESS) && \
+ 		((keydata.key == MLX_KEY_LEFT) || \
+ 		(keydata.key == MLX_KEY_RIGHT)))*/
+// 		return (true);
+// 	else
+// 		return (false);
+// }
+
+// bool	is_wasd(mlx_key_data_t keydata)
+// {
+/* 	if ((keydata.action == MLX_PRESS) && \
+ 		((keydata.key == MLX_KEY_W) || \
+ 		(keydata.key == MLX_KEY_A) || \
+ 		(keydata.key == MLX_KEY_S) || \
+ 		(keydata.key == MLX_KEY_D)))*/
+// 		return (true);
+// 	else
+// 		return (false);
+// }
+
+double	from_deg_to_rad(double degrees)
 {
-	if ((keydata.action == MLX_PRESS) && \
-		((keydata.key == MLX_KEY_LEFT) || \
-		(keydata.key == MLX_KEY_RIGHT)))
-		return (true);
-	else
-		return (false);
+	return ((degrees * 2 * M_PI) / 360.);
 }
 
-bool	is_wasd(mlx_key_data_t keydata)
+double	from_rad_to_deg(double radiants)
 {
-	if ((keydata.action == MLX_PRESS) && \
-		((keydata.key == MLX_KEY_W) || \
-		(keydata.key == MLX_KEY_A) || \
-		(keydata.key == MLX_KEY_S) || \
-		(keydata.key == MLX_KEY_D)))
-		return (true);
-	else
-		return (false);
+	return ((radiants * 360.) / (2 * M_PI));
 }

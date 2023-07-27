@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 02:35:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 16:57:27 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_map
 	t_vector	pos_map;
 	t_vector	dir;
 	t_vector	plane;
+	double		radius;
 }	t_map;
 
 typedef struct	s_input
@@ -89,7 +90,6 @@ typedef struct	s_app
 	mlx_texture_t	*s_tex;
 	mlx_texture_t	*e_tex;
 	mlx_texture_t	*w_tex;
-	double			frame_time;
 }	t_app;
 
 typedef struct	s_data_dda

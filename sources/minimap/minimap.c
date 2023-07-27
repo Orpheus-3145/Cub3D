@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 03:15:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:33:55 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int32_t	get_color(char map_value)
 	else
 		return (RGBA_BLACK);
 }
+
 void	draw_map(t_cube *cube)
 {
 	uint32_t	x;
@@ -42,6 +43,8 @@ void	draw_map(t_cube *cube)
 		x = 0;
 		while (x < cube->app->size_minimap.x)
 		{
+			if (((x < 2) || (x > cube->app->size_minimap.x - 3)) || ((y < 2) || (x > cube->app->size_minimap.y - 3)))
+				mlx_put_pixel(cube->app->minimap, x, y, RGBA_BLACK);
 			if (((x / cube->map->unit) == (uint32_t) cube->map->pos_map.x) && ((y / cube->map->unit) == (uint32_t) cube->map->pos_map.y))
 				mlx_put_pixel(cube->app->minimap, x, y, RGBA_RED);
 			else
@@ -49,20 +52,5 @@ void	draw_map(t_cube *cube)
 			x++;
 		}
 		y++;
-	}
-}
-
-void    minimap_hook(void *param)
-{
-	static t_vector	curr_pos;
-	t_cube		*cube;
-
-	cube = (t_cube *) param;
-	if ((curr_pos.x == 0.) && (curr_pos.y == 0.))
-		curr_pos = cube->map->pos_map;
-	else if ((curr_pos.x != cube->map->pos_map.x) || (curr_pos.y != cube->map->pos_map.y))
-	{
-		curr_pos = cube->map->pos_map;
-		draw_map(cube);
 	}
 }

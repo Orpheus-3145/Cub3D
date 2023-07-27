@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:37:52 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 20:38:11 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 18:17:00 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_app		*init_app(void);
 t_input		*init_input(void);
 
 t_map		*init_map(void);
+
+t_data_dda	init_data(void);
 
 // free.h
 void		free_input(t_input *input);
