@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 01:11:53 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 03:11:21 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define RGBA_RED 0xFF0000FF
 # define RGBA_GREEN 0x00FF00FF
 # define RGBA_BLUE 0x0000FFFF
-# define RGBA_BLACK 0xFFFFFFFF
+# define RGBA_BLACK 0x00000000
+# define RGBA_WHITE 0xFFFFFFFF
 # ifdef __APPLE__				
 #  define WIDTH 1000			// horizonal pixels on Mac
 #  define HEIGHT 470			// vertical pixels on Mac

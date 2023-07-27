@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 18:04:21 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 02:51:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,5 @@ void	mov_pov(t_cube *cube, double scalar, double radiants)
 		cube->map->pos_map = tmp;
 		update_img(cube);
 	}
-	else
-		printf("wall collision!\n");
 }
 
