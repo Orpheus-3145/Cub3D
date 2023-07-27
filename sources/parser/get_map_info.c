@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 18:01:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 22:11:39 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 uint32_t	find_height(char **map_2d)
 {
 	uint32_t	cnt;
+	char		**tmp;
 
 	cnt = 0;
+	tmp = map_2d;
 	while (*map_2d)
 	{
 		cnt++;
 		map_2d++;
+	}
+	while ((map_2d > tmp) && ft_is_empty_str(*(map_2d - 1)))
+	{
+		cnt--;
+		map_2d--;
 	}
 	return (cnt);
 }
@@ -33,7 +40,11 @@ uint32_t	find_width(char **map_2d)
 	max_width = 0;
 	while (*map_2d)
 	{
-		width = ft_strlen(*map_2d);
+		width = 0;
+		while ((*map_2d)[width])
+			width++;
+		while (width && ft_isspace((*map_2d)[width - 1]))
+			width--;
 		if (max_width < width)
 			max_width = width;
 		map_2d++;
@@ -107,15 +118,15 @@ t_vector	find_direction(t_direction dir)
 t_vector	find_plane(t_direction dir)
 {
 	if (dir == DIR_NORTH)
-		return ((t_vector) {FOV, 0});
+		return ((t_vector) {FOV, 0.});
 	else if (dir == DIR_SOUTH)
-		return ((t_vector) {-FOV, 0});
+		return ((t_vector) {-FOV, 0.});
 	else if (dir == DIR_WEST)
-		return ((t_vector) {0, -FOV});
+		return ((t_vector) {0., -FOV});
 	else if (dir == DIR_EAST)
-		return ((t_vector) {0, FOV});
+		return ((t_vector) {0., FOV});
 	else
-		return ((t_vector) {0, 0});
+		return ((t_vector) {0., 0.});
 }
 
 void	get_map_info(t_map *map, char **map_2d)

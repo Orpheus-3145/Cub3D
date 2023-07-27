@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 00:35:25 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 21:35:26 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,6 @@ t_status	get_config(int32_t fd, t_input *input)
 		return (status);
 }
 
-t_status	validate_map(char **map)
-{
-	t_status	status;
-	t_vector	start_tmp;
-	t_xy_point	start;
-
-	start_tmp = find_pos_map(map);
-	start = (t_xy_point) {ft_part_int(start_tmp.x), ft_part_int(start_tmp.y)};
-	if (start.x == -1)
-		return (STAT_PARSE_ERR);
-	else if (check_start_pos(map, start) == STAT_PARSE_ERR)
-		return (STAT_PARSE_ERR);
-	status = check_walls(map);
-	if (status == STAT_TRUE)
-		status = flood_fill(map, start, MASK);
-	return (status);
-}
-
 t_status	get_map(int32_t fd, t_input *input)
 {
 	char		*line_map;
@@ -88,6 +70,16 @@ t_status	get_map(int32_t fd, t_input *input)
 	line_map = NULL;
 	while (new_line)
 	{
+		if (new_line[0] == '\0')
+		{
+			ft_free(new_line);
+			new_line = ft_strdup(" ");
+			if (new_line == NULL)
+			{
+				ft_free(line_map);
+				return (STAT_MEM_FAIL);
+			}
+		}
 		line_map = ft_strjoin(line_map, new_line, "|", true);
 		if (line_map == NULL)
 			return (STAT_MEM_FAIL);
@@ -99,10 +91,11 @@ t_status	get_map(int32_t fd, t_input *input)
 		ft_free(line_map);
 		if (map_2d == NULL)
 			return (STAT_MEM_FAIL);
-		status = validate_map(map_2d);
+		status = check_map(map_2d);
 		if (status != STAT_TRUE)
 			ft_free_double((void **) map_2d, -1);
-		input->map_2d = map_2d;
+		else
+			input->map_2d = map_2d;
 		return (status);
 	}
 	else

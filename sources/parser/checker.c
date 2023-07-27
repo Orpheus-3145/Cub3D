@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 00:34:44 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 21:36:27 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,18 @@ bool is_ceil_floor(char *to_check)
 		return (true);
 	else
 		return (false);
+}
+
+t_status	check_map(char **map)
+{
+	t_status	status;
+
+	status = check_start_pos(map);
+	if (status == STAT_TRUE)
+	{
+		status = check_walls(map);
+		if (status == STAT_TRUE)
+			status = flood_fill(map, MASK);
+	}
+	return (status);
 }

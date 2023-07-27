@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 20:21:23 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,26 +92,30 @@ t_status	ff_algorithm(char **map, t_xy_point start_pos, t_list **stack, char mas
 	return (ff_algorithm(map, *((t_xy_point *) (*stack)->content), stack, mask));
 }
 
-t_status	flood_fill(char **map, t_xy_point start_point, char mask)
+t_status	flood_fill(char **map, char mask)
 {
+	t_vector	start_tmp;
+	t_xy_point	start;
 	t_status	status;
 	t_list		*stack;
 	char		face;
 
 	stack = NULL;
-	status = create_new_node(start_point, &stack);
+	start_tmp = find_pos_map(map);
+	start = (t_xy_point) {ft_part_int(start_tmp.x),ft_part_int(start_tmp.y)};
+	status = create_new_node(start, &stack);
+	if (status != STAT_TRUE)
+		return (status);
+	face = map[start.y][start.x];
+	status = ff_algorithm(map, start, &stack, mask);
 	if (status == STAT_TRUE)
 	{
-		face = map[start_point.y][start_point.x];
-		status = ff_algorithm(map, start_point, &stack, mask);
+		status = check_flood_fill(map);
 		if (status == STAT_TRUE)
-		{
-			status = check_flood_fill(map);
-			if (status == STAT_TRUE)
-				reset_map(map, start_point, face, mask);
-		}
+			reset_map(map, start, face, mask);
 		else
-			free_stack(&stack);
+			status = STAT_PARSE_ERR;
 	}
+	free_stack(&stack);
 	return (status);
 }

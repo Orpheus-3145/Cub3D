@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:35:24 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 21:31:44 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 19:57:14 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_status	check_point(char **map, t_xy_point check, t_list *stack);
 
 t_status	ff_algorithm(char **map, t_xy_point start_pos, t_list **stack, char mask);
 
-t_status	flood_fill(char **map, t_xy_point start_point, char mask);
+t_status	flood_fill(char **map, char mask);
 
 // stack.c
 t_status	create_new_node(t_xy_point point, t_list **stack);
@@ -41,6 +41,6 @@ t_status	check_col(char **map, uint32_t column);
 
 t_status	check_walls(char **map);
 
-t_status	check_start_pos(char **map, t_xy_point origin);
+t_status	check_start_pos(char **map);
 
 #endif

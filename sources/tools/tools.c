@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 18:24:26 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 22:10:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,17 @@ void	kill_program(t_cube *cube, t_status status)
 	if (status == STAT_MEM_FAIL)
 		perror("cub3d: memory fail :::");
 	else if (status == STAT_FILE_ERR)
+	{
+		exit_status = EXIT_SUCCESS;
 		perror("cub3d: error opening file :::");
+	}
 	else if (status == STAT_PARSE_ERR)
+	{
+		exit_status = EXIT_SUCCESS;
 		ft_putstr_fd("cub3d: parsing error ::::", 2);
+	}
 	else if (status == STAT_FALSE)
 		ft_putstr_fd("cub3d: generic error ::::", 2);
-	else
-		exit_status = EXIT_SUCCESS;
 	exit(exit_status);
 }
 
@@ -106,7 +110,10 @@ char	**rect_map(char *line_map)
 			return (ft_free_double((void **) map, i));
 		}
 		ft_memset(map[i], ' ', width);
-		ft_memcpy(map[i], raw_map[i], ft_strlen(raw_map[i]));
+		if (ft_strlen(raw_map[i]) > width)
+			ft_memcpy(map[i], raw_map[i], width);
+		else
+			ft_memcpy(map[i], raw_map[i], ft_strlen(raw_map[i]));
 		i++;
 	}
 	ft_free_double((void **) raw_map, -1);

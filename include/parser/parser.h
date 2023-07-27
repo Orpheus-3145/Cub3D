@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:07:31 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/25 00:34:55 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 20:24:33 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_status	check_color(char *color_seq);
 bool		is_direction(char *to_check);
 
 bool		is_ceil_floor(char *to_check);
+
+t_status	check_map(char **map_2d);
 
 // get_config.c
 t_status	insert_texture_path(char *dir, char *texture_path, t_input *input);
@@ -49,8 +51,6 @@ void		get_map_info(t_map *map, char **map_2d);
 bool		got_all_config(t_input *input);
 
 t_status	get_config(int32_t fd, t_input *input);
-
-t_status	validate_map(char **map_2d);
 
 t_status	get_map(int32_t fd, t_input *input);
 
