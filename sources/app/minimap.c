@@ -6,19 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 18:33:55 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 23:04:46 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap/minimap.h"
-
-void	update_unit_map(t_map *map, t_app *app, double red_rate)
-{
-	if (map->width < map->height)
-		map->unit = app->size_screen.x * red_rate / map->width;
-	else
-		map->unit = app->size_screen.y * red_rate / map->height;
-}
+#include "app/app.h"
 
 int32_t	get_color(char map_value)
 {

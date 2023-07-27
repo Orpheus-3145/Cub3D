@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/27 18:16:48 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 22:25:19 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_map	*init_map(void)
 	map->height = 0;
 	map->width = 0;
 	map->unit = 0;
-	map->start_face = DIR_NORTH;
 	map->pos_map = (t_vector) {-1., -1.};
 	map->dir = (t_vector) {-1., -1.};
 	map->plane = (t_vector) {-1., -1.};

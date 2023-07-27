@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 22:11:39 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 22:25:12 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,61 +72,31 @@ t_vector	find_pos_map(char **map_2d)
 	return ((t_vector) {-1, -1});
 }
 
-t_vector	find_pos_pix(t_vector pos_map)
-{
-	double x;
-	double y;
-
-	x = (double) pos_map.x * SIZE_SQUARE;
-	y = (double) pos_map.y * SIZE_SQUARE;
-	return (t_vector) {x, y};
-}
-
-t_direction	find_start_face(char **map_2d, t_vector pos)
+void	set_dir_and_plane(t_map *map)
 {
 	char	pos_to_check;
 
-	if ((pos.x == -1.) || (pos.y == -1.))
-		return (DIR_ERROR);
-	pos_to_check = map_2d[ft_part_int(pos.y)][ft_part_int(pos.x)];
+	pos_to_check = map->map_2d[ft_part_int(map->pos_map.y)][ft_part_int(map->pos_map.x)];
 	if (pos_to_check == 'N')
-		return (DIR_NORTH);
+	{
+		map->dir = (t_vector) {0., -1.};
+		map->plane = (t_vector) {FOV, 0.};
+	}
 	else if (pos_to_check == 'S')
-		return (DIR_SOUTH);
+	{
+		map->dir = (t_vector) {0., 1.};
+		map->plane = (t_vector) {-FOV, 0.};
+	}
 	else if (pos_to_check == 'W')
-		return (DIR_WEST);
+	{
+		map->dir = (t_vector) {-1., 0.};
+		map->plane = (t_vector) {0., -FOV};
+	}
 	else if (pos_to_check == 'E')
-		return (DIR_EAST);
-	else
-		return (DIR_ERROR);
-}
-
-t_vector	find_direction(t_direction dir)
-{
-	if (dir == DIR_NORTH)
-		return ((t_vector) {0, -1});
-	else if (dir == DIR_SOUTH)
-		return ((t_vector) {0, 1});
-	else if (dir == DIR_WEST)
-		return ((t_vector) {-1, 0});
-	else if (dir == DIR_EAST)
-		return ((t_vector) {1, 0});
-	else
-		return ((t_vector) {0, 0});
-}
-
-t_vector	find_plane(t_direction dir)
-{
-	if (dir == DIR_NORTH)
-		return ((t_vector) {FOV, 0.});
-	else if (dir == DIR_SOUTH)
-		return ((t_vector) {-FOV, 0.});
-	else if (dir == DIR_WEST)
-		return ((t_vector) {0., -FOV});
-	else if (dir == DIR_EAST)
-		return ((t_vector) {0., FOV});
-	else
-		return ((t_vector) {0., 0.});
+	{
+		map->dir = (t_vector) {1., 0.};
+		map->plane = (t_vector) {0., FOV};
+	}
 }
 
 void	get_map_info(t_map *map, char **map_2d)
@@ -135,7 +105,5 @@ void	get_map_info(t_map *map, char **map_2d)
 	map->height = find_height(map_2d);
 	map->width = find_width(map_2d);
 	map->pos_map = find_pos_map(map_2d);
-	map->start_face = find_start_face(map_2d, map->pos_map);
-	map->dir = find_direction(map->start_face);
-	map->plane = find_plane(map->start_face);
+	set_dir_and_plane(map);
 }

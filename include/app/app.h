@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 18:34:53 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 23:03:29 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,30 @@
 # include "cub3d/cub3d.h"
 
 // app.c
+t_status	set_screen(t_app *app, uint32_t width, uint32_t height);
+
+t_status	set_minimap(t_cube *cube, uint32_t width, uint32_t height);
+
+t_status	set_textures(t_cube *cube);
+
+t_status	set_hooks(t_cube *cube);
+
 t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height);
 
-void		kill_app(void *param);
-
 // hooks.c
-void		esc_hook(void *param);
+void		kill_app_hook(void *param);
 
-// void		resize_hook(int32_t width, int32_t height, void *param);
+void		mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
-void	    key_hook(mlx_key_data_t keydata, void *param);
+void		key_hook(void *param);
 
-void	    mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+void		loop_hook_jump(void *param);
 
-// hook_wasd.c
-// void        loop_hook_a(void *param);
-// void        loop_hook_d(void *param);
-// void        loop_hook_s(void *param);
-// void        loop_hook_w(void *param);
-void    key_move_hook(void *param);
-// hook_arrows.c
-// void        loop_hook_right(void *param);
-// void        loop_hook_left(void *param);
+void		minimap_hook(void *param);
 
-void    key_rotate_hook(void *param);
+// minimap.h
+int32_t		get_color(char map_value);
 
-// hook_jump.c
-void        loop_hook_jump(void *param);
-
-void    minimap_hook(void *param);
-
-// hook_mouse.c
-// void        loop_hook_mouse(void *param);
+void		draw_map(t_cube *cube);
 
 #endif

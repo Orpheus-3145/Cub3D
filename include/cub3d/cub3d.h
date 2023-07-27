@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 18:31:09 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 23:00:58 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@
 # include "app/app.h"
 # include "check_map/check_map.h"
 # include "init/init.h"
-# include "minimap/minimap.h"
 # include "parser/parser.h"
 # include "pov/pov.h"
 # include "render/render.h"

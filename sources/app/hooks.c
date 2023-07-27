@@ -6,22 +6,25 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 18:34:07 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/27 22:33:07 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-void	esc_hook(void *param)
+void	kill_app_hook(void *param)
 {
-	t_cube *cube;
+	t_cube	*cube;
 
-	cube = (t_cube *)param;
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))
-		kill_app(param);
+	if (param)
+	{
+		cube = (t_cube *) param;
+		free_cube(cube);
+	}
+	exit(EXIT_SUCCESS);
 }
 
-void	mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
 {
 	t_cube				*cube;
 	static t_xy_point	old_pos;
@@ -46,18 +49,7 @@ void	mouse_rotate_hook(mouse_key_t button, action_t action, modifier_key_t mods,
 	}
 }
 
-void    key_rotate_hook(void *param)
-{
-	t_cube  *cube;
-
-	cube = (t_cube *)param;
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)
-		rotate_pov(cube, KEY_ROT_SPEED);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)
-		rotate_pov(cube, KEY_ROT_SPEED * -1);
-}
-
-void    key_move_hook(void *param)
+void    key_hook(void *param)
 {
 	t_cube  *cube;
 
@@ -70,32 +62,13 @@ void    key_move_hook(void *param)
 		mov_pov(cube, MOV_SPEED, M_PI);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)	// move right
 		mov_pov(cube, MOV_SPEED, RIGHT_ROTATION);
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)		// rotate right
+		rotate_pov(cube, KEY_ROT_SPEED);
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)		// rotate left
+		rotate_pov(cube, KEY_ROT_SPEED * -1);
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))			// close app
+		kill_app_hook(param);
 }
-
-// void    loop_hook_mouse(void *param)
-// {
-// 	t_xy_point	tmp;
-// 	int32_t     pos[2];
-// 	double      rotation;
-// 	int         center;
-// 	t_cube      *cube;
-
-// 	cube = (t_cube *)param;
-// 	mlx_get_mouse_pos(cube->app->win, &pos[0], &pos[1]);
-// 	center = cube->app->size_screen.x / 2;
-// 	tmp.x = pos[0];
-// 	tmp.y = pos[1];
-// 	if (pos[0] != center)
-// 	{
-// 		rotation = find_radiants(cube, center, tmp) / 100;
-// 		if (pos[0] < center)
-// 			rotation *= -1;
-// 		cube->map->dir = rotate_vector(cube->map->dir, rotation);
-// 		cube->map->plane = rotate_vector(cube->map->plane, rotation);
-// 		update_img(cube);
-// 		mlx_set_mouse_pos(cube->app->win, center, cube->app->size_screen.x / 2);
-// 	}
-// }
 
 void    loop_hook_jump(void *param)
 {
