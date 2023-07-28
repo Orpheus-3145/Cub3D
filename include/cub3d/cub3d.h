@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 23:00:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 17:52:09 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 # define CUBE_FILE_EXT ".cub"
 # define TEXT_FILE_EXT ".png"
 # define MASK '|'
-# define SCREEN_SIZE_RATE 0.8
+# define SCREEN_SIZE_RATE 0.9
 # define MINIMAP_SIZE_RATE 0.2
 # define RADIUS 0.4
 # define FOV .66
 # define BPP 4	                // bytes of every pixel (int type)
-# define KEY_ROT_SPEED 0.03
+# define KEY_ROT_SPEED 0.09
 # define MOUSE_ROT_SPEED 0.6
-# define MOV_SPEED 0.05
+# define MOV_SPEED 0.1
 # define SIZE_SQUARE 50.
 # define LEFT_ROTATION (double) M_PI_2 * -1
 # define RIGHT_ROTATION (double) M_PI_2
@@ -32,8 +32,8 @@
 # define RGBA_BLACK 0x000000FF
 # define RGBA_WHITE 0xFFFFFFFF
 # ifdef __APPLE__				
-#  define WIDTH 1000			// horizonal pixels on Mac
-#  define HEIGHT 470			// vertical pixels on Mac
+#  define WIDTH 1920			// horizonal pixels on Mac
+#  define HEIGHT 1080			// vertical pixels on Mac
 # elif defined(__linux__)	
 #  define WIDTH 1000				// horizonal pixels on Linux
 #  define HEIGHT 470			// vertical pixels on Linux

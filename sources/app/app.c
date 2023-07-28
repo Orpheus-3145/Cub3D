@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 23:04:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 15:53:21 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ t_status	set_textures(t_cube *cube)
 
 t_status	set_hooks(t_cube *cube)
 {
+	mlx_loop_hook(cube->app->win, &update_img, cube);
 	mlx_close_hook(cube->app->win, &kill_app_hook, cube);
 	mlx_mouse_hook(cube->app->win, &mouse_hook, cube);
-	mlx_close_hook(cube->app->win, &loop_hook_jump, cube);
+	mlx_loop_hook(cube->app->win, &loop_hook_jump, cube);
 	if (mlx_loop_hook(cube->app->win, &key_hook, cube) == false)
 		return (STAT_MLX_ERR);
 	else if (mlx_loop_hook(cube->app->win, &minimap_hook, cube) == false)

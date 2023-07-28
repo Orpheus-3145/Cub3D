@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 17:51:47 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/26 16:01:44 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 15:55:58 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			dda_algorithm(t_map *map, t_data_dda *data);
 
 void	        fill_column_info(t_map *map, t_data_dda *data);
 
-void			update_img(t_cube *cube);
+void			update_img(void *param);
 
 // pixel.c
 int32_t			pick_pixel(mlx_texture_t *tex, int32_t x, int32_t y);

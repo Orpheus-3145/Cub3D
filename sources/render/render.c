@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/27 18:18:49 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 15:56:28 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,13 @@ void	side_dist_and_step(t_data_dda *data, t_vector pos_map)
 }
 
 // update img with raycasting logic
-void	update_img(t_cube *cube)
+void	update_img(void *param)
 {
+	t_cube		*cube;
 	uint32_t	x;
 	double		camera_x;
 
+	cube = (t_cube *)param;
 	x = 0;
 	while (x < cube->app->size_screen.x)
 	{

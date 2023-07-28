@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 23:04:46 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 15:21:24 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	draw_map(t_cube *cube)
 		x = 0;
 		while (x < cube->app->size_minimap.x)
 		{
-			if (((x < 2) || (x > cube->app->size_minimap.x - 3)) || ((y < 2) || (x > cube->app->size_minimap.y - 3)))
-				mlx_put_pixel(cube->app->minimap, x, y, RGBA_BLACK);
+			// if (((x < 2) || (x > cube->app->size_minimap.x - 3)) || ((y < 2) || (x > cube->app->size_minimap.y - 3)))
+			// 	mlx_put_pixel(cube->app->minimap, x, y, RGBA_BLACK);
 			if (((x / cube->map->unit) == (uint32_t) cube->map->pos_map.x) && ((y / cube->map->unit) == (uint32_t) cube->map->pos_map.y))
 				mlx_put_pixel(cube->app->minimap, x, y, RGBA_RED);
 			else

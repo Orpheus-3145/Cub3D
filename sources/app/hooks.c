@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 22:33:07 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/28 17:03:53 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 		rotation *= -1 * MOUSE_ROT_SPEED;
 		cube->map->dir = rotate_vector(cube->map->dir, rotation);
 		cube->map->plane = rotate_vector(cube->map->plane, rotation);
-		update_img(cube);
+		// update_img(cube);
 		old_pos = (t_xy_point) {0, 0};
 	}
 }
@@ -55,13 +55,17 @@ void    key_hook(void *param)
 
 	cube = (t_cube *)param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)	// move forward
-		mov_pov(cube, MOV_SPEED, 0);
+		test_mov_pov(cube->map, MOV_SPEED, 0);
+		// mov_pov(cube, MOV_SPEED, 0);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_A) == true)	// move left
-		mov_pov(cube, MOV_SPEED, LEFT_ROTATION);
+		test_mov_pov(cube->map, MOV_SPEED, LEFT_ROTATION);
+		// mov_pov(cube, MOV_SPEED, LEFT_ROTATION);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_S) == true)	// move backwards
-		mov_pov(cube, MOV_SPEED, M_PI);
+		test_mov_pov(cube->map, MOV_SPEED, M_PI);
+		// mov_pov(cube, MOV_SPEED, M_PI);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)	// move right
-		mov_pov(cube, MOV_SPEED, RIGHT_ROTATION);
+		test_mov_pov(cube->map, MOV_SPEED, RIGHT_ROTATION);
+		// mov_pov(cube, MOV_SPEED, RIGHT_ROTATION);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)		// rotate right
 		rotate_pov(cube, KEY_ROT_SPEED);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)		// rotate left
@@ -80,7 +84,7 @@ void    loop_hook_jump(void *param)
 	range = 50;
 	cube = (t_cube *)param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_SPACE) && !status)
-		status = 250; //range of off`set
+		status = range; //range of off`set
 	if (status)
 	{
 		if (reverse)
@@ -95,7 +99,7 @@ void    loop_hook_jump(void *param)
 			cube->data.pitch = 0;
 		}
 		status = cube->data.pitch;
-		update_img(cube);
+		// update_img(cube);
 	}
 }
 
