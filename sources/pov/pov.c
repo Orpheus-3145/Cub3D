@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/28 18:00:21 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/28 22:27:33 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_radius(t_map *map, t_vector pos, double radius)
 void	test_mov_pov(t_map *map, double scalar, double radiants)
 {
 	t_vector	rot_vect;
-	t_vector	location;
+	// t_vector	location;
 	t_vector	tmp;
 	t_vector	radius_dir;
 	// t_vector	tmp_norm;
@@ -50,15 +50,15 @@ void	test_mov_pov(t_map *map, double scalar, double radiants)
 	// tmp_norm
 	radius_dir.x = (ft_dmod(tmp.x) / tmp.x) * map->radius;
 	radius_dir.y = (ft_dmod(tmp.y) / tmp.y) * map->radius;
-	location.x = map->pos_map.x;
-	location.y = map->pos_map.y;
-	if (map->map_2d[(int)ft_part_int(location.y)][(int)ft_part_int(location.x + tmp.x + radius_dir.x)] == '1')
-		map->pos_map.x = round(location.x) - radius_dir.x;
-	else
+	// location.x = map->pos_map.x;
+	// location.y = map->pos_map.y;
+	if ((map->map_2d[(int)ft_part_int(map->pos_map.y)][(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x)] == '1') && ((rot_vect.x * rot_vect.y) != 0))
+		map->pos_map.x = round(map->pos_map.x) - radius_dir.x;
+	else if (map->map_2d[(int)ft_part_int(map->pos_map.y)][(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x)] != '1')
 		map->pos_map.x += tmp.x;
-	if (map->map_2d[(int)ft_part_int(location.y + tmp.y + radius_dir.y)][(int)ft_part_int(location.x)] == '1')
-		map->pos_map.y = round(location.y) - radius_dir.y;
-	else
+	if ((map->map_2d[(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)][(int)ft_part_int(map->pos_map.x)] == '1') && ((rot_vect.x * rot_vect.y) != 0))
+		map->pos_map.y = round(map->pos_map.y) - radius_dir.y;
+	else if (map->map_2d[(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)][(int)ft_part_int(map->pos_map.x)] != '1')
 		map->pos_map.y += tmp.y;
 
 }
