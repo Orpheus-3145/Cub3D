@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/28 15:55:11 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/30 01:42:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 	status = set_up_app(cube, WIDTH, HEIGHT);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);
-	// update_img(cube);
 	mlx_loop(cube->app->win);
 	free_cube(cube);
 	return (EXIT_SUCCESS);

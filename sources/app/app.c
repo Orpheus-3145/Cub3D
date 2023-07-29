@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/28 15:53:21 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/30 01:40:32 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ t_status	set_hooks(t_cube *cube)
 	mlx_loop_hook(cube->app->win, &update_img, cube);
 	mlx_close_hook(cube->app->win, &kill_app_hook, cube);
 	mlx_mouse_hook(cube->app->win, &mouse_hook, cube);
-	mlx_loop_hook(cube->app->win, &loop_hook_jump, cube);
-	if (mlx_loop_hook(cube->app->win, &key_hook, cube) == false)
+	if (mlx_loop_hook(cube->app->win, &loop_hook_jump, cube) == false)
+		return (STAT_MLX_ERR);
+	else if (mlx_loop_hook(cube->app->win, &key_hook, cube) == false)
 		return (STAT_MLX_ERR);
 	else if (mlx_loop_hook(cube->app->win, &minimap_hook, cube) == false)
 		return (STAT_MLX_ERR);
@@ -81,7 +82,6 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 		return (STAT_MLX_ERR);
 	if (set_minimap(cube, width, height) == STAT_MLX_ERR)
 		return (STAT_MLX_ERR);
-	draw_map(cube);
 	if (set_textures(cube) == STAT_MLX_ERR)
 		return (STAT_MLX_ERR);
 	if (set_hooks(cube) == STAT_MLX_ERR)

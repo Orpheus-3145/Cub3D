@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/28 15:56:28 by faru          ########   odam.nl         */
+/*   Updated: 2023/07/30 01:43:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,7 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 		else if (row > (uint32_t) data->draw_end) // draw ceiling
 			color = cube->input->floor_rgb;
 		else								// draw walls
-		{
 			color = get_wall_color(data);
-			// if ((data->side == DIR_WEST) || (data->side == DIR_EAST))
-			// {
-			// 	color <<= 8;
-			// 	color >>= 8;
-			// 	color |= 128;
-			// }
-
-		}
 		mlx_put_pixel(cube->app->screen, column, row, color);
 	}
 }
@@ -105,6 +96,7 @@ void	update_img(void *param)
 
 	cube = (t_cube *)param;
 	x = 0;
+	reset_data(cube);
 	while (x < cube->app->size_screen.x)
 	{
 		camera_x = 2 * x / (double) (cube->app->size_screen.x - 1) - 1;

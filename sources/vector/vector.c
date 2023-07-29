@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:45:27 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 16:48:45 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 00:56:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_vector	normalize_vector(t_vector old)
 {
 	double		norm;
 
-	norm = sqrt(ft_pow(old.x, 2) + ft_pow(old.y, 2));
+	norm = sqrt(pow(old.x, 2.) + pow(old.y, 2.));
 	old.x = (double) old.x / norm;
 	old.y = (double) old.y / norm;
 	return (old);

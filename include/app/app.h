@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 23:03:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 01:39:37 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,15 @@ void		loop_hook_jump(void *param);
 void		minimap_hook(void *param);
 
 // minimap.h
-int32_t		get_color(char map_value);
+int32_t     get_color(t_cube *cube, uint32_t x, uint32_t y);
 
-void		draw_map(t_cube *cube);
+void	    draw_fov(t_cube *cube);
+
+void	    draw_minimap(t_cube *cube);
+
+// pov.c
+void        rotate_pov(t_cube *cube, double radiants);
+
+void	    mov_pov(t_map *map, double scalar, double radiants);
 
 #endif

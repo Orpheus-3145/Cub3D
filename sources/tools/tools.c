@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 22:15:22 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 01:42:58 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,4 @@ double	find_radiants(t_cube *cube, int32_t radius, t_xy_point crs_pos)
 	if (sign)
 		alpha *= -1;
 	return (alpha);
-}
-
-double	from_deg_to_rad(double degrees)
-{
-	return ((degrees * 2 * M_PI) / 360.);
-}
-
-double	from_rad_to_deg(double radiants)
-{
-	return ((radiants * 360.) / (2 * M_PI));
 }
