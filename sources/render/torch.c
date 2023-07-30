@@ -52,9 +52,6 @@ void	draw_torch(t_cube *cube)
 
 	scale_factor = (double)2;
 	i = -1;
-	color = pick_pixel(cube->app->torch[0], 50, 0);
-	color = color & 0xFF;
-	printf("%d\n", color);
 	while (++i < cube->app->torch[cube->app->torch_i]->width)
 	{
 		j = -1;
@@ -83,10 +80,16 @@ void	draw_torch(t_cube *cube)
 void	torch_hook(void *param)
 {
 	t_cube *cube;
+	static int	delay = 0;
 
 	cube = (t_cube *)param;
-	draw_torch(cube);
-	cube->app->torch_i++;
+	delay++;
+	if (delay % 5 == 0)
+	{
+		cube->app->torch_i++;
+		delay = 0;
+	}
 	if (cube->app->torch_i == 49)
 		cube->app->torch_i = 0;
+	draw_torch(cube);
 }
