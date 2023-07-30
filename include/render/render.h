@@ -20,7 +20,7 @@ void			side_dist_and_step(t_data_dda *data, t_vector pos_map);
 
 void			dda_algorithm(t_map *map, t_data_dda *data);
 
-void	        fill_column_info(t_map *map, t_data_dda *data);
+void			fill_column_info(t_map *map, t_data_dda *data);
 
 void			update_img(void *param);
 
@@ -32,5 +32,10 @@ mlx_texture_t	*get_texture(t_app *app, t_direction side);
 uint32_t		get_wall_color(t_data_dda *data);
 
 void			get_wall_attributes(t_cube *cube, t_data_dda *d);
+
+// torch.c
+void			torch_hook(void *param);
+void			delete_torch_sprite(t_app *app);
+int				load_torch_sprite(t_app *app);
 
 #endif

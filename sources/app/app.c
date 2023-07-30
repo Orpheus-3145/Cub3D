@@ -44,6 +44,8 @@ t_status	set_minimap(t_cube *cube, uint32_t width, uint32_t height)
 
 t_status	set_textures(t_cube *cube)
 {
+	if (load_torch_sprite(cube->app))
+		return (STAT_MLX_ERR);
 	cube->app->n_tex = mlx_load_png(cube->input->n_tex_path);
 	if (cube->app->n_tex == NULL)
 		return (STAT_MLX_ERR);
@@ -56,8 +58,7 @@ t_status	set_textures(t_cube *cube)
 	cube->app->e_tex = mlx_load_png(cube->input->e_tex_path);
 	if (cube->app->e_tex == NULL)
 		return (STAT_MLX_ERR);
-	else
-		return (STAT_TRUE);
+	return (STAT_TRUE);
 }
 
 t_status	set_hooks(t_cube *cube)
@@ -72,8 +73,8 @@ t_status	set_hooks(t_cube *cube)
 		return (STAT_MLX_ERR);
 	else if (mlx_loop_hook(cube->app->win, &minimap_hook, cube) == false)
 		return (STAT_MLX_ERR);
-	else
-		return (STAT_TRUE);
+	mlx_loop_hook(cube->app->win, &torch_hook, cube);
+	return (STAT_TRUE);
 	
 }
 

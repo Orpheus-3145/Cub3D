@@ -85,6 +85,8 @@ typedef struct	s_app
 	t_xy_upoint		size_minimap;
 	t_xy_upoint		pos_screen;
 	t_xy_upoint		pos_minimap;
+	int				torch_i;
+	mlx_texture_t	**torch;
 	mlx_texture_t	*n_tex;
 	mlx_texture_t	*s_tex;
 	mlx_texture_t	*e_tex;
