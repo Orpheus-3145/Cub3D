@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 02:49:40 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:08:30 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void    loop_hook_jump(void *param)
 
 	range = 50;
 	cube = (t_cube *)param;
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_SPACE) && !status)
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_SPACE) && ! status)
 		status = range;
 	if (status)
 	{
