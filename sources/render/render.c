@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/30 01:43:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:15:26 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	update_img(void *param)
 
 	cube = (t_cube *)param;
 	x = 0;
-	reset_data(cube);
 	while (x < cube->app->size_screen.x)
 	{
 		camera_x = 2 * x / (double) (cube->app->size_screen.x - 1) - 1;

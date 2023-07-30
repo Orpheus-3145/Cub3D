@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/29 22:53:34 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:17:52 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,26 @@ t_app	*init_app(void)
 	return (app);
 	}
 
-void	reset_data(t_cube *cube)
+t_data_dda	init_data(void)
 {
-	cube->data.line_height = 0;	
-	cube->data.ray_dir = (t_vector) {0., 0.};
-	cube->data.side_dist = (t_vector) {0., 0.};
-	cube->data.delta_side_dist = (t_vector) {0., 0.};
-	cube->data.step = (t_xy_point) {0, 0};
-	cube->data.side = DIR_NORTH;
-	cube->data.tmp = NULL;
-	cube->data.draw_start = 0;
-	cube->data.draw_end = 0;
-	cube->data.perp_wall_dist = 0.;
-	cube->data.wall_x = 0.;
-	cube->data.wall_texture = (t_vector) {0., 0.};
-	cube->data.progress = 0.;
-	cube->data.texture_pos = 0.;
-	cube->data.pitch = 0;
+	t_data_dda	data;
+
+	data.line_height = 0;	
+	data.ray_dir = (t_vector) {0., 0.};
+	data.side_dist = (t_vector) {0., 0.};
+	data.delta_side_dist = (t_vector) {0., 0.};
+	data.step = (t_xy_point) {0, 0};
+	data.side = DIR_NORTH;
+	data.tmp = NULL;
+	data.draw_start = 0;
+	data.draw_end = 0;
+	data.perp_wall_dist = 0.;
+	data.wall_x = 0.;
+	data.wall_texture = (t_vector) {0., 0.};
+	data.progress = 0.;
+	data.texture_pos = 0.;
+	data.pitch = 0;
+	return (data);
 }
 
 t_cube	*init_cube(void)
@@ -104,6 +107,6 @@ t_cube	*init_cube(void)
 	cube->app = init_app();
 	if (cube->app == NULL)
 		return (free_cube(cube));
-	reset_data(cube);
+	cube->data = init_data();
 	return (cube);
 }

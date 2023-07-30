@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:37:52 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/29 22:53:39 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:19:13 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_input		*init_input(void);
 
 t_map		*init_map(void);
 
-void    	reset_data(t_cube *cube);
+t_data_dda	init_data(void);
 
 // free.h
 void		free_input(t_input *input);
