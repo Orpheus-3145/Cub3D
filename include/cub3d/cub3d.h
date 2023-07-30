@@ -6,12 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 04:18:40 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:22:00 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 # define CUBE_FILE_EXT ".cub"
 # define TEXT_FILE_EXT ".png"
 # define MASK '|'
@@ -19,35 +19,35 @@
 # define MINIMAP_SIZE_RATE 0.2
 # define RADIUS 0.4
 # define FOV .66
-# define BPP 4	                // bytes of every pixel (int type)
+# define BPP 4
 # define KEY_ROT_SPEED 0.09
 # define MOUSE_ROT_SPEED -0.6
 # define MOV_SPEED 0.1
 # define SIZE_SQUARE 50.
-# define LEFT_ROTATION (double) M_PI_2 * -1
+# define LEFT_ROTATION (double) -M_PI_2
 # define RIGHT_ROTATION (double) M_PI_2
 # define RGBA_RED 0xFF0000FF
 # define RGBA_GREEN 0x00FF00FF
 # define RGBA_BLUE 0x0000FFFF
 # define RGBA_BLACK 0x000000FF
 # define RGBA_WHITE 0xFFFFFFFF
-# ifdef __APPLE__				
-#  define WIDTH 1920			// horizonal pixels on Mac
-#  define HEIGHT 1080			// vertical pixels on Mac
+# ifdef __APPLE__
+#  define WIDTH 1920
+#  define HEIGHT 1080
 # elif defined(__linux__)	
-#  define WIDTH 1000				// horizonal pixels on Linux
-#  define HEIGHT 470			// vertical pixels on Linux
+#  define WIDTH 1000
+#  define HEIGHT 470
 # endif
-# include <stdlib.h>    			// malloc(), free()
-# include <unistd.h>    			// write(), read(), open()
-# include <fcntl.h>					// to open files (O_CREAT, O_WRONLY, O_RDONLY ..)
-# include <stdbool.h>				// boolean types
-# include <stdint.h>				// cross-compiler types
-# include <errno.h>					// errorno global var
-# include <stddef.h>				// NULL, type size_t
-# include <stdio.h>					// printf(), perror(), strerror()
-# include "MLX42/MLX42.h"			// graphic library
-# include <math.h>					// sin(), cos(), ...
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <errno.h>
+# include <stddef.h>
+# include <stdio.h>
+# include "MLX42/MLX42.h"
+# include <math.h>
 # include "libft.h"
 # include "cub3d/enum.h"
 # include "app/app.h"

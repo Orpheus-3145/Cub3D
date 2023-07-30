@@ -6,17 +6,17 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 21:36:27 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:39:45 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status check_color(char *color_seq)
+t_status	check_color(char *color_seq)
 {
-	char **ints;
-	int32_t nbr;
-	uint32_t i;
+	char		**ints;
+	int32_t		nbr;
+	uint32_t	i;
 
 	if ((color_seq == NULL) || (ft_count_occ(color_seq, ',') != 2))
 		return (STAT_PARSE_ERR);
@@ -27,10 +27,10 @@ t_status check_color(char *color_seq)
 	while (ints[i])
 	{
 		if (ft_is_int(ints[i]) == false)
-			break;
+			break ;
 		nbr = ft_atoi(ints[i]);
 		if ((nbr < 0) || (nbr > 255))
-			break;
+			break ;
 		i++;
 	}
 	ft_free_double((void **)ints, -1);
@@ -40,41 +40,26 @@ t_status check_color(char *color_seq)
 		return (STAT_PARSE_ERR);
 }
 
-bool is_direction(char *to_check)
+bool	is_direction(char *to_check)
 {
 	if (to_check == NULL)
 		return (false);
-	else if ((ft_strncmp(to_check, "NO", 2) == 0) ||
-			 (ft_strncmp(to_check, "SO", 2) == 0) ||
-			 (ft_strncmp(to_check, "WE", 2) == 0) ||
-			 (ft_strncmp(to_check, "EA", 2) == 0))
+	else if ((ft_strncmp(to_check, "NO", 2) == 0) || \
+			(ft_strncmp(to_check, "SO", 2) == 0) || \
+			(ft_strncmp(to_check, "WE", 2) == 0) || \
+			(ft_strncmp(to_check, "EA", 2) == 0))
 		return (true);
 	else
 		return (false);
 }
 
-bool is_ceil_floor(char *to_check)
+bool	is_ceil_floor(char *to_check)
 {
 	if (to_check == NULL)
 		return (false);
-	else if ((ft_strncmp(to_check, "F", 1) == 0) ||
-			 (ft_strncmp(to_check, "C", 1) == 0))
-
+	else if ((ft_strncmp(to_check, "F", 1) == 0) || \
+			(ft_strncmp(to_check, "C", 1) == 0))
 		return (true);
 	else
 		return (false);
-}
-
-t_status	check_map(char **map)
-{
-	t_status	status;
-
-	status = check_start_pos(map);
-	if (status == STAT_TRUE)
-	{
-		status = check_walls(map);
-		if (status == STAT_TRUE)
-			status = flood_fill(map, MASK);
-	}
-	return (status);
 }

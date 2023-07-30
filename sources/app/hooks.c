@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 04:22:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:18:39 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	else if (action == MLX_RELEASE)
 	{
 		mlx_get_mouse_pos(cube->app->win, (int32_t *) &new_pos.x, (int32_t *) &new_pos.y);
-		rotation = find_radiants(cube, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
+		rotation = find_radiants(cube->app->size_screen, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
 		rotate_pov(cube, rotation);
 	}
 }

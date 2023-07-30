@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 21:33:46 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 22:25:12 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:37:50 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,42 +64,42 @@ t_vector	find_pos_map(char **map_2d)
 		while (map_2d[i][j])
 		{
 			if (ft_strchr(" 10", map_2d[i][j]) == NULL)
-				return ((t_vector) {j + 0.5, i + 0.5});
+				return ((t_vector){j + 0.5, i + 0.5});
 			j++;
 		}
 		i++;
 	}
-	return ((t_vector) {-1, -1});
+	return ((t_vector){-1, -1});
 }
 
 void	set_dir_and_plane(t_map *map)
 {
 	char	pos_to_check;
 
-	pos_to_check = map->map_2d[ft_part_int(map->pos_map.y)][ft_part_int(map->pos_map.x)];
+	pos_to_check = map->map_2d[(int)(map->pos_map.y)][(int)(map->pos_map.x)];
 	if (pos_to_check == 'N')
 	{
-		map->dir = (t_vector) {0., -1.};
-		map->plane = (t_vector) {FOV, 0.};
+		map->dir = (t_vector){0., -1.};
+		map->plane = (t_vector){FOV, 0.};
 	}
 	else if (pos_to_check == 'S')
 	{
-		map->dir = (t_vector) {0., 1.};
-		map->plane = (t_vector) {-FOV, 0.};
+		map->dir = (t_vector){0., 1.};
+		map->plane = (t_vector){-FOV, 0.};
 	}
 	else if (pos_to_check == 'W')
 	{
-		map->dir = (t_vector) {-1., 0.};
-		map->plane = (t_vector) {0., -FOV};
+		map->dir = (t_vector){-1., 0.};
+		map->plane = (t_vector){0., -FOV};
 	}
 	else if (pos_to_check == 'E')
 	{
-		map->dir = (t_vector) {1., 0.};
-		map->plane = (t_vector) {0., FOV};
+		map->dir = (t_vector){1., 0.};
+		map->plane = (t_vector){0., FOV};
 	}
 }
 
-void	get_map_info(t_map *map, char **map_2d)
+void	store_map_info(t_map *map, char **map_2d)
 {
 	map->map_2d = map_2d;
 	map->height = find_height(map_2d);

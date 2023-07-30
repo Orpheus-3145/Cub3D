@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 01:42:09 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:40:05 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 int	main(int argc, char **argv)
 {
-	t_cube	*cube;
-	t_status status;
+	t_cube		*cube;
+	t_status	status;
 
 	if (argc != 2)
 		kill_program(NULL, STAT_PARSE_ERR);
 	cube = init_cube();
 	if (cube == NULL)
 		kill_program(cube, STAT_MEM_FAIL);
-	status = parse_input(cube->input, argv[1]);
+	status = parse_input(cube, argv[1]);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);
-	get_map_info(cube->map, cube->input->map_2d);
 	status = set_up_app(cube, WIDTH, HEIGHT);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 05:16:23 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:46:08 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,30 @@ t_status	check_point(char **map, t_xy_point check, t_list *stack)
 	return (STAT_TRUE);
 }
 
-t_status	ff_algorithm(char **map, t_xy_point	start, char mask)
+t_status	ff_algorithm(char **map, t_xy_point	s, char mask)
 {
 	t_list		*stack;
 	t_status	status;
 
 	stack = NULL;
-	if (new_node(start, &stack) != STAT_TRUE)
+	if (new_node(s, &stack) != STAT_TRUE)
 		return (STAT_MEM_FAIL);
 	status = STAT_TRUE;
 	while (status == STAT_TRUE)
 	{
-		map[start.y][start.x] = mask;
+		map[s.y][s.x] = mask;
 		drop_node(&stack);
-		if (check_point(map, (t_xy_point) {start.x - 1, start.y}, stack) == STAT_TRUE)
-			status = new_node((t_xy_point) {start.x - 1, start.y}, &stack);
-		if (check_point(map, (t_xy_point) {start.x + 1, start.y}, stack) == STAT_TRUE)
-			status = new_node((t_xy_point) {start.x + 1, start.y}, &stack);
-		if (check_point(map, (t_xy_point) {start.x, start.y - 1}, stack) == STAT_TRUE)
-			status = new_node((t_xy_point) {start.x, start.y - 1}, &stack);
-		if (check_point(map, (t_xy_point) {start.x, start.y + 1}, stack) == STAT_TRUE)
-			status = new_node((t_xy_point) {start.x, start.y + 1}, &stack);
+		if (check_point(map, (t_xy_point){s.x - 1, s.y}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point){s.x - 1, s.y}, &stack);
+		if (check_point(map, (t_xy_point){s.x + 1, s.y}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point){s.x + 1, s.y}, &stack);
+		if (check_point(map, (t_xy_point){s.x, s.y - 1}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point){s.x, s.y - 1}, &stack);
+		if (check_point(map, (t_xy_point){s.x, s.y + 1}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point){s.x, s.y + 1}, &stack);
 		if (stack == NULL)
 			break ;
-		start = *((t_xy_point *) stack->content);
+		s = *((t_xy_point *) stack->content);
 	}
 	free_stack(&stack);
 	return (status);
@@ -102,7 +102,7 @@ t_status	flood_fill(char **map, char mask)
 	char		face;
 
 	start_tmp = find_pos_map(map);
-	start = (t_xy_point) {start_tmp.x, start_tmp.y};
+	start = (t_xy_point){start_tmp.x, start_tmp.y};
 	face = map[start.y][start.x];
 	status = ff_algorithm(map, start, mask);
 	if (status == STAT_TRUE)
