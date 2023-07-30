@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/29 23:20:23 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 02:49:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void    minimap_hook(void *param)
 	cube = (t_cube *) param;
 	if ((curr_pos.x == 0.) && (curr_pos.y == 0.))
 	{
-		draw_minimap(cube);
+		draw_minimap(cube->app, cube->map, cube->input);
 		curr_pos = cube->map->pos_map;
 	}
 	if ((curr_dir.x == 0.) && (curr_dir.y == 0.))
@@ -114,11 +114,11 @@ void    minimap_hook(void *param)
 	if ((curr_pos.x != cube->map->pos_map.x) || (curr_pos.y != cube->map->pos_map.y))
 	{
 		curr_pos = cube->map->pos_map;
-		draw_minimap(cube);
+		draw_minimap(cube->app, cube->map, cube->input);
 	}
 	else if ((curr_dir.x != cube->map->dir.x) || (curr_dir.y != cube->map->dir.y))
 	{
 		curr_dir = cube->map->dir;
-		draw_minimap(cube);
+		draw_minimap(cube->app, cube->map, cube->input);
 	}
 }

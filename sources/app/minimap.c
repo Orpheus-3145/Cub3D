@@ -6,74 +6,55 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 01:38:33 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 02:49:14 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "app/app.h"
 
-int32_t	get_color(t_cube *cube, uint32_t x, uint32_t y)
+void	draw_ray_fov(t_app *app, t_map *map, uint32_t x)
 {
-	char	map_value;
-
-	map_value = cube->map->map_2d[y][x];
-	if ((map_value == '0') || ft_strchr("NSWE", map_value))
-		return (cube->input->floor_rgb);
-	else if (map_value == '1')
-		return (RGBA_BLACK);
-	else if (map_value == ' ')
-		return (RGBA_WHITE);
-	else
-		return (RGBA_BLACK);
-}
-
-void	draw_fov(t_cube *cube)
-{
-	uint32_t	x;
 	double		camera_x;
 	t_vector	curr_pos;
 	t_vector	ray_fov;
-
-	x = 0;
-	while (x < cube->app->size_minimap.x)
+	
+	camera_x = 2 * x / (double) app->size_minimap.x - 1;
+	ray_fov = normalize_vector(sum_vector(map->dir, prod_scalar(map->plane, camera_x)));
+	curr_pos.x = map->pos_map.x * map->unit;
+	curr_pos.y = map->pos_map.y * map->unit;
+	while (map->map_2d[(int) (curr_pos.y / map->unit)][(int) (curr_pos.x / map->unit)] != '1')
 	{
-		camera_x = 2 * x / (double) cube->app->size_minimap.x - 1;
-		ray_fov = normalize_vector(sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x)));
-		curr_pos.x = (cube->map->pos_map.x) * cube->map->unit;
-		curr_pos.y = (cube->map->pos_map.y) * cube->map->unit;
-		while (cube->map->map_2d[(int) (curr_pos.y / cube->map->unit)][(int) (curr_pos.x / cube->map->unit)] != '1')
-		{
-			mlx_put_pixel(cube->app->minimap, (uint32_t) curr_pos.x, (uint32_t) curr_pos.y, RGBA_RED);
-			curr_pos = sum_vector(curr_pos, ray_fov);
-		}
-		x++;
+		mlx_put_pixel(app->minimap, (uint32_t) curr_pos.x, (uint32_t) curr_pos.y, RGBA_RED);
+		curr_pos = sum_vector(curr_pos, ray_fov);
 	}
 }
 
-void	draw_minimap(t_cube *cube)
+void	draw_minimap(t_app *app, t_map *map, t_input *input)
 {
 	uint32_t	x;
 	uint32_t	y;
-	t_vector	curr_pos;
+	uint32_t	u_x;
+	uint32_t	u_y;
 
-	curr_pos = (t_vector) {-1. , -1.};
 	y = 0;
-	while (y < cube->app->size_minimap.y)
+	while (y < app->size_minimap.y)
 	{
 		x = 0;
-		while (x < cube->app->size_minimap.x)
+		while (x < app->size_minimap.x)
 		{
-			if (((x / cube->map->unit) == (uint32_t) cube->map->pos_map.x) && ((y / cube->map->unit) == (uint32_t) cube->map->pos_map.y))
-			{
-				mlx_put_pixel(cube->app->minimap, x, y, RGBA_BLUE);
-				if (curr_pos.x == -1.)
-					curr_pos = (t_vector) {x + (double) cube->map->unit / 2., y + (double) cube->map->unit / 2.};
-			}
-			else
-				mlx_put_pixel(cube->app->minimap, x, y, get_color(cube, x / cube->map->unit, y / cube->map->unit));
-			x++;
+			u_x = x / map->unit;
+			u_y = y / map->unit;
+			if ((u_x == (uint32_t) map->pos_map.x) && (u_y == (uint32_t) map->pos_map.y))
+				mlx_put_pixel(app->minimap, x, y, RGBA_BLUE);		// player
+			if ((map->map_2d[u_y][u_x] == '0') || ft_strchr("NSWE", map->map_2d[u_y][u_x]))
+				mlx_put_pixel(app->minimap, x, y, input->floor_rgb);	// floor
+			else if (map->map_2d[u_y][u_x] == '1')
+				mlx_put_pixel(app->minimap, x, y, RGBA_BLACK);		// wall
+			else if (map->map_2d[u_y][u_x] == ' ')
+				mlx_put_pixel(app->minimap, x, y, RGBA_WHITE);		// empty
+			draw_ray_fov(app, map, x++);
 		}
 		y++;
 	}
-	draw_fov(cube);
 }
+
