@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:50:55 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/26 14:59:36 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:46:10 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ t_vector	rotate_vector(t_vector old, double rad);
 t_vector	sum_vector(t_vector v1, t_vector v2);
 
 t_vector	prod_scalar(t_vector vect, double scalar);
+
+double      dist_vector(t_vector v1, t_vector v2);
 
 #endif

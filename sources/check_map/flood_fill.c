@@ -6,25 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/27 20:21:23 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 05:16:23 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-
-t_status	check_flood_fill(char **map)
-{
-	uint32_t	y;
-
-	y = 0;
-	while (map[y])
-	{
-		if (ft_strchr(map[y], '0'))
-			return (STAT_FALSE);
-		y++;
-	}
-	return (STAT_TRUE);
-}
 
 void	reset_map(char **map, t_xy_point start_pos, char face, char mask)
 {
@@ -47,11 +33,27 @@ void	reset_map(char **map, t_xy_point start_pos, char face, char mask)
 	}
 }
 
+t_status	check_flood_fill(char **map)
+{
+	uint32_t	y;
+
+	y = 0;
+	while (map[y])
+	{
+		if (ft_strchr(map[y], '0'))
+			return (STAT_FALSE);
+		y++;
+	}
+	return (STAT_TRUE);
+}
+
 t_status	check_point(char **map, t_xy_point check, t_list *stack)
 {
 	t_xy_point	tmp;
 
-	if (map[check.y][check.x] != '0')
+	if ((check.x < 0) || (check.y < 0))
+		return (STAT_FALSE);
+	else if (map[check.y][check.x] != '0')
 		return (STAT_FALSE);
 	while (stack)
 	{
@@ -63,51 +65,46 @@ t_status	check_point(char **map, t_xy_point check, t_list *stack)
 	return (STAT_TRUE);
 }
 
-t_status	ff_algorithm(char **map, t_xy_point start_pos, t_list **stack, char mask)
+t_status	ff_algorithm(char **map, t_xy_point	start, char mask)
 {
-	map[start_pos.y][start_pos.x] = mask;
-	drop_node(stack);
-	if ((start_pos.x > 1) && check_point(map, (t_xy_point) {start_pos.x - 1, start_pos.y}, *stack) == STAT_TRUE)
+	t_list		*stack;
+	t_status	status;
+
+	stack = NULL;
+	if (new_node(start, &stack) != STAT_TRUE)
+		return (STAT_MEM_FAIL);
+	status = STAT_TRUE;
+	while (status == STAT_TRUE)
 	{
-		if (create_new_node((t_xy_point) {start_pos.x - 1, start_pos.y}, stack) == STAT_MEM_FAIL)
-			return (STAT_MEM_FAIL);
+		map[start.y][start.x] = mask;
+		drop_node(&stack);
+		if (check_point(map, (t_xy_point) {start.x - 1, start.y}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point) {start.x - 1, start.y}, &stack);
+		if (check_point(map, (t_xy_point) {start.x + 1, start.y}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point) {start.x + 1, start.y}, &stack);
+		if (check_point(map, (t_xy_point) {start.x, start.y - 1}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point) {start.x, start.y - 1}, &stack);
+		if (check_point(map, (t_xy_point) {start.x, start.y + 1}, stack) == STAT_TRUE)
+			status = new_node((t_xy_point) {start.x, start.y + 1}, &stack);
+		if (stack == NULL)
+			break ;
+		start = *((t_xy_point *) stack->content);
 	}
-	if (check_point(map, (t_xy_point) {start_pos.x + 1, start_pos.y}, *stack) == STAT_TRUE)
-	{
-		if (create_new_node((t_xy_point) {start_pos.x + 1, start_pos.y}, stack) == STAT_MEM_FAIL)
-			return (STAT_MEM_FAIL);
-	}
-	if ((start_pos.y > 1) && check_point(map, (t_xy_point) {start_pos.x, start_pos.y - 1}, *stack) == STAT_TRUE)
-	{
-		if (create_new_node((t_xy_point) {start_pos.x, start_pos.y - 1}, stack) == STAT_MEM_FAIL)
-			return (STAT_MEM_FAIL);
-	}
-	if (check_point(map, (t_xy_point) {start_pos.x, start_pos.y + 1}, *stack) == STAT_TRUE)
-	{
-		if (create_new_node((t_xy_point) {start_pos.x, start_pos.y + 1}, stack) == STAT_MEM_FAIL)
-			return (STAT_MEM_FAIL);
-	}
-	if (*stack == NULL)
-		return (STAT_TRUE);
-	return (ff_algorithm(map, *((t_xy_point *) (*stack)->content), stack, mask));
+	free_stack(&stack);
+	return (status);
 }
 
 t_status	flood_fill(char **map, char mask)
 {
+	t_status	status;
 	t_vector	start_tmp;
 	t_xy_point	start;
-	t_status	status;
-	t_list		*stack;
 	char		face;
 
-	stack = NULL;
 	start_tmp = find_pos_map(map);
-	start = (t_xy_point) {ft_part_int(start_tmp.x),ft_part_int(start_tmp.y)};
-	status = create_new_node(start, &stack);
-	if (status != STAT_TRUE)
-		return (status);
+	start = (t_xy_point) {start_tmp.x, start_tmp.y};
 	face = map[start.y][start.x];
-	status = ff_algorithm(map, start, &stack, mask);
+	status = ff_algorithm(map, start, mask);
 	if (status == STAT_TRUE)
 	{
 		status = check_flood_fill(map);
@@ -116,6 +113,5 @@ t_status	flood_fill(char **map, char mask)
 		else
 			status = STAT_PARSE_ERR;
 	}
-	free_stack(&stack);
 	return (status);
 }

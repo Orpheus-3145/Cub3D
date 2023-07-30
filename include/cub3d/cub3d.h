@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 01:39:29 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 04:18:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define FOV .66
 # define BPP 4	                // bytes of every pixel (int type)
 # define KEY_ROT_SPEED 0.09
-# define MOUSE_ROT_SPEED 0.6
+# define MOUSE_ROT_SPEED -0.6
 # define MOV_SPEED 0.1
 # define SIZE_SQUARE 50.
 # define LEFT_ROTATION (double) M_PI_2 * -1

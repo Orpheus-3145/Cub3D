@@ -6,13 +6,13 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/04 00:13:19 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/20 21:13:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 05:03:44 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	create_new_node(t_xy_point point, t_list **stack)
+t_status	new_node(t_xy_point point, t_list **stack)
 {
 	t_xy_point	*dyn_point;
 	t_list		*new;

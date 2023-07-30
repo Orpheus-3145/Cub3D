@@ -6,11 +6,28 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/30 03:15:26 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 04:11:28 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
+
+// int32_t	shadow_wall_color(int32_t base_color, t_xy_upoint size, uint32_t x, uint32_t y)
+// {
+// 	t_vector	pol;
+// 	double		distance;
+// 	double		d_max;
+// 	int32_t		alpha;
+
+// 	pol = (t_vector) {size.x / 2, size.y};
+// 	distance = dist_vector(pol, (t_vector) {x, y});
+// 	d_max = sqrt(pow(size.x / 2, 2) + pow(size.y / 2, 2));
+// 	alpha = -1 * 128 * distance / d_max + 255;
+// 	base_color >>= 8;
+// 	base_color <<= 8;
+// 	base_color |= alpha;
+// 	return (base_color);
+// }
 
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
@@ -22,10 +39,11 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 	row = -1;
 	while (++row < cube->app->size_screen.y)
 	{
-		if (row < (uint32_t) data->draw_start)	// draw floor
+		if (row < (uint32_t) data->draw_start)	// draw ceiling
 			color = cube->input->ceil_rgb;
-		else if (row > (uint32_t) data->draw_end) // draw ceiling
+		else if (row > (uint32_t) data->draw_end) // draw floor
 			color = cube->input->floor_rgb;
+			// color = shadow_wall_color(cube->input->floor_rgb, cube->app->size_screen, column, row);
 		else								// draw walls
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);
@@ -65,6 +83,8 @@ void	dda_algorithm(t_map *map, t_data_dda *data)
 // set distance from edge to the next edge square and which is the direction of the step
 void	side_dist_and_step(t_data_dda *data, t_vector pos_map)
 {
+	data->delta_side_dist.x = ft_dmod(1 / data->ray_dir.x);
+	data->delta_side_dist.y = ft_dmod(1 / data->ray_dir.y);
 	if (data->ray_dir.x < 0)
 	{
 		data->side_dist.x = ((pos_map.x - ft_part_int(pos_map.x))) * data->delta_side_dist.x;
@@ -100,14 +120,6 @@ void	update_img(void *param)
 	{
 		camera_x = 2 * x / (double) (cube->app->size_screen.x - 1) - 1;
 		cube->data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
-		if (cube->data.ray_dir.x == 0)
-			cube->data.delta_side_dist.x = 1e30;
-		else
-			cube->data.delta_side_dist.x = ft_dmod(1 / cube->data.ray_dir.x);
-		if (cube->data.ray_dir.y == 0)
-			cube->data.delta_side_dist.y = 1e30;
-		else
-			cube->data.delta_side_dist.y = ft_dmod(1 / cube->data.ray_dir.y);
 		side_dist_and_step(&cube->data, cube->map->pos_map);
 		dda_algorithm(cube->map, &cube->data);
 		if ((cube->data.side == DIR_EAST) || (cube->data.side == DIR_WEST))

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 03:08:30 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 04:22:54 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	else if (action == MLX_RELEASE)
 	{
 		mlx_get_mouse_pos(cube->app->win, (int32_t *) &new_pos.x, (int32_t *) &new_pos.y);
-		rotation = find_radiants(cube, new_pos.x - old_pos.x, new_pos);
-		rotation *= -1 * MOUSE_ROT_SPEED;
-		cube->map->dir = rotate_vector(cube->map->dir, rotation);
-		cube->map->plane = rotate_vector(cube->map->plane, rotation);
-		old_pos = (t_xy_point) {0, 0};
+		rotation = find_radiants(cube, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
+		rotate_pov(cube, rotation);
 	}
 }
 
@@ -106,7 +103,7 @@ void    minimap_hook(void *param)
 	cube = (t_cube *) param;
 	if ((curr_pos.x == 0.) && (curr_pos.y == 0.))
 	{
-		draw_minimap(cube->app, cube->map, cube->input);
+		draw_minimap(cube->app, cube->map);
 		curr_pos = cube->map->pos_map;
 	}
 	if ((curr_dir.x == 0.) && (curr_dir.y == 0.))
@@ -114,11 +111,11 @@ void    minimap_hook(void *param)
 	if ((curr_pos.x != cube->map->pos_map.x) || (curr_pos.y != cube->map->pos_map.y))
 	{
 		curr_pos = cube->map->pos_map;
-		draw_minimap(cube->app, cube->map, cube->input);
+		draw_minimap(cube->app, cube->map);
 	}
 	else if ((curr_dir.x != cube->map->dir.x) || (curr_dir.y != cube->map->dir.y))
 	{
 		curr_dir = cube->map->dir;
-		draw_minimap(cube->app, cube->map, cube->input);
+		draw_minimap(cube->app, cube->map);
 	}
 }

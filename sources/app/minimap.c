@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 02:49:14 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 04:43:02 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ void	draw_ray_fov(t_app *app, t_map *map, uint32_t x)
 	}
 }
 
-void	draw_minimap(t_app *app, t_map *map, t_input *input)
+int32_t	get_color(char **map, int32_t x, int32_t y)
+{
+	if (ft_strchr("NSWE0", map[y][x]))
+		return (RGBA_GREEN);		// floor
+	else if (map[y][x] == '1')
+		return (RGBA_BLACK);		// wall
+	else 
+		return (RGBA_WHITE);		// empty
+}
+
+void	draw_minimap(t_app *app, t_map *map)
 {
 	uint32_t	x;
 	uint32_t	y;
-	uint32_t	u_x;
-	uint32_t	u_y;
+	int32_t		color;
 
 	y = 0;
 	while (y < app->size_minimap.y)
@@ -42,16 +51,8 @@ void	draw_minimap(t_app *app, t_map *map, t_input *input)
 		x = 0;
 		while (x < app->size_minimap.x)
 		{
-			u_x = x / map->unit;
-			u_y = y / map->unit;
-			if ((u_x == (uint32_t) map->pos_map.x) && (u_y == (uint32_t) map->pos_map.y))
-				mlx_put_pixel(app->minimap, x, y, RGBA_BLUE);		// player
-			if ((map->map_2d[u_y][u_x] == '0') || ft_strchr("NSWE", map->map_2d[u_y][u_x]))
-				mlx_put_pixel(app->minimap, x, y, input->floor_rgb);	// floor
-			else if (map->map_2d[u_y][u_x] == '1')
-				mlx_put_pixel(app->minimap, x, y, RGBA_BLACK);		// wall
-			else if (map->map_2d[u_y][u_x] == ' ')
-				mlx_put_pixel(app->minimap, x, y, RGBA_WHITE);		// empty
+			color = get_color(map->map_2d, x / map->unit, y / map->unit);
+			mlx_put_pixel(app->minimap, x, y, color);
 			draw_ray_fov(app, map, x++);
 		}
 		y++;

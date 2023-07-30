@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:45:27 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 00:56:57 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 03:46:00 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ t_vector	sum_vector(t_vector v1, t_vector v2)
 t_vector	prod_scalar(t_vector vect, double scalar)
 {
 	return ((t_vector) {vect.x * scalar, vect.y * scalar});
+}
+
+double	dist_vector(t_vector v1, t_vector v2)
+{
+	return (sqrt(pow(v1.x - v2.x, 2.) + pow(v1.y - v2.y, 2.)));
 }
