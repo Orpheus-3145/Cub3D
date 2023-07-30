@@ -6,13 +6,13 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:51:03 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:59:05 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	check_surroundings(char **map, t_xy_upoint pt, uint32_t row_col)
+t_status	check_surroundings(char **map, t_xy_point pt, uint32_t row_col)
 {
 	if (row_col == 0)
 	{
@@ -53,12 +53,12 @@ t_status	check_row(char **map, uint32_t row)
 			j++;
 		if (map[row][j] == '\0')
 			break ;
-		status = check_surroundings(map, (t_xy_upoint) {j, row}, 0);
+		status = check_surroundings(map, (t_xy_point) {j, row}, 0);
 		if (status != STAT_TRUE)
 			return (status);
 		while (ft_strchr("01NSWE", map[row][j]))
 			j++;
-		status = check_surroundings(map, (t_xy_upoint) {j - 1, row}, 0);
+		status = check_surroundings(map, (t_xy_point) {j - 1, row}, 0);
 		if (status != STAT_TRUE)
 			return (status);
 	}
@@ -78,12 +78,12 @@ t_status	check_col(char **map, uint32_t column)
 			j++;
 		if (map[j] == NULL)
 			break ;
-		status = check_surroundings(map, (t_xy_upoint) {column, j}, 1);
+		status = check_surroundings(map, (t_xy_point) {column, j}, 1);
 		if (status != STAT_TRUE)
 			return (status);
 		while (map[j] && ft_strchr("01NSWE", map[j][column]))
 			j++;
-		status = check_surroundings(map, (t_xy_upoint) {column, j - 1}, 1);
+		status = check_surroundings(map, (t_xy_point) {column, j - 1}, 1);
 		if (status != STAT_TRUE)
 			return (status);
 	}

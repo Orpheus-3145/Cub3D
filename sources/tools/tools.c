@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:25:50 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:19:27 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 18:22:52 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ char	**rotate_matrix(t_cube *cube)
 	return (rot_mat);
 }
 
-double	find_radiants(t_xy_upoint size_screen, int32_t radius, t_xy_point pos)
+double	find_radiants(t_xy_point size_screen, int32_t radius, t_xy_point pos)
 {
 	bool		sign;
 	double		distance;
 	double		alpha;
-	t_xy_upoint	centre;
+	t_xy_point	centre;
 
-	centre = (t_xy_upoint){size_screen.x / 2, size_screen.y / 2};
+	centre = (t_xy_point){size_screen.x / 2, size_screen.y / 2};
 	sign = false;
 	if (radius < 0)
 	{

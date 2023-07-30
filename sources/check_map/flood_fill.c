@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:46:08 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:59:05 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ t_status	check_point(char **map, t_xy_point check, t_list *stack)
 {
 	t_xy_point	tmp;
 
-	if ((check.x < 0) || (check.y < 0))
-		return (STAT_FALSE);
-	else if (map[check.y][check.x] != '0')
+	if (map[check.y][check.x] != '0')
 		return (STAT_FALSE);
 	while (stack)
 	{

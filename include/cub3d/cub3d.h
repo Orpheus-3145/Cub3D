@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:22:00 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:57:16 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # define MOUSE_ROT_SPEED -0.6
 # define MOV_SPEED 0.1
 # define SIZE_SQUARE 50.
-# define LEFT_ROTATION (double) -M_PI_2
-# define RIGHT_ROTATION (double) M_PI_2
+# define CAMERA_ROTATION (double) M_PI_2
 # define RGBA_RED 0xFF0000FF
 # define RGBA_GREEN 0x00FF00FF
 # define RGBA_BLUE 0x0000FFFF

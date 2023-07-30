@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:11:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 18:29:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ void		draw_minimap(t_app *app, t_map *map);
 void		rotate_pov(t_cube *cube, double radiants);
 
 void		mov_pov(t_map *map, double scalar, double radiants);
+
+void		rotate_mouse_pov(t_cube *cube);
 
 #endif

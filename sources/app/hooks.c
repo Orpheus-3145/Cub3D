@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:18:39 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 18:32:58 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	double				rotation;
 
 	cube = (t_cube *) param;
-	mods += 1;
+	(void) mods;
 	if (button != MLX_MOUSE_BUTTON_LEFT)
 		return ;
 	else if (action == MLX_PRESS)
@@ -50,20 +50,23 @@ void    key_hook(void *param)
 	t_cube  *cube;
 
 	cube = (t_cube *)param;
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)	// move forward
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)
 		mov_pov(cube->map, MOV_SPEED, 0);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_A) == true)	// move left
-		mov_pov(cube->map, MOV_SPEED, LEFT_ROTATION);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_S) == true)	// move backwards
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_A) == true)
+		mov_pov(cube->map, MOV_SPEED, CAMERA_ROTATION * -1);
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_S) == true)
 		mov_pov(cube->map, MOV_SPEED, M_PI);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)	// move right
-		mov_pov(cube->map, MOV_SPEED, RIGHT_ROTATION);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)		// rotate right
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)
+		mov_pov(cube->map, MOV_SPEED, CAMERA_ROTATION);
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)
 		rotate_pov(cube, KEY_ROT_SPEED);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)		// rotate left
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)
 		rotate_pov(cube, KEY_ROT_SPEED * -1);
-	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE))			// close app
+	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE) == true)
 		kill_app_hook(param);
+	if (mlx_is_mouse_down(cube->app->win, MLX_MOUSE_BUTTON_LEFT) == true)
+		rotate_mouse_pov(cube);
+		
 }
 
 void    loop_hook_jump(void *param)

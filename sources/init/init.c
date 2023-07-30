@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/30 17:41:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:59:05 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ t_app	*init_app(void)
 	app->win = NULL;
 	app->screen = NULL;
 	app->minimap = NULL;
-	app->size_win = (t_xy_upoint){0, 0};
-	app->size_screen = (t_xy_upoint){0, 0};
-	app->size_minimap = (t_xy_upoint){0, 0};
-	app->pos_screen = (t_xy_upoint){0, 0};
-	app->pos_minimap = (t_xy_upoint){0, 0};
+	app->size_win = (t_xy_point){0, 0};
+	app->size_screen = (t_xy_point){0, 0};
+	app->size_minimap = (t_xy_point){0, 0};
+	app->pos_screen = (t_xy_point){0, 0};
+	app->pos_minimap = (t_xy_point){0, 0};
 	app->n_tex = NULL;
 	app->s_tex = NULL;
 	app->w_tex = NULL;

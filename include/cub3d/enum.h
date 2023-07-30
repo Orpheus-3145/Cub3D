@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:33:14 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/30 17:59:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,9 @@ typedef enum s_status
 
 typedef struct s_xy_point
 {
-	long	x;
-	long	y;
-}	t_xy_point;
-
-typedef struct s_xy_upoint
-{
 	uint32_t	x;
 	uint32_t	y;
-}	t_xy_upoint;
+}	t_xy_point;
 
 typedef struct s_vector
 {
@@ -79,11 +73,11 @@ typedef struct s_app
 	mlx_t			*win;
 	mlx_image_t		*screen;
 	mlx_image_t		*minimap;
-	t_xy_upoint		size_win;
-	t_xy_upoint		size_screen;
-	t_xy_upoint		size_minimap;
-	t_xy_upoint		pos_screen;
-	t_xy_upoint		pos_minimap;
+	t_xy_point		size_win;
+	t_xy_point		size_screen;
+	t_xy_point		size_minimap;
+	t_xy_point		pos_screen;
+	t_xy_point		pos_minimap;
 	int32_t			torch_i;
 	mlx_texture_t	**torch;
 	mlx_texture_t	*n_tex;
