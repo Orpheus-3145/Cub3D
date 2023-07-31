@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:59:57 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/31 20:36:05 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_int_point
 	int32_t	x;
 	int32_t	y;
 }	t_int_point;
-
 
 typedef struct s_xy_point
 {
