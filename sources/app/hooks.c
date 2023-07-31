@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 18:32:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/31 20:25:57 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	kill_app_hook(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
 {
 	t_cube				*cube;
 	static t_xy_point	old_pos;
@@ -45,9 +45,9 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	}
 }
 
-void    key_hook(void *param)
+void	key_hook(void *param)
 {
-	t_cube  *cube;
+	t_cube	*cube;
 
 	cube = (t_cube *)param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)
@@ -66,15 +66,14 @@ void    key_hook(void *param)
 		kill_app_hook(param);
 	if (mlx_is_mouse_down(cube->app->win, MLX_MOUSE_BUTTON_LEFT) == true)
 		rotate_mouse_pov(cube);
-		
 }
 
-void    loop_hook_jump(void *param)
+void	loop_hook_jump(void *param)
 {
-	t_cube      *cube;
-	int         range;
-	static int  status = 0;
-	static int  reverse = 0;
+	t_cube		*cube;
+	int			range;
+	static int	status = 0;
+	static int	reverse = 0;
 
 	range = 50;
 	cube = (t_cube *)param;
@@ -97,28 +96,30 @@ void    loop_hook_jump(void *param)
 	}
 }
 
-void    minimap_hook(void *param)
+void	minimap_hook(void *param)
 {
 	static t_vector	curr_pos;
 	static t_vector	curr_dir;
-	t_cube		*cube;
+	t_cube			*cube;
+	t_map			*map;
 
-	cube = (t_cube *) param;
+	cube = (t_cube *)param;
+	map = cube->map;
 	if ((curr_pos.x == 0.) && (curr_pos.y == 0.))
 	{
-		draw_minimap(cube->app, cube->map);
-		curr_pos = cube->map->pos_map;
+		draw_minimap(cube->app, map);
+		curr_pos = map->pos_map;
 	}
 	if ((curr_dir.x == 0.) && (curr_dir.y == 0.))
-		curr_dir = cube->map->dir;
-	if ((curr_pos.x != cube->map->pos_map.x) || (curr_pos.y != cube->map->pos_map.y))
+		curr_dir = map->dir;
+	if ((curr_pos.x != map->pos_map.x) || (curr_pos.y != map->pos_map.y))
 	{
-		curr_pos = cube->map->pos_map;
-		draw_minimap(cube->app, cube->map);
+		curr_pos = map->pos_map;
+		draw_minimap(cube->app, map);
 	}
-	else if ((curr_dir.x != cube->map->dir.x) || (curr_dir.y != cube->map->dir.y))
+	else if ((curr_dir.x != map->dir.x) || (curr_dir.y != map->dir.y))
 	{
-		curr_dir = cube->map->dir;
-		draw_minimap(cube->app, cube->map);
+		curr_dir = map->dir;
+		draw_minimap(cube->app, map);
 	}
 }

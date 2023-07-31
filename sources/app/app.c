@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 19:48:08 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/31 20:26:54 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ t_status	set_textures(t_cube *cube)
 	return (STAT_TRUE);
 }
 
+// mlx_mouse_hook(cube->app->win, &mouse_hook, cube);
 t_status	set_hooks(t_cube *cube)
 {
 	mlx_close_hook(cube->app->win, &kill_app_hook, cube);
-	// mlx_mouse_hook(cube->app->win, &mouse_hook, cube);
 	if (mlx_loop_hook(cube->app->win, &update_img, cube) == false)
 		return (STAT_MLX_ERR);
 	else if (mlx_loop_hook(cube->app->win, &loop_hook_jump, cube) == false)
@@ -75,16 +75,17 @@ t_status	set_hooks(t_cube *cube)
 		return (STAT_MLX_ERR);
 	mlx_loop_hook(cube->app->win, &torch_hook, cube);
 	return (STAT_TRUE);
-	
 }
 
 t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 {
-	cube->app->size_win = (t_xy_point) {width, height};
-	cube->app->win = mlx_init(cube->app->size_win.x, cube->app->size_win.y, "CUB3D", true);
+	cube->app->size_win = (t_xy_point){width, height};
+	cube->app->win = mlx_init(cube->app->size_win.x, \
+		cube->app->size_win.y, "CUB3D", true);
 	if (cube->app->win == NULL)
 		return (STAT_MLX_ERR);
-	if (set_screen(cube->app, width * SCREEN_SIZE_RATE, height * SCREEN_SIZE_RATE) == STAT_MLX_ERR)
+	if (set_screen(cube->app, width * SCREEN_SIZE_RATE, \
+		height * SCREEN_SIZE_RATE) == STAT_MLX_ERR)
 		return (STAT_MLX_ERR);
 	if (set_minimap(cube, width, height) == STAT_MLX_ERR)
 		return (STAT_MLX_ERR);
