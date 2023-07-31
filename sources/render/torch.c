@@ -6,55 +6,14 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:51:43 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/07/31 19:55:00 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/31 21:10:51 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-void	delete_torch_sprite(t_app *app)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 49)
-		free(app->torch[i]);
-	free(app->torch);
-	app->torch = NULL;
-}
-
-int	load_torch_sprite(t_app *app)
-{
-	int		i;
-	char	*num;
-	char	default_path[] = "./maps/torch/";
-	char	*call;
-
-	app->torch_i = 0;
-	app->torch = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * (49 + 1));
-	if (!app->torch)
-		return (errno);
-	app->torch[49] = NULL;
-	i = -1;
-	while (++i < 49)
-	{
-		num = ft_itoa(i + 1);
-		if (!num)
-			return (errno);
-		call = ft_strjoin(default_path, ".png", num, false);
-		free(num);
-		if (!call)
-			return (errno);
-		app->torch[i] = mlx_load_png(call);
-		free(call);
-		if (!app->torch[i])
-			return (errno);
-	}
-	return (0);
-}
-
 // Helper function to draw a scaled pixel at (x, y) with the specified color
-void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
+static void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 {
 	double		scale_factor;
 	t_int_point	scale;
