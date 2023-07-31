@@ -37,6 +37,7 @@ void	free_app(t_app *app)
 {
 	if (app)
 	{
+		delete_torch_sprite(app);
 		if (app->win)
 		{
 			if (app->n_tex)
