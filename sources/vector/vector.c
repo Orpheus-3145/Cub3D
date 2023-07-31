@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:45:27 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 03:46:00 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/31 19:48:37 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ t_vector	rotate_vector(t_vector old, double rad)
 
 t_vector	sum_vector(t_vector v1, t_vector v2)
 {
-	return ((t_vector) {v1.x + v2.x, v1.y + v2.y});
+	return ((t_vector){v1.x + v2.x, v1.y + v2.y});
 }
 
 t_vector	prod_scalar(t_vector vect, double scalar)
 {
-	return ((t_vector) {vect.x * scalar, vect.y * scalar});
+	return ((t_vector){vect.x * scalar, vect.y * scalar});
 }
 
 double	dist_vector(t_vector v1, t_vector v2)

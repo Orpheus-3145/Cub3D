@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 18:33:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/31 20:04:00 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	mov_pov(t_map *map, double scalar, double radiants)
 	t_vector	rot_vect;
 	t_vector	tmp;
 	t_vector	radius_dir;
-	
+
 	rot_vect = rotate_vector(map->dir, radiants);
 	tmp = prod_scalar(rot_vect, scalar);
 	radius_dir.x = (ft_dmod(tmp.x) / tmp.x) * map->radius;

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 18:28:41 by fra           ########   odam.nl         */
+/*   Updated: 2023/07/31 19:48:08 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_status	set_screen(t_app *app, uint32_t width, uint32_t height)
 {
-	app->size_screen = (t_xy_point) {width * SCREEN_SIZE_RATE, height * SCREEN_SIZE_RATE};
-	app->pos_screen = (t_xy_point) {(app->size_win.x - app->size_screen.x) / 2, (app->size_win.y - app->size_screen.y) / 2};
+	app->size_screen = (t_xy_point){width * SCREEN_SIZE_RATE, height * SCREEN_SIZE_RATE};
+	app->pos_screen = (t_xy_point){(app->size_win.x - app->size_screen.x) / 2, (app->size_win.y - app->size_screen.y) / 2};
 	app->screen = mlx_new_image(app->win, app->size_screen.x, app->size_screen.y);
 	if (app->screen == NULL)
 		return (STAT_MLX_ERR);
@@ -27,12 +27,12 @@ t_status	set_screen(t_app *app, uint32_t width, uint32_t height)
 
 t_status	set_minimap(t_cube *cube, uint32_t width, uint32_t height)
 {
-	cube->app->pos_minimap = (t_xy_point) {cube->app->pos_screen.x + width / 40, cube->app->pos_screen.y + height / 40};
+	cube->app->pos_minimap = (t_xy_point){cube->app->pos_screen.x + width / 40, cube->app->pos_screen.y + height / 40};
 	if (cube->map->width < cube->map->height)
 		cube->map->unit = cube->app->size_screen.x * MINIMAP_SIZE_RATE / cube->map->width;
 	else
 		cube->map->unit = cube->app->size_screen.y * MINIMAP_SIZE_RATE / cube->map->height;
-	cube->app->size_minimap = (t_xy_point) {cube->map->width * cube->map->unit, cube->map->height * cube->map->unit};
+	cube->app->size_minimap = (t_xy_point){cube->map->width * cube->map->unit, cube->map->height * cube->map->unit};
 	cube->app->minimap = mlx_new_image(cube->app->win, cube->app->size_minimap.x, cube->app->size_minimap.y);
 	if (cube->app->minimap == NULL)
 		return (STAT_MLX_ERR);
