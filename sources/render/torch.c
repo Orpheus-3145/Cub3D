@@ -68,7 +68,7 @@ void draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 }
 
 // Function to draw the torch image scaled on the screen
-void draw_torch(t_cube *cube)
+static void draw_torch(t_cube *cube)
 {
 	t_int_point	i;
 	t_int_point	center;

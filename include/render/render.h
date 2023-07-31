@@ -13,6 +13,11 @@
 #ifndef RENDER_H
 # define RENDER_H
 
+// color_effects.c
+uint32_t		enhance_color(uint32_t comp, double dist, double max_d, int limit);
+uint32_t		add_shadow(t_data_dda *data, uint32_t color);
+uint32_t		add_redish(t_data_dda *data, uint32_t color);
+
 // render.c
 void			draw_column(t_cube *cube, uint32_t column, t_data_dda *data);
 
@@ -33,9 +38,10 @@ uint32_t		get_wall_color(t_data_dda *data);
 
 
 // torch.c
-void			torch_hook(void *param);
 void			delete_torch_sprite(t_app *app);
 int				load_torch_sprite(t_app *app);
+void			draw_scaled_pixel(t_cube *cube, int x, int y, int color);
+void			torch_hook(void *param);
 
 // wall_attributes.c
 void			get_wall_attributes(t_cube *cube, t_data_dda *d);
