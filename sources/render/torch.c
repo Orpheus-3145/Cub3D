@@ -13,7 +13,7 @@
 #include "cub3d/cub3d.h"
 
 // Helper function to draw a scaled pixel at (x, y) with the specified color
-static void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
+void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 {
 	double		scale_factor;
 	t_int_point	scale;

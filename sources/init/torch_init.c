@@ -30,14 +30,14 @@ static int	init_torch_sprites(t_app *app)
 	char	*num;
 	int		i;
 
-	default_path = "./maps/torch/";
+	ft_strlcpy(default_path, "./maps/torch/", 14);
 	i = -1;
 	while (++i < 49)
 	{
 		num = ft_itoa(i + 1);
 		if (!num)
 			return (errno);
-		call = ft_strjoin(default_path, ".png", num, false);
+		call = ft_strjoin(&default_path[0], ".png", num, false);
 		free(num);
 		if (!call)
 			return (errno);
@@ -46,6 +46,7 @@ static int	init_torch_sprites(t_app *app)
 		if (!app->torch[i])
 			return (errno);
 	}
+	return (0);
 }
 
 int	load_torch_sprite(t_app *app)
