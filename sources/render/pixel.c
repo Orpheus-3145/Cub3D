@@ -39,18 +39,78 @@ mlx_texture_t	*get_texture(t_app *app, t_direction side)
 	return (app->w_tex);
 }
 
+uint32_t	enhance_color(uint32_t comp, double dist, double max_d, int limit)
+{
+	double	factor;
+
+	factor = 1.0 - (dist / max_d);
+    if (factor < 0.0)
+        factor = 0.0;
+    else if (factor > 1.0)
+	{
+        factor = 1.0;
+	}
+	if ((uint32_t)limit != comp)
+		comp = (comp + (limit - comp) * factor);
+	else
+		comp = comp * factor;
+	if (comp > 255)
+		comp = 255;
+	return (comp);
+}
+
+uint32_t	add_shadow(t_data_dda *data, uint32_t color)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	r = (color >> 24) & 0xFF;
+    g = (color >> 16) & 0xFF;
+    b = (color >> 8) & 0xFF;
+    a = color & 0xFF;
+	r = enhance_color(r, data->wall_dist, 10.0, r);
+	g = enhance_color(g, data->wall_dist, 10.0, g);
+	b = enhance_color(b, data->wall_dist, 10.0, b);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
+uint32_t add_redish(t_data_dda *data, uint32_t color)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	r = (color >> 24) & 0xFF;
+    g = (color >> 16) & 0xFF;
+    b = (color >> 8) & 0xFF;
+    a = color & 0xFF;
+	r = enhance_color(r, data->wall_dist, 3.0, 255);
+	g = enhance_color(g, data->wall_dist, 3.0, 150);
+	// a = enhance_color(a, data->wall_dist, 3.0, 255);
+	a = enhance_color(a, data->wall_dist, 3.0, 50);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
 uint32_t	get_wall_color(t_data_dda *data)
 {
+	int	color;
+
 	data->wall_texture.y = (int)data->texture_pos & (data->tmp->height - 1);
 	data->texture_pos += data->progress;
-	return (pick_pixel(data->tmp, \
-			(int)round(data->wall_texture.x), \
-			(int)round(data->wall_texture.y)));
+	color = pick_pixel(data->tmp, (int)round(data->wall_texture.x), \
+		(int)round(data->wall_texture.y));
+	color = add_shadow(data, color);
+	color = add_redish(data, color);
+	return (color);
 }
 
 void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 {
-	d->draw_start = (-d->line_height + cube->app->size_screen.y) / 2 + d->pitch;
+	d->draw_start = (-d->line_height + cube->app->size_screen.y)\
+			 / 2 + d->pitch;
 	if (d->draw_start < 0)
 		d->draw_start = 0;
 	d->draw_end = (d->line_height + cube->app->size_screen.y) / 2 + d->pitch; 

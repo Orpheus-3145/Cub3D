@@ -33,6 +33,13 @@ typedef enum s_status
 	STAT_MLX_ERR,
 }	t_status;
 
+typedef struct s_int_point
+{
+	int32_t	x;
+	int32_t	y;
+}	t_int_point;
+
+
 typedef struct s_xy_point
 {
 	uint32_t	x;

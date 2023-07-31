@@ -42,44 +42,59 @@ int load_torch_sprite(t_app *app)
 	return (0);
 }
 
-void	draw_torch(t_cube *cube)
+// Helper function to draw a scaled pixel at (x, y) with the specified color
+void draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 {
-	uint32_t	i;
-	uint32_t	j;
-	int32_t		color;
-	int32_t		tmp;
 	double		scale_factor;
+	t_int_point	scale;
+	t_int_point	i;
 
-	scale_factor = (double)2;
-	i = -1;
-	while (++i < cube->app->torch[cube->app->torch_i]->width)
+	scale_factor = 5.0;
+	scale.y = (cube->app->size_win.y - \
+		cube->app->torch[cube->app->torch_i]->height * scale_factor) + \
+			(y - cube->app->torch[cube->app->torch_i]->height / 2) * scale_factor;
+	scale.x = (x - cube->app->torch[cube->app->torch_i]->width / 2) * scale_factor;
+	i.x = scale.x - 1;
+	while (++i.x < scale.x + scale_factor)
 	{
-		j = -1;
-		while (++j < cube->app->torch[cube->app->torch_i]->height)
+		i.y = scale.y - 1;
+		while (++i.y < scale.y + scale_factor)
 		{
-			color = pick_pixel(cube->app->torch[cube->app->torch_i], i + 1, j + 1);
-			tmp = color & 0xFF;
-			if (tmp != 0)
-			{
-				int scaled_i = i * scale_factor;
-                int scaled_j = j * scale_factor;
+			if (i.x >= 0 && i.x <= (int32_t)cube->app->size_screen.x \
+				&& i.y >= 0 && i.y <= (int32_t)cube->app->size_screen.y)
+			mlx_put_pixel(cube->app->screen, i.x, i.y, color);
+		}
+	}
+}
 
-                // Draw the scaled pixel
-                for (int x = scaled_i; x < scaled_i + scale_factor; x++)
-                {
-                    for (int y = scaled_j; y < scaled_j + scale_factor; y++)
-                    {
-                        mlx_put_pixel(cube->app->screen, x, y, color);
-                    }
-                }
-			}
+// Function to draw the torch image scaled on the screen
+void draw_torch(t_cube *cube)
+{
+	t_int_point	i;
+	t_int_point	center;
+	t_app		*app;
+	int 		color;
+
+	i.x = -1;
+	i.y = -1;
+	app = cube->app;
+	center.x = app->torch[app->torch_i]->width / 3;
+	center.y = app->torch[app->torch_i]->height * 2 / 3;
+	while (++i.x < (int32_t)app->torch[app->torch_i]->width)
+	{
+		i.y = -1;
+		while (++i.y < (int32_t)app->torch[app->torch_i]->height)
+		{
+			color = pick_pixel(app->torch[app->torch_i], i.x + 1, i.y + 1);
+			if ((color & 0xFF) > 120)
+				draw_scaled_pixel(cube, i.x + center.x, i.y + center.y, color);
 		}
 	}
 }
 
 void	torch_hook(void *param)
 {
-	t_cube *cube;
+	t_cube 		*cube;
 	static int	delay = 0;
 
 	cube = (t_cube *)param;
