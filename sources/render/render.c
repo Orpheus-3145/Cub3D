@@ -6,12 +6,31 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/30 17:59:05 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 00:22:21 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
+int32_t	shadow_pix(t_cube *cube, uint32_t x, uint32_t y)
+{
+	t_xy_point	lightest_pt;
+	t_xy_point	darkest_pt;
+	double		dist;
+	double		dist_max;
+	int32_t		shad_alpha;
+	int32_t		color;
+	
+	lightest_pt = (t_xy_point) {0, cube->app->size_screen.y};
+	darkest_pt = (t_xy_point) {cube->app->size_screen.x, cube->app->size_screen.y / 2}; 
+	dist_max = sqrt(pow(darkest_pt.x - lightest_pt.x, 2) + pow(lightest_pt.y - darkest_pt.y, 2));
+	dist = sqrt(pow((double) x - (double) lightest_pt.x, 2) + pow((double) y - (double) lightest_pt.y, 2));
+	shad_alpha = -255 * ((double) (dist / dist_max)) + 255;
+	color = cube->input->floor_rgb;
+	color >>= 16;
+	color <<= 16;
+	return (color | shad_alpha);
+}
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 {
@@ -25,7 +44,8 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 		if (row < (uint32_t) data->draw_start)
 			color = cube->input->ceil_rgb;
 		else if (row > (uint32_t) data->draw_end)
-			color = cube->input->floor_rgb;
+			color = shadow_pix(cube, column, row);
+		}
 		else
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);

@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 17:51:47 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/31 20:35:56 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/31 23:58:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 // color_effects.c
 uint32_t		enhance(uint32_t comp, double dist, double max_d, int limit);
+
 uint32_t		add_shadow(t_data_dda *data, uint32_t color);
+
 uint32_t		add_redish(t_data_dda *data, uint32_t color);
 
 // render.c
+int32_t         shadow_pix(t_cube *cube, uint32_t x, uint32_t y);
+
 void			draw_column(t_cube *cube, uint32_t column, t_data_dda *data);
 
 void			side_dist_and_step(t_data_dda *data, t_vector pos_map);

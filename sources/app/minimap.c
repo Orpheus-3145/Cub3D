@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 20:21:19 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/31 22:02:20 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	draw_ray_fov(t_app *app, t_map *map, uint32_t x)
 	camera_x = 2 * x / (double) app->size_minimap.x - 1;
 	ray_fov = normalize_vector(sum_vector(map->dir, \
 		prod_scalar(map->plane, camera_x)));
-	curr_pos.x = map->pos_map.x * map->unit;
-	curr_pos.y = map->pos_map.y * map->unit;
-	while (map->map_2d[(int)(curr_pos.y / map->unit)] \
-		[(int)(curr_pos.x / map->unit)] != '1')
+	curr_pos.x = map->pos_map.x * map->PPS_minimap;
+	curr_pos.y = map->pos_map.y * map->PPS_minimap;
+	while (map->map_2d[(int)(curr_pos.y / map->PPS_minimap)] \
+		[(int)(curr_pos.x / map->PPS_minimap)] != '1')
 	{
 		mlx_put_pixel(app->minimap, \
 		(uint32_t)curr_pos.x, \
@@ -55,7 +55,7 @@ void	draw_minimap(t_app *app, t_map *map)
 		x = 0;
 		while (x < app->size_minimap.x)
 		{
-			color = get_color(map->map_2d, x / map->unit, y / map->unit);
+			color = get_color(map->map_2d, x / map->PPS_minimap, y / map->PPS_minimap);
 			mlx_put_pixel(app->minimap, x, y, color);
 			draw_ray_fov(app, map, x++);
 		}

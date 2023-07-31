@@ -6,12 +6,11 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:50:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/07/31 19:51:25 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/07/31 21:14:43 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-#include "render/render.h"
 
 // Calculate the starting and ending position to draw the wall on the screen
 static void	wall_draw_pos(t_cube *cube, t_data_dda *d)
