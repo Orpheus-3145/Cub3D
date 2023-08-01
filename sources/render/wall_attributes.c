@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:50:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/07/31 21:14:43 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 12:36:29 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 // Calculate the starting and ending position to draw the wall on the screen
 static void	wall_draw_pos(t_cube *cube, t_data_dda *d)
 {
-	d->draw_start = (cube->app->size_screen.y - d->line_height) / 2 + d->pitch;
+	d->draw_start = (cube->app->s_screen.y - d->line_height) / 2 + d->pitch;
 	if (d->draw_start < 0)
 		d->draw_start = 0;
-	d->draw_end = (d->line_height + cube->app->size_screen.y) / 2 + d->pitch;
-	if ((uint32_t)d->draw_end >= cube->app->size_screen.y)
-		d->draw_end = cube->app->size_screen.y - 1;
+	d->draw_end = (d->line_height + cube->app->s_screen.y) / 2 + d->pitch;
+	if ((uint32_t)d->draw_end >= cube->app->s_screen.y)
+		d->draw_end = cube->app->s_screen.y - 1;
 }
 
 // Calculate the wall's texture position on the screen
@@ -45,5 +45,5 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 	wall_text_pos(cube, d);
 	d->progress = 1.0 * d->tmp->height / d->line_height;
 	d->texture_pos = (d->draw_start - d->pitch + \
-			(d->line_height - cube->app->size_screen.y) / 2) * d->progress;
+			(d->line_height - cube->app->s_screen.y) / 2) * d->progress;
 }

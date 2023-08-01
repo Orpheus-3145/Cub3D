@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:51:43 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/01 12:23:53 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/01 12:50:00 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 	t_int_point	i;
 
 	scale_factor = 5.0;
-	scale.y = (cube->app->s_win.y - \
+	scale.y = (cube->app->s_screen.y - \
 		cube->app->torch[cube->app->torch_i]->height * scale_factor) + \
 		(y - cube->app->torch[cube->app->torch_i]->height / 2) * scale_factor;
 	scale.x = (x - cube->app->torch[cube->app->torch_i]->width / 2) * \

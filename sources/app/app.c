@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/01 12:26:04 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/01 12:51:10 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ t_status	set_hooks(t_cube *cube)
 		return (STAT_MLX_ERR);
 	else if (mlx_loop_hook(cube->app->win, &minimap_hook, cube) == false)
 		return (STAT_MLX_ERR);
-	mlx_loop_hook(cube->app->win, &torch_hook, cube);
-	return (STAT_TRUE);
+	else if (mlx_loop_hook(cube->app->win, &torch_hook, cube) == false)
+		return (STAT_MLX_ERR);
+	else
+		return (STAT_TRUE);
 }
 
 t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)

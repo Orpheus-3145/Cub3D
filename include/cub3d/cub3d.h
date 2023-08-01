@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/01 11:48:55 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/01 12:55:47 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define RGBA_BLACK 0x000000FF
 # define RGBA_WHITE 0xFFFFFFFF
 # ifdef __APPLE__
-#  define WIDTH 1000
-#  define HEIGHT 470
+#  define WIDTH 1200
+#  define HEIGHT 675
 # elif defined(__linux__)	
 #  define WIDTH 1000
 #  define HEIGHT 470

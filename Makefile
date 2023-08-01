@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/07/27 13:53:36 by fra           ########   odam.nl          #
+#    Updated: 2023/08/01 12:53:58 by faru          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,25 +19,58 @@ MLX42_DIR := MLX42
 LIBFT_DIR := libft
 MLX42 := $(MLX42_DIR)/build/libmlx42.a
 LIBFT := $(LIBFT_DIR)/libft.a
-HEADERS := $(shell find include -type f -name '*.h')
-SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
+# HEADERS := $(shell find include -type f -name '*.h')
+HEADERS := include/app/app.h \
+	include/check_map/check_map.h \
+	include/cub3d/cub3d.h \
+	include/cub3d/enum.h \
+	include/init/init.h \
+	include/parser/parser.h \
+	include/render/render.h \
+	include/tools/tools.h \
+	include/vector/vector.h
+# SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
+SOURCES := sources/app/app.c \
+	sources/app/hooks.c \
+	sources/app/minimap.c \
+	sources/app/mov_pov.c \
+	sources/app/pov.c \
+	sources/check_map/check_map.c \
+	sources/check_map/flood_fill.c \
+	sources/check_map/stack.c \
+	sources/init/free.c \
+	sources/init/init.c \
+	sources/init/torch_init.c \
+	sources/main/main.c \
+	sources/parser/checker.c \
+	sources/parser/get_map_info.c \
+	sources/parser/parse_config.c \
+	sources/parser/parse_map.c \
+	sources/parser/parser.c \
+	sources/render/color_effects.c \
+	sources/render/pixel.c \
+	sources/render/render.c \
+	sources/render/torch.c \
+	sources/render/wall_attributes.c \
+	sources/tools/tools.c \
+	sources/vector/vector.c
 OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
 
 CC  := gcc
 IFLAGS := -Iinclude -I$(MLX42_DIR)/include -I$(LIBFT_DIR)/include
-CFLAGS := -Wall -Wextra -Werror
-CFLAGS += -g3 -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -g3
 
 LFLAGS := -L$(MLX42_DIR)/build -lmlx42 -L$(LIBFT_DIR) -lft
 ifeq ($(shell uname -s),Darwin)			# Mac
 	LFLAGS += -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(shell uname -s),Linux)		# Linux
 	LFLAGS += -lglfw -ldl -pthread -lm
+	CFLAGS += -fsanitize=address
 endif
 
 _DEBUG := 0
 ifeq ($(_DEBUG),1)
-	CFLAGS := $(CFLAGS) -DDEBUG=1
+	CFLAGS +=  -DDEBUG=1
 endif
 
 GREEN = \x1b[32;01m
