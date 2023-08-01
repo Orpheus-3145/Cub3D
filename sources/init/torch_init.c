@@ -19,7 +19,7 @@ void	delete_torch_sprite(t_app *app)
 	if (!app->torch)
 		return ;
 	i = -1;
-	while (app->torch[i], ++i < 49)
+	while (app->torch[i] && ++i < 49)
 		mlx_delete_texture(app->n_tex);
 	ft_free(app->torch);
 	app->torch = NULL;
