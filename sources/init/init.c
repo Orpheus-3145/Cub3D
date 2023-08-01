@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 12:24:14 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/01 19:40:34 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_app	*init_app(void)
 	app->s_minimap = (t_xy_point){0, 0};
 	app->p_screen = (t_xy_point){0, 0};
 	app->p_minimap = (t_xy_point){0, 0};
+	app->torch = NULL;
 	app->n_tex = NULL;
 	app->s_tex = NULL;
 	app->w_tex = NULL;
