@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 22:03:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 12:24:14 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ typedef struct s_map
 	char		**map_2d;
 	uint32_t	height;
 	uint32_t	width;
-	uint32_t	PPS_map;
-	uint32_t	PPS_minimap;
+	uint32_t	pps_minimap;
 	t_vector	pos_map;
 	t_vector	dir;
 	t_vector	plane;
@@ -80,11 +79,11 @@ typedef struct s_app
 	mlx_t			*win;
 	mlx_image_t		*screen;
 	mlx_image_t		*minimap;
-	t_xy_point		size_win;
-	t_xy_point		size_screen;
-	t_xy_point		size_minimap;
-	t_xy_point		pos_screen;
-	t_xy_point		pos_minimap;
+	t_xy_point		s_win;
+	t_xy_point		s_screen;
+	t_xy_point		s_minimap;
+	t_xy_point		p_screen;
+	t_xy_point		p_minimap;
 	int32_t			torch_i;
 	mlx_texture_t	**torch;
 	mlx_texture_t	*n_tex;

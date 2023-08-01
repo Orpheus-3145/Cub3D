@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:51:43 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/07/31 21:10:51 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/08/01 12:23:53 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 	t_int_point	i;
 
 	scale_factor = 5.0;
-	scale.y = (cube->app->size_win.y - \
+	scale.y = (cube->app->s_win.y - \
 		cube->app->torch[cube->app->torch_i]->height * scale_factor) + \
 		(y - cube->app->torch[cube->app->torch_i]->height / 2) * scale_factor;
-		scale.x = (x - cube->app->torch[cube->app->torch_i]->width / 2) * \
+	scale.x = (x - cube->app->torch[cube->app->torch_i]->width / 2) * \
 		scale_factor;
 	i.x = scale.x - 1;
 	while (++i.x < scale.x + scale_factor)
@@ -31,8 +31,8 @@ void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 		i.y = scale.y - 1;
 		while (++i.y < scale.y + scale_factor)
 		{
-			if (i.x >= 0 && i.x <= (int32_t)cube->app->size_screen.x \
-				&& i.y >= 0 && i.y <= (int32_t)cube->app->size_screen.y)
+			if (i.x >= 0 && i.x <= (int32_t)cube->app->s_screen.x \
+				&& i.y >= 0 && i.y <= (int32_t)cube->app->s_screen.y)
 				mlx_put_pixel(cube->app->screen, i.x, i.y, color);
 		}
 	}

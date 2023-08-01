@@ -6,15 +6,15 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/07/31 22:03:40 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 12:24:14 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_input *init_input(void)
+t_input	*init_input(void)
 {
-	t_input *input;
+	t_input	*input;
 
 	input = ft_calloc(sizeof(t_input), 1);
 	if (input == NULL)
@@ -29,9 +29,9 @@ t_input *init_input(void)
 	return (input);
 }
 
-t_map *init_map(void)
+t_map	*init_map(void)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
@@ -39,8 +39,7 @@ t_map *init_map(void)
 	map->map_2d = NULL;
 	map->height = 0;
 	map->width = 0;
-	map->PPS_map = 0;
-	map->PPS_minimap = 0;
+	map->pps_minimap = 0;
 	map->pos_map = (t_vector){-1., -1.};
 	map->dir = (t_vector){-1., -1.};
 	map->plane = (t_vector){-1., -1.};
@@ -48,9 +47,9 @@ t_map *init_map(void)
 	return (map);
 }
 
-t_app *init_app(void)
+t_app	*init_app(void)
 {
-	t_app *app;
+	t_app	*app;
 
 	app = ft_calloc(1, sizeof(t_app));
 	if (app == NULL)
@@ -58,11 +57,11 @@ t_app *init_app(void)
 	app->win = NULL;
 	app->screen = NULL;
 	app->minimap = NULL;
-	app->size_win = (t_xy_point){0, 0};
-	app->size_screen = (t_xy_point){0, 0};
-	app->size_minimap = (t_xy_point){0, 0};
-	app->pos_screen = (t_xy_point){0, 0};
-	app->pos_minimap = (t_xy_point){0, 0};
+	app->s_win = (t_xy_point){0, 0};
+	app->s_screen = (t_xy_point){0, 0};
+	app->s_minimap = (t_xy_point){0, 0};
+	app->p_screen = (t_xy_point){0, 0};
+	app->p_minimap = (t_xy_point){0, 0};
 	app->n_tex = NULL;
 	app->s_tex = NULL;
 	app->w_tex = NULL;
@@ -70,9 +69,9 @@ t_app *init_app(void)
 	return (app);
 }
 
-t_data_dda init_data(void)
+t_data_dda	init_data(void)
 {
-	t_data_dda data;
+	t_data_dda	data;
 
 	data.line_height = 0;
 	data.ray_dir = (t_vector){0., 0.};
@@ -92,9 +91,9 @@ t_data_dda init_data(void)
 	return (data);
 }
 
-t_cube *init_cube(void)
+t_cube	*init_cube(void)
 {
-	t_cube *cube;
+	t_cube	*cube;
 
 	cube = ft_calloc(sizeof(t_cube), 1);
 	if (cube == NULL)

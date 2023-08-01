@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 22:02:25 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 12:26:04 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 t_status	set_screen(t_app *app, uint32_t width, uint32_t height)
 {
-	app->size_screen = (t_xy_point){width * SCREEN_SIZE_RATE, height * SCREEN_SIZE_RATE};
-	app->pos_screen = (t_xy_point){(app->size_win.x - app->size_screen.x) / 2, (app->size_win.y - app->size_screen.y) / 2};
-	app->screen = mlx_new_image(app->win, app->size_screen.x, app->size_screen.y);
+	app->s_screen = (t_xy_point){width * SCREEN_SIZE_RATE, \
+		height * SCREEN_SIZE_RATE};
+	app->p_screen = (t_xy_point){(app->s_win.x - app->s_screen.x) / 2, \
+		(app->s_win.y - app->s_screen.y) / 2};
+	app->screen = mlx_new_image(app->win, app->s_screen.x, app->s_screen.y);
 	if (app->screen == NULL)
 		return (STAT_MLX_ERR);
-	else if (mlx_image_to_window(app->win, app->screen, app->pos_screen.x, app->pos_screen.y) == -1)
+	else if (mlx_image_to_window(app->win, app->screen, app->p_screen.x, \
+		app->p_screen.y) == -1)
 		return (STAT_MLX_ERR);
 	else
 		return (STAT_TRUE);
@@ -27,16 +30,22 @@ t_status	set_screen(t_app *app, uint32_t width, uint32_t height)
 
 t_status	set_minimap(t_cube *cube, uint32_t width, uint32_t height)
 {
-	cube->app->pos_minimap = (t_xy_point){cube->app->pos_screen.x + width / 40, cube->app->pos_screen.y + height / 40};
+	cube->app->p_minimap = (t_xy_point){cube->app->p_screen.x + width / 40, \
+		cube->app->p_screen.y + height / 40};
 	if (cube->map->width < cube->map->height)
-		cube->map->PPS_minimap = cube->app->size_screen.x * MINIMAP_SIZE_RATE / cube->map->width;
+		cube->map->pps_minimap = cube->app->s_screen.x * MINIMAP_SIZE_RATE / \
+			cube->map->width;
 	else
-		cube->map->PPS_minimap = cube->app->size_screen.y * MINIMAP_SIZE_RATE / cube->map->height;
-	cube->app->size_minimap = (t_xy_point){cube->map->width * cube->map->PPS_minimap, cube->map->height * cube->map->PPS_minimap};
-	cube->app->minimap = mlx_new_image(cube->app->win, cube->app->size_minimap.x, cube->app->size_minimap.y);
+		cube->map->pps_minimap = cube->app->s_screen.y * MINIMAP_SIZE_RATE / \
+			cube->map->height;
+	cube->app->s_minimap = (t_xy_point){cube->map->width * \
+		cube->map->pps_minimap, cube->map->height * cube->map->pps_minimap};
+	cube->app->minimap = mlx_new_image(cube->app->win, cube->app->s_minimap.x, \
+		cube->app->s_minimap.y);
 	if (cube->app->minimap == NULL)
 		return (STAT_MLX_ERR);
-	else if (mlx_image_to_window(cube->app->win, cube->app->minimap, cube->app->pos_minimap.x, cube->app->pos_minimap.y) == -1)
+	else if (mlx_image_to_window(cube->app->win, cube->app->minimap, \
+		cube->app->p_minimap.x, cube->app->p_minimap.y) == -1)
 		return (STAT_MLX_ERR);
 	else
 		return (STAT_TRUE);
@@ -79,9 +88,9 @@ t_status	set_hooks(t_cube *cube)
 
 t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height)
 {
-	cube->app->size_win = (t_xy_point){width, height};
-	cube->app->win = mlx_init(cube->app->size_win.x, \
-		cube->app->size_win.y, "CUB3D", true);
+	cube->app->s_win = (t_xy_point){width, height};
+	cube->app->win = mlx_init(cube->app->s_win.x, \
+		cube->app->s_win.y, "CUB3D", true);
 	if (cube->app->win == NULL)
 		return (STAT_MLX_ERR);
 	if (set_screen(cube->app, width * SCREEN_SIZE_RATE, \

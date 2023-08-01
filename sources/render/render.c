@@ -6,26 +6,30 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 00:25:38 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/01 12:23:53 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-int32_t	shadow_pix(t_cube *cube, uint32_t x, uint32_t y)
+// depending on the distance to the torch, shadows the (x, y) pixel
+int32_t	shadow_pix(t_cube *cube, int32_t color, uint32_t x, uint32_t y)
 {
 	t_xy_point	lightest_pt;
 	t_xy_point	darkest_pt;
 	int32_t		shad_alpha;
 	double		dist;
 	double		dist_max;
-	
-	lightest_pt = (t_xy_point) {0, cube->app->size_screen.y};
-	darkest_pt = (t_xy_point) {cube->app->size_screen.x, cube->app->size_screen.y / 2}; 
-	dist_max = sqrt(pow(darkest_pt.x - lightest_pt.x, 2) + pow(lightest_pt.y - darkest_pt.y, 2));
-	dist = sqrt(pow((double) x - (double) lightest_pt.x, 2) + pow((double) y - (double) lightest_pt.y, 2));
-	shad_alpha = -255 * ((double) (dist / dist_max)) + 255;
-	return (((cube->input->floor_rgb >> 16) << 16) | shad_alpha);
+
+	lightest_pt = (t_xy_point){0, cube->app->s_screen.y};
+	darkest_pt = (t_xy_point){cube->app->s_screen.x, \
+		cube->app->s_screen.y / 2};
+	dist_max = sqrt(pow(darkest_pt.x - lightest_pt.x, 2) + \
+		pow(lightest_pt.y - darkest_pt.y, 2));
+	dist = sqrt(pow((double) x - (double) lightest_pt.x, 2) + \
+		pow((double) y - (double) lightest_pt.y, 2));
+	shad_alpha = -255 * ((double)(dist / dist_max)) + 255;
+	return (((color >> 16) << 16) | shad_alpha);
 }
 
 // draw the column
@@ -36,12 +40,12 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 
 	get_wall_attributes(cube, data);
 	row = -1;
-	while (++row < cube->app->size_screen.y)
+	while (++row < cube->app->s_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)
 			color = cube->input->ceil_rgb;
 		else if (row > (uint32_t) data->draw_end)
-			color = shadow_pix(cube, column, row);
+			color = shadow_pix(cube, cube->input->floor_rgb, column, row);
 		else
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);
@@ -116,9 +120,9 @@ void	update_img(void *param)
 
 	cube = (t_cube *)param;
 	x = 0;
-	while (x < cube->app->size_screen.x)
+	while (x < cube->app->s_screen.x)
 	{
-		camera_x = 2 * x / (double)(cube->app->size_screen.x - 1) - 1;
+		camera_x = 2 * x / (double)(cube->app->s_screen.x - 1) - 1;
 		cube->data.ray_dir = sum_vector(cube->map->dir, \
 			prod_scalar(cube->map->plane, camera_x));
 		side_dist_and_step(&cube->data, cube->map->pos_map);
@@ -128,7 +132,7 @@ void	update_img(void *param)
 		else
 			cube->data.wall_dist = cube->data.s_dist.y - cube->data.ds_dist.y;
 		cube->data.line_height = (int32_t) \
-			(cube->app->size_screen.y / cube->data.wall_dist);
+			(cube->app->s_screen.y / cube->data.wall_dist);
 		draw_column(cube, x++, &(cube->data));
 	}
 }

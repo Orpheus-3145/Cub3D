@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 20:25:57 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/08/01 12:27:36 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,26 @@ void	kill_app_hook(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+void	mouse_hook(mouse_key_t b, action_t action, modifier_key_t m, void *p)
 {
 	t_cube				*cube;
 	static t_xy_point	old_pos;
 	t_xy_point			new_pos;
 	double				rotation;
 
-	cube = (t_cube *) param;
-	(void) mods;
-	if (button != MLX_MOUSE_BUTTON_LEFT)
+	cube = (t_cube *) p;
+	(void) m;
+	if (b != MLX_MOUSE_BUTTON_LEFT)
 		return ;
 	else if (action == MLX_PRESS)
-		mlx_get_mouse_pos(cube->app->win, (int32_t *) &old_pos.x, (int32_t *) &old_pos.y);
+		mlx_get_mouse_pos(cube->app->win, (int32_t *) &old_pos.x, \
+			(int32_t *) &old_pos.y);
 	else if (action == MLX_RELEASE)
 	{
-		mlx_get_mouse_pos(cube->app->win, (int32_t *) &new_pos.x, (int32_t *) &new_pos.y);
-		rotation = find_radiants(cube->app->size_screen, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
+		mlx_get_mouse_pos(cube->app->win, (int32_t *) &new_pos.x, 
+			(int32_t *) &new_pos.y);
+		rotation = find_radiants(cube->app->s_screen, \
+			new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
 		rotate_pov(cube, rotation);
 	}
 }
