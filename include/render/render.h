@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 17:51:47 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 12:08:42 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/02 17:18:59 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ uint32_t		add_shadow(t_data_dda *data, uint32_t color);
 uint32_t		add_redish(t_data_dda *data, uint32_t color);
 
 // render.c
-int32_t			shadow_pix(t_cube *cube, int32_t color, uint32_t x, uint32_t y);
-
 void			draw_column(t_cube *cube, uint32_t column, t_data_dda *data);
 
 void			side_dist_and_step(t_data_dda *data, t_vector pos_map);
@@ -51,5 +49,10 @@ void			torch_hook(void *param);
 
 // wall_attributes.c
 void			get_wall_attributes(t_cube *cube, t_data_dda *d);
+
+// shadow.c
+int32_t			shadow_c(t_cube *cube, int32_t color, uint32_t y);
+
+int32_t			shadow_f(t_cube *cube, int32_t color, uint32_t y);
 
 #endif

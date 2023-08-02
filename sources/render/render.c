@@ -6,31 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 13:03:18 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/01 16:10:12 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
-
-// depending on the distance to the torch, shadows the (x, y) pixel
-int32_t	shadow_pix(t_cube *cube, int32_t color, uint32_t x, uint32_t y)
-{
-	t_xy_point	lightest_pt;
-	t_xy_point	darkest_pt;
-	int32_t		shad_alpha;
-	double		dist;
-	double		dist_max;
-
-	lightest_pt = (t_xy_point){0, cube->app->s_screen.y};
-	darkest_pt = (t_xy_point){cube->app->s_screen.x, \
-		cube->app->s_screen.y / 2};
-	dist_max = sqrt(pow(darkest_pt.x - lightest_pt.x, 2) + \
-		pow(lightest_pt.y - darkest_pt.y, 2));
-	dist = sqrt(pow((double) x - (double) lightest_pt.x, 2) + \
-		pow((double) y - (double) lightest_pt.y, 2));
-	shad_alpha = -255 * ((double)(dist / dist_max)) + 255;
-	return (((color >> 16) << 16) | shad_alpha);
-}
 
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
@@ -43,9 +23,9 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 	while (++row < cube->app->s_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)
-			color = cube->input->ceil_rgb;
+			color = shadow_c(cube, cube->input->ceil_rgb, row);
 		else if (row > (uint32_t) data->draw_end)
-			color = shadow_pix(cube, cube->input->floor_rgb, column, row);
+			color = shadow_f(cube, cube->input->floor_rgb, row);
 		else
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);
@@ -92,22 +72,22 @@ void	side_dist_and_step(t_data_dda *data, t_vector pos_map)
 	if (data->ray_dir.x < 0)
 	{
 		data->s_dist.x *= pos_map.x - ft_part_int(pos_map.x);
-		data->step.x = -1;
+		data->step.x = -1.;
 	}
 	else
 	{
 		data->s_dist.x *= ft_part_int(pos_map.x) + 1 - pos_map.x;
-		data->step.x = 1;
+		data->step.x = 1.;
 	}
 	if (data->ray_dir.y < 0)
 	{
 		data->s_dist.y *= pos_map.y - ft_part_int(pos_map.y);
-		data->step.y = -1;
+		data->step.y = -1.;
 	}
 	else
 	{
 		data->s_dist.y *= ft_part_int(pos_map.y) + 1 - pos_map.y;
-		data->step.y = 1;
+		data->step.y = 1.;
 	}
 }
 

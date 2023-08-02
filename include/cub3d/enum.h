@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/01 19:47:14 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/08/01 15:03:35 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_data_dda
 	t_vector		ray_dir;
 	t_vector		s_dist;
 	t_vector		ds_dist;
-	t_xy_point		step;
+	t_vector		step;
 	t_direction		side;
 	mlx_texture_t	*tmp;
 	int32_t			draw_start;

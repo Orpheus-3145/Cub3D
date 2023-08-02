@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 19:47:13 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/08/01 15:08:22 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_data_dda	init_data(void)
 	data.ray_dir = (t_vector){0., 0.};
 	data.s_dist = (t_vector){0., 0.};
 	data.ds_dist = (t_vector){0., 0.};
-	data.step = (t_xy_point){0, 0};
+	data.step = (t_vector){0., 0.};
 	data.side = DIR_NORTH;
 	data.tmp = NULL;
 	data.draw_start = 0;

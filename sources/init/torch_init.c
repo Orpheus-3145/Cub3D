@@ -16,11 +16,12 @@ void	delete_torch_sprite(t_app *app)
 {
 	int	i;
 
-	if (!app->torch)
-		return ;
-	i = -1;
-	while (app->torch[i] && ++i < 49)
-		mlx_delete_texture(app->n_tex);
+	i = 0;
+	while (app->torch[i], i < 49)
+	{
+		mlx_delete_texture(app->torch[i]);
+		i++;
+	}
 	ft_free(app->torch);
 	app->torch = NULL;
 }

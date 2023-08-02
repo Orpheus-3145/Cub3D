@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/08/01 12:53:58 by faru          ########   odam.nl          #
+#    Updated: 2023/08/02 17:20:33 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,41 +19,8 @@ MLX42_DIR := MLX42
 LIBFT_DIR := libft
 MLX42 := $(MLX42_DIR)/build/libmlx42.a
 LIBFT := $(LIBFT_DIR)/libft.a
-# HEADERS := $(shell find include -type f -name '*.h')
-HEADERS := include/app/app.h \
-	include/check_map/check_map.h \
-	include/cub3d/cub3d.h \
-	include/cub3d/enum.h \
-	include/init/init.h \
-	include/parser/parser.h \
-	include/render/render.h \
-	include/tools/tools.h \
-	include/vector/vector.h
-# SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
-SOURCES := sources/app/app.c \
-	sources/app/hooks.c \
-	sources/app/minimap.c \
-	sources/app/mov_pov.c \
-	sources/app/pov.c \
-	sources/check_map/check_map.c \
-	sources/check_map/flood_fill.c \
-	sources/check_map/stack.c \
-	sources/init/free.c \
-	sources/init/init.c \
-	sources/init/torch_init.c \
-	sources/main/main.c \
-	sources/parser/checker.c \
-	sources/parser/get_map_info.c \
-	sources/parser/parse_config.c \
-	sources/parser/parse_map.c \
-	sources/parser/parser.c \
-	sources/render/color_effects.c \
-	sources/render/pixel.c \
-	sources/render/render.c \
-	sources/render/torch.c \
-	sources/render/wall_attributes.c \
-	sources/tools/tools.c \
-	sources/vector/vector.c
+HEADERS := $(shell find include -type f -name '*.h')
+SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
 
 CC  := gcc
