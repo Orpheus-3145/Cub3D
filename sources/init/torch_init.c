@@ -17,7 +17,7 @@ void	delete_torch_sprite(t_app *app)
 	int	i;
 
 	i = 0;
-	while (app->torch[i], i < 49)
+	while (app->torch[i] && (i < 49))
 	{
 		mlx_delete_texture(app->torch[i]);
 		i++;

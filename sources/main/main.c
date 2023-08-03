@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:40:05 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/03 11:19:24 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_cube		*cube;
 	t_status	status;
-
+	free(NULL);
 	if (argc != 2)
 		kill_program(NULL, STAT_PARSE_ERR);
 	cube = init_cube();
