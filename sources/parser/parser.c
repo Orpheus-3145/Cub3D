@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 00:01:07 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:33:54 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/04 17:42:56 by faru          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_status	parse_config(int32_t fd, t_input *input)
 			break ;
 		new_line = get_next_line(fd);
 	}
+	if ((status != STAT_TRUE) && new_line)
+		ft_free(new_line);
 	if ((got_all_config(input) == false) && (status == STAT_TRUE))
 		status = STAT_PARSE_ERR;
 	return (status);
