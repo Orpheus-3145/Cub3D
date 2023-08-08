@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/08/08 20:55:05 by fra           ########   odam.nl          #
+#    Updated: 2023/08/08 23:33:24 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ all: $(MLX42) $(LIBFT) $(NAME)
 
 run: all
 	@clear
-	@./$(NAME) maps/test1.cub
+	@./$(NAME) config/test1.cub
 
 $(MLX42):
 	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build

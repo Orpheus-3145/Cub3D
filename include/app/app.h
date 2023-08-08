@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:28:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:00:02 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	    mouse_rotate_pov(t_cube *cube);
 void	    rotate_pov(t_cube *cube, double radiant);
 
 // torch.h
-void		delete_torch_sprite(t_app *app);
-
 int			load_torch_sprite(t_app *app);
 
 #endif

@@ -53,8 +53,8 @@ void move_pov(t_map *map, double scalar, double radians)
 
 	rot_vect = rotate_vector(map->dir, radians);
 	tmp = prod_scalar(rot_vect, scalar);
-	radius_dir.x = (ft_dmod(tmp.x) / tmp.x) * map->radius;
-	radius_dir.y = (ft_dmod(tmp.y) / tmp.y) * map->radius;
+	radius_dir.x = (ft_dmod(tmp.x) / tmp.x) * RADIUS;
+	radius_dir.y = (ft_dmod(tmp.y) / tmp.y) * RADIUS;
 	if ((rot_vect.x * rot_vect.y) != 0)
 		corner_col(map, tmp, radius_dir);
 	if ((rot_vect.x * rot_vect.y) != 0)

@@ -6,27 +6,26 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 21:36:33 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:28:22 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_config	*init_input(void)
+t_config	*init_config(void)
 {
-	t_config	*input;
+	t_config	*config;
 
-	input = ft_calloc(sizeof(t_config), 1);
-	if (input == NULL)
+	config = ft_calloc(sizeof(t_config), 1);
+	if (config == NULL)
 		return (NULL);
-	input->n_tex_path = NULL;
-	input->s_tex_path = NULL;
-	input->w_tex_path = NULL;
-	input->e_tex_path = NULL;
-	input->floor_rgb = RGBA_RED;
-	input->ceil_rgb = RGBA_GREEN;
-	input->wall_rgb = RGBA_GREEN;
-	return (input);
+	config->n_tex_path = NULL;
+	config->s_tex_path = NULL;
+	config->w_tex_path = NULL;
+	config->e_tex_path = NULL;
+	config->floor_rgb = RGBA_RED;
+	config->ceil_rgb = RGBA_GREEN;
+	return (config);
 }
 
 t_map	*init_map(void)
@@ -43,7 +42,6 @@ t_map	*init_map(void)
 	map->pos_map = (t_vector){-1., -1.};
 	map->dir = (t_vector){-1., -1.};
 	map->plane = (t_vector){-1., -1.};
-	map->radius = RADIUS;
 	return (map);
 }
 
@@ -100,8 +98,8 @@ t_cube	*init_cube(void)
 	cube = ft_calloc(sizeof(t_cube), 1);
 	if (cube == NULL)
 		return (NULL);
-	cube->input = init_input();
-	if (cube->input == NULL)
+	cube->config = init_config();
+	if (cube->config == NULL)
 		return (free_cube(cube));
 	cube->map = init_map();
 	if (cube->map == NULL)

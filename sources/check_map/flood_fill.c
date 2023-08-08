@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:59:05 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:47:37 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,15 @@ t_status	ff_algorithm(char **map, t_xy_point	s, char mask)
 	return (status);
 }
 
-t_status	flood_fill(char **map, char mask)
+t_status	flood_fill(char **map)
 {
 	t_status	status;
 	t_vector	start_tmp;
 	t_xy_point	start;
 	char		face;
+	char 		mask;
 
+	mask = '|';
 	start_tmp = find_pos_map(map);
 	start = (t_xy_point){start_tmp.x, start_tmp.y};
 	face = map[start.y][start.x];

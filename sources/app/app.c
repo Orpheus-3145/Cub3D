@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 18:10:34 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:23:34 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:24:51 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ t_status	set_textures(t_cube *cube)
 {
 	if (load_torch_sprite(cube->app))
 		return (STAT_MLX_ERR);
-	cube->app->n_tex = mlx_load_png(cube->input->n_tex_path);
+	cube->app->n_tex = mlx_load_png(cube->config->n_tex_path);
 	if (cube->app->n_tex == NULL)
 		return (STAT_MLX_ERR);
-	cube->app->s_tex = mlx_load_png(cube->input->s_tex_path);
+	cube->app->s_tex = mlx_load_png(cube->config->s_tex_path);
 	if (cube->app->s_tex == NULL)
 		return (STAT_MLX_ERR);
-	cube->app->w_tex = mlx_load_png(cube->input->w_tex_path);
+	cube->app->w_tex = mlx_load_png(cube->config->w_tex_path);
 	if (cube->app->w_tex == NULL)
 		return (STAT_MLX_ERR);
-	cube->app->e_tex = mlx_load_png(cube->input->e_tex_path);
+	cube->app->e_tex = mlx_load_png(cube->config->e_tex_path);
 	if (cube->app->e_tex == NULL)
 		return (STAT_MLX_ERR);
 	return (STAT_TRUE);

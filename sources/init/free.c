@@ -6,21 +6,21 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:30:51 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 21:36:33 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:11:43 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-void	free_input(t_config *input)
+void	free_config(t_config *config)
 {
-	if (input)
+	if (config)
 	{
-		ft_free(input->n_tex_path);
-		ft_free(input->s_tex_path);
-		ft_free(input->w_tex_path);
-		ft_free(input->e_tex_path);
-		ft_free(input);
+		ft_free(config->n_tex_path);
+		ft_free(config->s_tex_path);
+		ft_free(config->w_tex_path);
+		ft_free(config->e_tex_path);
+		ft_free(config);
 	}
 }
 
@@ -35,11 +35,15 @@ void	free_map(t_map *map)
 
 void	free_app(t_app *app)
 {
+	int	i;
+
 	if (app)
 	{
-		delete_torch_sprite(app);
 		if (app->win)
 		{
+			i = 0;
+			while (app->torch && app->torch[i])
+				mlx_delete_texture(app->torch[i++]);
 			if (app->n_tex)
 				mlx_delete_texture(app->n_tex);
 			if (app->s_tex)
@@ -60,7 +64,7 @@ t_cube	*free_cube(t_cube *cube)
 {
 	if (cube)
 	{
-		free_input(cube->input);
+		free_config(cube->config);
 		free_map(cube->map);
 		free_app(cube->app);
 		ft_free(cube);

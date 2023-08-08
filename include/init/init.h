@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:37:52 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:36:33 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:55:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 # include "cub3d/cub3d.h"
 
 // init.h
-t_cube		*init_cube(void);
-
 t_app		*init_app(void);
 
-t_config		*init_input(void);
+t_config	*init_config(void);
 
 t_map		*init_map(void);
 
 t_data_dda	init_data(void);
 
+t_cube		*init_cube(void);
+
 // free.h
-void		free_input(t_config *input);
+void		free_config(t_config *input);
 
 void		free_map(t_map *map);
 

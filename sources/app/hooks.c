@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:20:22 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:54:15 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	keys_hook(void *param)
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)
 		move_pov(cube->map, MOV_SPEED, 0);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_A) == true)
-		move_pov(cube->map, MOV_SPEED, CAMERA_ROTATION * -1);
+		move_pov(cube->map, MOV_SPEED, M_PI_2 * -1);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_S) == true)
 		move_pov(cube->map, MOV_SPEED, M_PI);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)
-		move_pov(cube->map, MOV_SPEED, CAMERA_ROTATION);
+		move_pov(cube->map, MOV_SPEED, M_PI_2);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)
 		rotate_pov(cube, KEY_ROT_SPEED);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)

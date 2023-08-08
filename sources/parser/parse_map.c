@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/30 16:30:29 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:06:43 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:46:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_status	check_map(t_map *map, char *line_map)
 	{
 		status = check_walls(map_2d);
 		if (status == STAT_TRUE)
-			status = flood_fill(map_2d, MASK);
+			status = flood_fill(map_2d);
 	}
 	if (status != STAT_TRUE)
 		ft_free_double((void **) map_2d, -1);

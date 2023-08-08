@@ -1,7 +1,7 @@
-NO ./maps/text/greystone.png
-SO ./maps/text/mossy.png
-WE ./maps/text/colorstone.png
-EA ./maps/text/redbrick.png
+NO ./config/text/greystone.png
+SO ./config/text/mossy.png
+WE ./config/text/colorstone.png
+EA ./config/text/redbrick.png
 
 F 56,108,176
 C 220,78,65

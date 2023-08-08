@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:56:10 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:30:30 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	if (ft_check_file(argv[1], O_RDONLY, CUBE_FILE_EXT) == false)
 		return (STAT_FILE_ERR);
 	fd = open(argv[1], O_RDONLY);
-	status = parse_config(fd, cube->input);
+	status = parse_config(fd, cube->config);
 	if (status == STAT_TRUE)
 		status = parse_map(fd, cube->map);
 	close(fd);

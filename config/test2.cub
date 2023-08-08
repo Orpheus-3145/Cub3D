@@ -1,7 +1,7 @@
-    NO    ./maps/text/t_n
-        SO  ./maps/text/t_s     
-WE ./maps/text/t_w  
-   EA  ./maps/text/t_e
+    NO    ./config/text/t_n
+        SO  ./config/text/t_s     
+WE ./config/text/t_w  
+   EA  ./config/text/t_e
   
 F  22,0,0    
 C   225,30,00

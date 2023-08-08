@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 21:31:22 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 23:11:01 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 	while (++row < cube->app->s_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)
-			color = shadow_ceil(cube, cube->input->ceil_rgb, row);
+			color = shadow_ceil(cube, cube->config->ceil_rgb, row);
 		else if (row > (uint32_t) data->draw_end)
-			color = shadow_floor(cube, cube->input->floor_rgb, row);
+			color = shadow_floor(cube, cube->config->floor_rgb, row);
 		else
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);

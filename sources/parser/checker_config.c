@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checker.c                                          :+:    :+:            */
+/*   checker_config.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/02 19:24:33 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:39:45 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:44:16 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ bool	is_ceil_floor(char *to_check)
 {
 	if (to_check == NULL)
 		return (false);
-	else if ((ft_strncmp(to_check, "F", 1) == 0) || \
-			(ft_strncmp(to_check, "C", 1) == 0))
+	else if ((ft_strncmp(to_check, "F", 1) == 0) || (ft_strncmp(to_check, "C", 1) == 0))
 		return (true);
 	else
 		return (false);
