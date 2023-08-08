@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 10:39:40 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 12:55:54 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/08 20:10:13 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ uint32_t	get_wall_color(t_data_dda *data)
 
 	data->wall_texture.y = (int)data->texture_pos & (data->tmp->height - 1);
 	data->texture_pos += data->progress;
-	color = pick_pixel(data->tmp, (int)round(data->wall_texture.x), \
-		(int)round(data->wall_texture.y));
+	color = pick_pixel(data->tmp, (int)round(data->wall_texture.x), (int)round(data->wall_texture.y));
 	color = add_shadow(data, color);
 	color = add_redish(data, color);
 	return (color);

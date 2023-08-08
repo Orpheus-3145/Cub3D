@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/08/02 17:20:33 by fra           ########   odam.nl          #
+#    Updated: 2023/08/08 20:55:05 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,21 +23,24 @@ HEADERS := $(shell find include -type f -name '*.h')
 SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
 
+WIDTH := 1920
+HEIGHT := 1080
+SIZE_FLAGS := -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT)
+
 CC  := gcc
 IFLAGS := -Iinclude -I$(MLX42_DIR)/include -I$(LIBFT_DIR)/include
-CFLAGS := -Wall -Wextra -Werror -g3
+CFLAGS := -Wall -Wextra -Werror
 
 LFLAGS := -L$(MLX42_DIR)/build -lmlx42 -L$(LIBFT_DIR) -lft
 ifeq ($(shell uname -s),Darwin)			# Mac
 	LFLAGS += -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(shell uname -s),Linux)		# Linux
 	LFLAGS += -lglfw -ldl -pthread -lm
-	CFLAGS += -fsanitize=address
 endif
 
 _DEBUG := 0
 ifeq ($(_DEBUG),1)
-	CFLAGS +=  -DDEBUG=1
+	CFLAGS += -g3 -fsanitize=address
 endif
 
 GREEN = \x1b[32;01m
@@ -60,7 +63,7 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --quiet
 
 $(NAME): $(OBJ_DIR) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(IFLAGS) $(OBJECTS) $(LFLAGS) -o $(NAME)
+	@$(CC) $(OBJECTS) $(LFLAGS) -o $(NAME) 
 	@printf "(cub3D) $(GREEN)Created program $(NAME)$(RESET)\n"
 
 $(OBJ_DIR):
@@ -68,7 +71,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@$(CC) $(SIZE_FLAGS) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@printf "(cub3D) $(BLUE)Created object $$(basename $@)$(RESET)\n"
 
 clean:

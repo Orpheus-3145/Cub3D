@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 23:57:42 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/04 17:42:05 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/08 20:50:50 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	status = parse_input(cube, argv[1]);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);
+	printf("sizes: %d %d\n", WIDTH, HEIGHT);
 	status = set_up_app(cube, WIDTH, HEIGHT);
 	if (status != STAT_TRUE)
 		kill_program(cube, status);

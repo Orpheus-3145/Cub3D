@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/01 16:04:38 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/01 16:13:24 by itopchu       ########   odam.nl         */
+/*   Updated: 2023/08/08 20:10:58 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int32_t	shadow_c(t_cube *cube, int32_t color, uint32_t y)
 	g = (color >> 16) & 0xFF;
 	b = (color >> 8) & 0xFF;
 	a = color & 0xFF;
-	factor = 1.0 - (((double)y - (double)cube->app->s_screen.y / 6.) / \
-		(double)cube->app->s_screen.y * 6.);
+	factor = 1.0 - (((double)y - (double)cube->app->s_screen.y / 6.) / (double)cube->app->s_screen.y * 6.);
 	r = make_shadow(r, factor);
 	g = make_shadow(g, factor);
 	b = make_shadow(b, factor);
@@ -54,8 +53,7 @@ int32_t	shadow_f(t_cube *cube, int32_t color, uint32_t y)
 	g = (color >> 16) & 0xFF;
 	b = (color >> 8) & 0xFF;
 	a = color & 0xFF;
-	factor = (((double)y - (double)cube->app->s_screen.y / 2.) / \
-		(double)cube->app->s_screen.y * 1.5);
+	factor = (((double)y - (double)cube->app->s_screen.y / 2.) / (double)cube->app->s_screen.y * 1.5);
 	r = make_shadow(r, factor);
 	g = make_shadow(g, factor);
 	b = make_shadow(b, factor);

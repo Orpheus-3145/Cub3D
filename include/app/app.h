@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 18:29:09 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 20:56:01 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height);
 // hooks.c
 void		kill_app_hook(void *param);
 
-void		mouse_hook(mouse_key_t button, \
-						action_t action, modifier_key_t mods, void *param);
+void		mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 
 void		key_hook(void *param);
 

@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:50:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/01 12:36:29 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/08 20:12:23 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ void	get_wall_attributes(t_cube *cube, t_data_dda *d)
 	d->tmp = get_texture(cube->app, d->side);
 	wall_text_pos(cube, d);
 	d->progress = 1.0 * d->tmp->height / d->line_height;
-	d->texture_pos = (d->draw_start - d->pitch + \
-			(d->line_height - cube->app->s_screen.y) / 2) * d->progress;
+	d->texture_pos = (d->draw_start - d->pitch + (d->line_height - cube->app->s_screen.y) / 2) * d->progress;
 }

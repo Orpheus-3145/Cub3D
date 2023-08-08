@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:11:40 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 18:22:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 20:56:25 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char		**rect_map(char **raw_map);
 
 char		**rotate_matrix(t_cube *cube);
 
-double		find_radiants(t_xy_point size_screen, \
-				int32_t radius, t_xy_point crs_pos);
+double		find_radiants(t_xy_point size_screen, int32_t radius, t_xy_point crs_pos);
 
 #endif

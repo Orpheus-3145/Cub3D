@@ -6,12 +6,27 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/01 22:22:59 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/01 12:55:47 by faru          ########   odam.nl         */
+/*   Updated: 2023/08/08 20:33:29 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# ifdef __APPLE__
+#  ifndef WIDTH
+#   define WIDTH 1920
+#  endif
+#  ifndef HEIGHT
+#   define HEIGHT 1080
+#  endif
+# elif defined(__linux__)
+#  ifndef WIDTH
+#   define WIDTH 1000
+#  endif
+#  ifndef HEIGHT
+#   define HEIGHT 470
+#  endif
+# endif
 # define CUBE_FILE_EXT ".cub"
 # define TEXT_FILE_EXT ".png"
 # define MASK '|'
@@ -30,13 +45,6 @@
 # define RGBA_BLUE 0x0000FFFF
 # define RGBA_BLACK 0x000000FF
 # define RGBA_WHITE 0xFFFFFFFF
-# ifdef __APPLE__
-#  define WIDTH 1200
-#  define HEIGHT 675
-# elif defined(__linux__)	
-#  define WIDTH 1000
-#  define HEIGHT 470
-# endif
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -45,9 +53,9 @@
 # include <errno.h>
 # include <stddef.h>
 # include <stdio.h>
-# include "MLX42/MLX42.h"
 # include <math.h>
 # include "libft.h"
+# include "MLX42/MLX42.h"
 # include "cub3d/enum.h"
 # include "app/app.h"
 # include "check_map/check_map.h"

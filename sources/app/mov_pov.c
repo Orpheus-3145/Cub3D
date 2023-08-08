@@ -21,39 +21,27 @@ int	is_wall_collision(t_map *map, int x, int y)
 // Handle collision with a corner
 void	corner_col(t_map *map, t_vector tmp, t_vector radius_dir)
 {
-	if ((tmp.y > tmp.x) && is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), \
-		(int)ft_part_int(map->pos_map.y)))
+	if ((tmp.y > tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x = round(map->pos_map.x) - radius_dir.x;
-	else if (is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x), \
-		(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	else if (is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
 		map->pos_map.y = round(map->pos_map.y) - radius_dir.y;
 }
 
 // Handle collision with a horizontal wall
 void	horizontal_col(t_map *map, t_vector tmp, t_vector radius_dir)
 {
-	if ((tmp.y > tmp.x) && is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), \
-		(int)ft_part_int(map->pos_map.y)))
+	if ((tmp.y > tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x = round(map->pos_map.x) - radius_dir.x;
-	else if (!is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), \
-		(int)ft_part_int(map->pos_map.y)))
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x += tmp.x;
 }
 
 // Handle collision with a vertical wall
 void	vertical_col(t_map *map, t_vector tmp, t_vector radius_dir)
 {
-	if ((tmp.y <= tmp.x) && is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x), \
-		(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	if ((tmp.y <= tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
 		map->pos_map.y = round(map->pos_map.y) - radius_dir.y;
-	else if (!is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x), \
-		(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
 		map->pos_map.y += tmp.y;
 }
 
@@ -71,14 +59,10 @@ void	mov_pov(t_map *map, double scalar, double radians)
 		corner_col(map, tmp, radius_dir);
 	if ((rot_vect.x * rot_vect.y) != 0)
 		horizontal_col(map, tmp, radius_dir);
-	else if (!is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), \
-		(int)ft_part_int(map->pos_map.y)))
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x += tmp.x;
 	if ((rot_vect.x * rot_vect.y) != 0)
 		vertical_col(map, tmp, radius_dir);
-	else if (!is_wall_collision(map, \
-		(int)ft_part_int(map->pos_map.x), \
-		(int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
 		map->pos_map.y += tmp.y;
 }

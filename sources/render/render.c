@@ -6,7 +6,7 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 16:10:12 by itopchu       ########   odam.nl         */
+/*   Updated: 2023/08/08 20:10:31 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,14 @@ void	update_img(void *param)
 	while (x < cube->app->s_screen.x)
 	{
 		camera_x = 2 * x / (double)(cube->app->s_screen.x - 1) - 1;
-		cube->data.ray_dir = sum_vector(cube->map->dir, \
-			prod_scalar(cube->map->plane, camera_x));
+		cube->data.ray_dir = sum_vector(cube->map->dir, prod_scalar(cube->map->plane, camera_x));
 		side_dist_and_step(&cube->data, cube->map->pos_map);
 		dda_algorithm(cube->map, &cube->data);
 		if ((cube->data.side == DIR_EAST) || (cube->data.side == DIR_WEST))
 			cube->data.wall_dist = cube->data.s_dist.x - cube->data.ds_dist.x;
 		else
 			cube->data.wall_dist = cube->data.s_dist.y - cube->data.ds_dist.y;
-		cube->data.line_height = (int32_t) \
-			(cube->app->s_screen.y / cube->data.wall_dist);
+		cube->data.line_height = (int32_t) (cube->app->s_screen.y / cube->data.wall_dist);
 		draw_column(cube, x++, &(cube->data));
 	}
 }
