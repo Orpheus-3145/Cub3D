@@ -6,17 +6,17 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:29:04 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/01 15:08:22 by itopchu       ########   odam.nl         */
+/*   Updated: 2023/08/08 21:36:33 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_input	*init_input(void)
+t_config	*init_input(void)
 {
-	t_input	*input;
+	t_config	*input;
 
-	input = ft_calloc(sizeof(t_input), 1);
+	input = ft_calloc(sizeof(t_config), 1);
 	if (input == NULL)
 		return (NULL);
 	input->n_tex_path = NULL;
@@ -62,6 +62,7 @@ t_app	*init_app(void)
 	app->s_minimap = (t_xy_point){0, 0};
 	app->p_screen = (t_xy_point){0, 0};
 	app->p_minimap = (t_xy_point){0, 0};
+	app->torch_i = 0;
 	app->torch = NULL;
 	app->n_tex = NULL;
 	app->s_tex = NULL;

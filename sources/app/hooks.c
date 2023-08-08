@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 20:03:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:20:22 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,49 +24,27 @@ void	kill_app_hook(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-void	mouse_hook(mouse_key_t b, action_t action, modifier_key_t m, void *p)
-{
-	t_cube				*cube;
-	static t_xy_point	old_pos;
-	t_xy_point			new_pos;
-	double				rotation;
-
-	cube = (t_cube *) p;
-	(void) m;
-	if (b != MLX_MOUSE_BUTTON_LEFT)
-		return ;
-	else if (action == MLX_PRESS)
-		mlx_get_mouse_pos(cube->app->win, (int32_t *) &old_pos.x, (int32_t *) &old_pos.y);
-	else if (action == MLX_RELEASE)
-	{
-		mlx_get_mouse_pos(cube->app->win, (int32_t *) &new_pos.x, 
-			(int32_t *) &new_pos.y);
-		rotation = find_radiants(cube->app->s_screen, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
-		rotate_pov(cube, rotation);
-	}
-}
-
-void	key_hook(void *param)
+void	keys_hook(void *param)
 {
 	t_cube	*cube;
 
 	cube = (t_cube *)param;
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_W) == true)
-		mov_pov(cube->map, MOV_SPEED, 0);
+		move_pov(cube->map, MOV_SPEED, 0);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_A) == true)
-		mov_pov(cube->map, MOV_SPEED, CAMERA_ROTATION * -1);
+		move_pov(cube->map, MOV_SPEED, CAMERA_ROTATION * -1);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_S) == true)
-		mov_pov(cube->map, MOV_SPEED, M_PI);
+		move_pov(cube->map, MOV_SPEED, M_PI);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)
-		mov_pov(cube->map, MOV_SPEED, CAMERA_ROTATION);
+		move_pov(cube->map, MOV_SPEED, CAMERA_ROTATION);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)
 		rotate_pov(cube, KEY_ROT_SPEED);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)
 		rotate_pov(cube, KEY_ROT_SPEED * -1);
+	if (mlx_is_mouse_down(cube->app->win, MLX_MOUSE_BUTTON_LEFT) == true)
+		mouse_rotate_pov(cube);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE) == true)
 		kill_app_hook(param);
-	if (mlx_is_mouse_down(cube->app->win, MLX_MOUSE_BUTTON_LEFT) == true)
-		rotate_mouse_pov(cube);
 }
 
 void	loop_hook_jump(void *param)
@@ -123,4 +101,21 @@ void	minimap_hook(void *param)
 		curr_dir = map->dir;
 		draw_minimap(cube->app, map);
 	}
+}
+
+void	torch_hook(void *param)
+{
+	t_cube		*cube;
+	static int	delay = 0;
+
+	cube = (t_cube *)param;
+	delay++;
+	if (delay % 5 == 0)
+	{
+		cube->app->torch_i++;
+		delay = 0;
+	}
+	if (cube->app->torch_i == TORCH_SPRITES)
+		cube->app->torch_i = 0;
+	draw_torch(cube);
 }

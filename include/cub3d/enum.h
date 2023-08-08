@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/01 15:03:35 by itopchu       ########   odam.nl         */
+/*   Updated: 2023/08/08 21:36:37 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_map
 	double		radius;
 }	t_map;
 
-typedef struct s_input
+typedef struct s_config
 {
 	char	*n_tex_path;
 	char	*s_tex_path;
@@ -72,7 +72,7 @@ typedef struct s_input
 	int32_t	wall_rgb;
 	int32_t	floor_rgb;
 	int32_t	ceil_rgb;
-}	t_input;
+}	t_config;
 
 typedef struct s_app
 {
@@ -113,7 +113,7 @@ typedef struct s_data_dda
 
 typedef struct s_cube
 {
-	t_input		*input;
+	t_config		*input;
 	t_map		*map;
 	t_app		*app;
 	t_data_dda	data;

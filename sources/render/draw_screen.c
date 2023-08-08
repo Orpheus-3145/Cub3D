@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
+/*   draw_screen.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 20:10:31 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:31:22 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
 	while (++row < cube->app->s_screen.y)
 	{
 		if (row < (uint32_t) data->draw_start)
-			color = shadow_c(cube, cube->input->ceil_rgb, row);
+			color = shadow_ceil(cube, cube->input->ceil_rgb, row);
 		else if (row > (uint32_t) data->draw_end)
-			color = shadow_f(cube, cube->input->floor_rgb, row);
+			color = shadow_floor(cube, cube->input->floor_rgb, row);
 		else
 			color = get_wall_color(data);
 		mlx_put_pixel(cube->app->screen, column, row, color);
@@ -92,7 +92,7 @@ void	side_dist_and_step(t_data_dda *data, t_vector pos_map)
 }
 
 // update img with raycasting logic
-void	update_img(void *param)
+void	draw_screen(void *param)
 {
 	t_cube		*cube;
 	uint32_t	x;

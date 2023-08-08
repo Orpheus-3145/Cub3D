@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 19:56:54 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/08/08 22:09:06 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,25 +119,29 @@ t_status	check_start_pos(char **map)
 {
 	uint32_t	i;
 	uint32_t	j;
-	t_vector	origin;
+	bool		pos_found;
 
-	origin = find_pos_map(map);
-	if (origin.x == -1.)
-		return (STAT_PARSE_ERR);
 	j = 0;
+	pos_found = false;
 	while (map[j])
 	{
 		i = 0;
 		while (map[j][i])
 		{
-			if ((i == ft_part_int(origin.x)) && (j == ft_part_int(origin.y)))
-				i++;
-			else if (ft_strchr("NSWE", map[j][i]))
+			if (ft_strchr("NSWE", map[j][i]))
+			{
+				if (pos_found == true)
+					return (STAT_PARSE_ERR);
+				pos_found = true;
+			}
+			else if (ft_strchr("01 ", map[j][i]) == NULL)
 				return (STAT_PARSE_ERR);
-			else
-				i++;
+			i++;
 		}
 		j++;
 	}
-	return (STAT_TRUE);
+	if (pos_found == true)
+		return (STAT_TRUE);
+	else
+		return (STAT_PARSE_ERR);
 }

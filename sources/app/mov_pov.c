@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mov_pov.c                                          :+:    :+:            */
+/*   move_pov.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -45,7 +45,7 @@ void	vertical_col(t_map *map, t_vector tmp, t_vector radius_dir)
 		map->pos_map.y += tmp.y;
 }
 
-void	mov_pov(t_map *map, double scalar, double radians)
+void move_pov(t_map *map, double scalar, double radians)
 {
 	t_vector	rot_vect;
 	t_vector	tmp;

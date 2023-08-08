@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pov.c                                              :+:    :+:            */
+/*   rot_pov.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 20:06:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:02:57 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-void	rotate_pov(t_cube *cube, double radiants)
-{
-	cube->map->dir = rotate_vector(cube->map->dir, radiants);
-	cube->map->plane = rotate_vector(cube->map->plane, radiants);
-}
-
-void	rotate_mouse_pov(t_cube *cube)
+void	mouse_rotate_pov(t_cube *cube)
 {
 	static t_xy_point	old_pos;
 	t_xy_point			new_pos;
@@ -36,4 +30,10 @@ void	rotate_mouse_pov(t_cube *cube)
 		rotate_pov(cube, rotation);
 		old_pos = new_pos;
 	}
+}
+
+void	rotate_pov(t_cube *cube, double radiants)
+{
+	cube->map->dir = rotate_vector(cube->map->dir, radiants);
+	cube->map->plane = rotate_vector(cube->map->plane, radiants);
 }

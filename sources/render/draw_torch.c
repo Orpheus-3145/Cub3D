@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:51:43 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/08 20:11:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:26:10 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)
 }
 
 // Function to draw the torch image scaled on the screen
-static void	draw_torch(t_cube *cube)
+void	draw_torch(t_cube *cube)
 {
 	t_int_point	i;
 	t_int_point	center;
@@ -57,21 +57,4 @@ static void	draw_torch(t_cube *cube)
 				draw_scaled_pixel(cube, i.x + center.x, i.y + center.y, color);
 		}
 	}
-}
-
-void	torch_hook(void *param)
-{
-	t_cube		*cube;
-	static int	delay = 0;
-
-	cube = (t_cube *)param;
-	delay++;
-	if (delay % 5 == 0)
-	{
-		cube->app->torch_i++;
-		delay = 0;
-	}
-	if (cube->app->torch_i == 49)
-		cube->app->torch_i = 0;
-	draw_torch(cube);
 }

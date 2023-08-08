@@ -6,13 +6,57 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 01:55:10 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 20:09:50 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:39:13 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	insert_texture_path(char *dir, char *texture_path, t_input *input)
+bool	got_all_config(t_config *input)
+{
+	if (input->n_tex_path == NULL)
+		return (false);
+	else if (input->s_tex_path == NULL)
+		return (false);
+	else if (input->w_tex_path == NULL)
+		return (false);
+	else if (input->e_tex_path == NULL)
+		return (false);
+	else if ((uint32_t) input->floor_rgb == RGBA_RED)
+		return (false);
+	else if ((uint32_t) input->ceil_rgb == RGBA_GREEN)
+		return (false);
+	else
+		return (true);
+}
+
+t_status	insert_color(char *type, char *color, t_config *input)
+{
+	char	**rgb;
+	int32_t	*to_set;
+
+	if ((ft_strncmp(type, "F", 1) == 0) && ((uint32_t) input->floor_rgb == RGBA_RED))
+		to_set = &input->floor_rgb;
+	else if ((ft_strncmp(type, "C", 1) == 0) && ((uint32_t) input->ceil_rgb == RGBA_GREEN))
+		to_set = &input->ceil_rgb;
+	else
+		return (STAT_PARSE_ERR);
+	rgb = ft_split(color, ',', true);
+	if (rgb == NULL)
+		return (STAT_MEM_FAIL);
+	*to_set = 0;
+	*to_set |= ft_atoi(rgb[0]);
+	*to_set <<= 8;
+	*to_set |= ft_atoi(rgb[1]);
+	*to_set <<= 8;
+	*to_set |= ft_atoi(rgb[2]);
+	*to_set <<= 8;
+	*to_set |= 255;
+	ft_free_double((void **) rgb, -1);
+	return (STAT_TRUE);
+}
+
+t_status	insert_text_path(char *dir, char *texture_path, t_config *input)
 {
 	texture_path = ft_strdup(texture_path);
 	if (texture_path == NULL)
@@ -41,33 +85,7 @@ t_status	insert_texture_path(char *dir, char *texture_path, t_input *input)
 		return (ft_free(texture_path), STAT_PARSE_ERR);
 }
 
-t_status	insert_color(char *type, char *color, t_input *input)
-{
-	char	**rgb;
-	int32_t	*to_set;
-
-	if ((ft_strncmp(type, "F", 1) == 0) && ((uint32_t) input->floor_rgb == RGBA_RED))
-		to_set = &input->floor_rgb;
-	else if ((ft_strncmp(type, "C", 1) == 0) && ((uint32_t) input->ceil_rgb == RGBA_GREEN))
-		to_set = &input->ceil_rgb;
-	else
-		return (STAT_PARSE_ERR);
-	rgb = ft_split(color, ',', true);
-	if (rgb == NULL)
-		return (STAT_MEM_FAIL);
-	*to_set = 0;
-	*to_set |= ft_atoi(rgb[0]);
-	*to_set <<= 8;
-	*to_set |= ft_atoi(rgb[1]);
-	*to_set <<= 8;
-	*to_set |= ft_atoi(rgb[2]);
-	*to_set <<= 8;
-	*to_set |= 255;
-	ft_free_double((void **) rgb, -1);
-	return (STAT_TRUE);
-}
-
-t_status	fill_line(char *line, t_input *input)
+t_status	fill_line(char *line, t_config *input)
 {
 	char		**words;
 	t_status	status;
@@ -79,7 +97,7 @@ t_status	fill_line(char *line, t_input *input)
 	if ((is_direction(words[0]) == true) && (words[2] == NULL))
 	{
 		if (ft_check_file(words[1], O_RDONLY, TEXT_FILE_EXT) == true)
-			status = insert_texture_path(words[0], words[1], input);
+			status = insert_text_path(words[0], words[1], input);
 	}
 	else if ((is_ceil_floor(words[0]) == true) && (words[2] == NULL))
 	{
@@ -88,5 +106,28 @@ t_status	fill_line(char *line, t_input *input)
 			status = insert_color(words[0], words[1], input);
 	}
 	ft_free_double((void **) words, -1);
+	return (status);
+}
+
+t_status	parse_config(int32_t fd, t_config *input)
+{
+	char		*new_line;
+	t_status	status;
+
+	new_line = get_next_line(fd);
+	status = STAT_TRUE;
+	while ((status == STAT_TRUE) && new_line)
+	{
+		if (ft_is_empty_str(new_line) == false)
+			status = fill_line(new_line, input);
+		ft_free(new_line);
+		if (got_all_config(input) == true)
+			break ;
+		new_line = get_next_line(fd);
+	}
+	if ((status != STAT_TRUE) && new_line)
+		ft_free(new_line);
+	if ((got_all_config(input) == false) && (status == STAT_TRUE))
+		status = STAT_PARSE_ERR;
 	return (status);
 }

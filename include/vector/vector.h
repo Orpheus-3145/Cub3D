@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:50:55 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:24:11 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:34:09 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_H
 # include "cub3d/cub3d.h"
 
+// vector.c
 t_vector	normalize_vector(t_vector old);
 
 t_vector	rotate_vector(t_vector old, double rad);

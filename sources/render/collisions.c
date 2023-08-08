@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   wall_attributes.c                                  :+:    :+:            */
+/*   collisions.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:50:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/08 20:12:23 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:28:34 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
 // Calculate the starting and ending position to draw the wall on the screen
-static void	wall_draw_pos(t_cube *cube, t_data_dda *d)
+void	wall_draw_pos(t_cube *cube, t_data_dda *d)
 {
 	d->draw_start = (cube->app->s_screen.y - d->line_height) / 2 + d->pitch;
 	if (d->draw_start < 0)
@@ -24,7 +24,7 @@ static void	wall_draw_pos(t_cube *cube, t_data_dda *d)
 }
 
 // Calculate the wall's texture position on the screen
-static void	wall_text_pos(t_cube *cube, t_data_dda *d)
+void	wall_text_pos(t_cube *cube, t_data_dda *d)
 {
 	if (d->side == DIR_EAST || d->side == DIR_WEST)
 		d->wall_x = cube->map->pos_map.y + d->wall_dist * d->ray_dir.y;

@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/01 16:04:38 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/08 20:10:58 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:31:08 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int32_t	make_shadow(int32_t color, double factor)
 	return (color);
 }
 
-int32_t	shadow_c(t_cube *cube, int32_t color, uint32_t y)
+int32_t	shadow_ceil(t_cube *cube, int32_t color, uint32_t y)
 {
 	double	factor;
 	int32_t	r;
@@ -41,7 +41,7 @@ int32_t	shadow_c(t_cube *cube, int32_t color, uint32_t y)
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
-int32_t	shadow_f(t_cube *cube, int32_t color, uint32_t y)
+int32_t	shadow_floor(t_cube *cube, int32_t color, uint32_t y)
 {
 	double	factor;
 	int32_t	r;

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 20:56:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 21:28:10 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,33 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height);
 // hooks.c
 void		kill_app_hook(void *param);
 
-void		mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
-
-void		key_hook(void *param);
+void		keys_hook(void *param);
 
 void		loop_hook_jump(void *param);
 
 void		minimap_hook(void *param);
 
-// minimap.h
-void		draw_ray_fov(t_app *app, t_map *map, uint32_t x);
+void        torch_hook(void *param);
 
-int32_t		get_color(char **map, int32_t x, int32_t y);
+// move_pov.c
+int	        is_wall_collision(t_map *map, int x, int y);
 
-void		draw_minimap(t_app *app, t_map *map);
+void	    corner_col(t_map *map, t_vector tmp, t_vector radius_dir);
 
-// pov.c
-void		rotate_pov(t_cube *cube, double radiants);
+void	    horizontal_col(t_map *map, t_vector tmp, t_vector radius_dir);
 
-void		mov_pov(t_map *map, double scalar, double radiants);
+void	    vertical_col(t_map *map, t_vector tmp, t_vector radius_dir);
 
-void		rotate_mouse_pov(t_cube *cube);
+void		move_pov(t_map *map, double scalar, double radians);
+
+// rotate_pov.c
+void	    mouse_rotate_pov(t_cube *cube);
+
+void	    rotate_pov(t_cube *cube, double radiant);
+
+// torch.h
+void		delete_torch_sprite(t_app *app);
+
+int			load_torch_sprite(t_app *app);
 
 #endif

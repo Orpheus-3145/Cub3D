@@ -6,13 +6,13 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/30 16:30:29 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/30 17:05:14 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/08 22:06:43 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d/cub3d.h"
 
-t_status	refine_check_map(t_map *map, char *line_map)
+t_status	check_map(t_map *map, char *line_map)
 {
 	char		**map_2d;
 	char		**raw_map;
@@ -39,24 +39,36 @@ t_status	refine_check_map(t_map *map, char *line_map)
 	return (status);
 }
 
-char	*isolate_map(int32_t fd, char *line)
+t_status	parse_map(int32_t fd, t_map *map)
 {
-	char	*line_map;
+	char		*line_map;
+	char		*new_line;
 
-	line_map = NULL;
-	while (line)
+	new_line = get_next_line(fd);
+	while (ft_is_empty_str(new_line) == true)
 	{
-		if (ft_is_empty_str(line) == true)
-		{
-			ft_free(line);
-			line = ft_strdup(" ");
-			if (line == NULL)
-				return (ft_free(line_map));
-		}
-		line_map = ft_strjoin(line_map, line, "|", true);
-		if (line_map == NULL)
-			return (NULL);
-		line = get_next_line(fd);
+		ft_free(new_line);
+		new_line = get_next_line(fd);
 	}
-	return (line_map);
+	if (new_line == NULL)
+		return (STAT_PARSE_ERR);
+	line_map = NULL;
+	while (new_line)
+	{
+		if (ft_is_empty_str(new_line) == true)
+		{
+			ft_free(new_line);
+			new_line = ft_strdup(" ");
+			if (new_line == NULL)
+			{
+				ft_free(line_map);
+				return (STAT_MEM_FAIL);
+			}
+		}
+		line_map = ft_strjoin(line_map, new_line, "|", true);
+		if (line_map == NULL)
+			return (STAT_MEM_FAIL);
+		new_line = get_next_line(fd);
+	}
+	return (check_map(map, line_map));
 }
