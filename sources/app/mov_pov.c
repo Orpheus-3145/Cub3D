@@ -12,13 +12,11 @@
 
 #include "cub3d/cub3d.h"
 
-// Check if there's a collision with a wall at a given position in the map
 int	is_wall_collision(t_map *map, int x, int y)
 {
 	return (map->map_2d[y][x] == '1');
 }
 
-// Handle collision with a corner
 void	corner_col(t_map *map, t_vector tmp, t_vector radius_dir)
 {
 	if ((tmp.y > tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
@@ -45,7 +43,7 @@ void	vertical_col(t_map *map, t_vector tmp, t_vector radius_dir)
 		map->pos_map.y += tmp.y;
 }
 
-void move_pov(t_map *map, double scalar, double radians)
+void	move_pov(t_map *map, double scalar, double radians)
 {
 	t_vector	rot_vect;
 	t_vector	tmp;

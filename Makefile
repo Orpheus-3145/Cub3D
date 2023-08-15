@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/08/08 23:33:24 by fra           ########   odam.nl          #
+#    Updated: 2023/08/13 22:14:27 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ HEADERS := $(shell find include -type f -name '*.h')
 SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
 
-WIDTH := 1920
-HEIGHT := 1080
+WIDTH := 1000
+HEIGHT := 475
 SIZE_FLAGS := -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT)
 
 CC  := gcc
