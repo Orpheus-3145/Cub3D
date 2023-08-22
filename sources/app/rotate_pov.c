@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rot_pov.c                                          :+:    :+:            */
+/*   rotate_pov.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 21:29:37 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 21:02:57 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/22 22:17:56 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	mouse_rotate_pov(t_cube *cube)
 	if ((new_pos.x != old_pos.x) || (new_pos.y != old_pos.y))
 	{
 		rotation = find_radiants(cube->app->s_screen, new_pos.x - old_pos.x, new_pos) * MOUSE_ROT_SPEED;
-		rotate_pov(cube, rotation);
+		rotate_pov(cube->map, rotation);
 		old_pos = new_pos;
 	}
 }
 
-void	rotate_pov(t_cube *cube, double radiants)
+void	rotate_pov(t_map *map, double radiants)
 {
-	cube->map->dir = rotate_vector(cube->map->dir, radiants);
-	cube->map->plane = rotate_vector(cube->map->plane, radiants);
+	map->dir = rotate_vector(map->dir, radiants);
+	map->plane = rotate_vector(map->plane, radiants);
 }

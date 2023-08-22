@@ -17,30 +17,28 @@ int	is_wall_collision(t_map *map, int x, int y)
 	return (map->map_2d[y][x] == '1');
 }
 
-void	corner_col(t_map *map, t_vector tmp, t_vector radius_dir)
+void	corner_col(t_map *map, t_vector dir_mov, t_vector radius_dir)
 {
-	if ((tmp.y > tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
+	if ((dir_mov.y > dir_mov.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + dir_mov.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x = round(map->pos_map.x) - radius_dir.x;
-	else if (is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	else if (is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + dir_mov.y + radius_dir.y)))
 		map->pos_map.y = round(map->pos_map.y) - radius_dir.y;
 }
 
-// Handle collision with a horizontal wall
-void	horizontal_col(t_map *map, t_vector tmp, t_vector radius_dir)
+void	horizontal_col(t_map *map, t_vector dir_mov, t_vector radius_dir)
 {
-	if ((tmp.y > tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
+	if ((dir_mov.y > dir_mov.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x + dir_mov.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
 		map->pos_map.x = round(map->pos_map.x) - radius_dir.x;
-	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x + tmp.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
-		map->pos_map.x += tmp.x;
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x + dir_mov.x + radius_dir.x), (int)ft_part_int(map->pos_map.y)))
+		map->pos_map.x += dir_mov.x;
 }
 
-// Handle collision with a vertical wall
-void	vertical_col(t_map *map, t_vector tmp, t_vector radius_dir)
+void	vertical_col(t_map *map, t_vector dir_mov, t_vector radius_dir)
 {
-	if ((tmp.y <= tmp.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
+	if ((dir_mov.y <= dir_mov.x) && is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + dir_mov.y + radius_dir.y)))
 		map->pos_map.y = round(map->pos_map.y) - radius_dir.y;
-	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + tmp.y + radius_dir.y)))
-		map->pos_map.y += tmp.y;
+	else if (!is_wall_collision(map, (int)ft_part_int(map->pos_map.x), (int)ft_part_int(map->pos_map.y + dir_mov.y + radius_dir.y)))
+		map->pos_map.y += dir_mov.y;
 }
 
 void	move_pov(t_map *map, double scalar, double radians)

@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:54:15 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/22 22:18:28 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	keys_hook(void *param)
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_D) == true)
 		move_pov(cube->map, MOV_SPEED, M_PI_2);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_RIGHT) == true)
-		rotate_pov(cube, KEY_ROT_SPEED);
+		rotate_pov(cube->map, KEY_ROT_SPEED);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_LEFT) == true)
-		rotate_pov(cube, KEY_ROT_SPEED * -1);
+		rotate_pov(cube->map, KEY_ROT_SPEED * -1);
 	if (mlx_is_mouse_down(cube->app->win, MLX_MOUSE_BUTTON_LEFT) == true)
 		mouse_rotate_pov(cube);
 	if (mlx_is_key_down(cube->app->win, MLX_KEY_ESCAPE) == true)

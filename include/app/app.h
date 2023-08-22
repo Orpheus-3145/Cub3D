@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/15 22:36:35 by fra           ########   odam.nl         */
+/*   Updated: 2023/08/22 22:16:43 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_status	set_up_app(t_cube *cube, uint32_t width, uint32_t height);
 // @return void
 void		kill_app_hook(void *param);
 
-// callbacks when keys W, A, S, D, <, >, ESC, left key mouse are pressed:
+// callbacks when keys W, A, S, D, <, >, ESC, left key (mouse) are pressed:
 // W: moves forward
 // A: moves left
 // D: moves right
@@ -110,23 +110,61 @@ void        torch_hook(void *param);
 // @return		--> true/false
 int	        is_wall_collision(t_map *map, int x, int y);
 
-// handle collision with a wall corner
-void	    corner_col(t_map *map, t_vector tmp, t_vector radius_dir);
+// handles collision with a wall corner
+// @param map	        --> instance of the map
+// @param dir_mov       --> direction of the movement
+// @param radius_dir	--> direction of the radius
+//
+// @return void
+void	    corner_col(t_map *map, t_vector dir_mov, t_vector radius_dir);
 
-void	    horizontal_col(t_map *map, t_vector tmp, t_vector radius_dir);
+// handles collision with an horizontal wall
+// @param map	        --> instance of the map
+// @param dir_mov       --> direction of the movement
+// @param radius_dir	--> direction of the radius
+//
+// @return void
+void	    horizontal_col(t_map *map, t_vector dir_mov, t_vector radius_dir);
 
-void	    vertical_col(t_map *map, t_vector tmp, t_vector radius_dir);
+// handles collision with a vertical wall
+// @param map	        --> instance of the map
+// @param dir_mov       --> direction of the movement
+// @param radius_dir	--> direction of the radius
+//
+// @return void
+void	    vertical_col(t_map *map, t_vector dir_mov, t_vector radius_dir);
 
+// moves the player by a factor scalar, rotating the current direction
+// by a factor radiants
+// @param map		--> instance of the map
+// @param scalar	--> movement speed
+// @param radiants	--> rotation of the current direction
+//
+// @return void
 void		move_pov(t_map *map, double scalar, double radians);
 
 
 // rotate_pov.c
+// functions that handle the rotations inside the app
+//
+// @param cube	--> container
+//
+// @return void
 void	    mouse_rotate_pov(t_cube *cube);
 
-void	    rotate_pov(t_cube *cube, double radiant);
-
+// rotates the current direction and the plane, which is 
+// perpendicular to the direction by radiants
+// @param map		--> instance of the map that contains the info to change
+// @param radiants	--> amount of radiants
+//
+// @return void
+void		rotate_pov(t_map *map, double radiants);
 
 // torch.h
+// loads all the textures (49) of the torch to have a naive animation
+// @param map	--> instance of the app
+//
+// @return int	--> status of the operations
 int			load_torch_sprite(t_app *app);
 
 #endif
