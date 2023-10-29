@@ -40,12 +40,12 @@ To execute the project without using `make run` is necessary to provide an argum
 	objects/			<- object files
 	sources/			<- source C files
 		app/			<- handling of the MLX42 API
-		check_map			<- specific checks on the input map
-		init			<- constructors
-		main			<- main function
-		parser			<- parsing of the input file to gather info
-		render			<- low level rendering done with ray-casting
-		tools			<- generic functions
+		check_map/		<- specific checks on the input map
+		init/			<- constructors
+		main/			<- main function
+		parser/			<- parsing of the input file to gather info
+		render/			<- low level rendering done with ray-casting
+		tools/			<- generic functions
 
 # Playing
 Once the game is running the following keys are available:
