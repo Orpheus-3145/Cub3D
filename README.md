@@ -20,6 +20,16 @@ First, because an evironment is rendered a configuration file needs to be parsed
 ## Ray Casting
 Once the parsing is done, it is finally possible to render an image on the screen, as said before, the ray casting algorithm ([see that](https://lodev.org/cgtutor/raycasting.html)) is used: the view of the player is considered to be a range of rays projected from the position of the player on a straight line, because the map (and so the player) is surrounded by walls, the longer every ray travels before hitting a wall, the smaller that portion of wall (i.e. column of pixels) will be drawn.
 
+# Playing
+Once the game is running the following keys are available:
+- **ESC** -> closes the game
+- **W**, **A**, **S** and **D** -> allow the player to move
+- **left arrow** and **right arrow** -> move the view on the left or right respectively
+- **left key mouse** and drag -> moves the view depending on the direction of the dragging
+
+A set of textures is already provided to enjoy the game, but it is still possibile to use some custom ones, their path must be written inside the parsed/input file and they *must* have a .png extension.
+
+# Code
 ## Compiling and running
 The project relies on the following submodules:
 - [Libft](https://github.com/Orpheus-3145/Libft) for low level C operations;
@@ -46,15 +56,6 @@ To execute the project without using `make run` is necessary to provide an argum
 		parser/			<- parsing of the input file to gather info
 		render/			<- low level rendering done with ray-casting
 		tools/			<- generic functions
-
-# Playing
-Once the game is running the following keys are available:
-- **ESC** -> closes the game
-- **W**, **A**, **S** and **D** -> allow the player to move
-- **left arrow** and **right arrow** -> move the view on the left or right respectively
-- **left key mouse** and drag -> moves the view depending on the direction of the dragging
-
-A set of textures is already provided to enjoy the game, but it is still possibile to use some custom ones, their path must be written inside the parsed/input file and they *must* have a .png extension.
 
 # References
 - 42 project: [cub3d](https://cdn.intra.42.fr/pdf/pdf/82527/en.subject.pdf)
