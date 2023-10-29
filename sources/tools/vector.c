@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/24 13:45:27 by fra           #+#    #+#                 */
-/*   Updated: 2023/07/31 19:48:37 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 t_vector	normalize_vector(t_vector old)
 {

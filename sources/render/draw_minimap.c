@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 23:25:06 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:33:59 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "app/app.h"
+#include "main/cub3d.h"
 
 void	draw_ray_fov(t_app *app, t_map *map, uint32_t x)
 {
@@ -22,7 +22,7 @@ void	draw_ray_fov(t_app *app, t_map *map, uint32_t x)
 	ray_fov = normalize_vector(sum_vector(map->dir, prod_scalar(map->plane, camera_x)));
 	curr_pos.x = map->pos_map.x * map->pps_minimap;
 	curr_pos.y = map->pos_map.y * map->pps_minimap;
-	while (map->map_2d[(int)(curr_pos.y / map->pps_minimap)] [(int)(curr_pos.x / map->pps_minimap)] != '1')
+	while (map->map_2d[(int)(curr_pos.y / map->pps_minimap)][(int)(curr_pos.x / map->pps_minimap)] != '1')
 	{
 		mlx_put_pixel(app->minimap, (uint32_t)curr_pos.x, (uint32_t)curr_pos.y, RGBA_RED);
 		curr_pos = sum_vector(curr_pos, ray_fov);

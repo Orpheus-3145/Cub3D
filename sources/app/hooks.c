@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:53:30 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/22 22:18:28 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 void	kill_app_hook(void *param)
 {

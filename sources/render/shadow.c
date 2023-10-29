@@ -6,11 +6,11 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/01 16:04:38 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/08 21:31:08 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 static int32_t	make_shadow(int32_t color, double factor)
 {

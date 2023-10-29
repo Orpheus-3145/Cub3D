@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 int	is_wall_collision(t_map *map, int x, int y)
 {

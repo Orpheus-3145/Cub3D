@@ -6,13 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:35:24 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:47:19 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:13:49 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECK_MAP_H
 # define CHECK_MAP_H
-# include "cub3d/cub3d.h"
 
 // check_map.c
 t_status	check_surroundings(char **map, t_xy_point pt, uint32_t row_col);

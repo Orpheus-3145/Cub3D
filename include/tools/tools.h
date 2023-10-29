@@ -6,13 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:11:40 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/15 21:53:19 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:32 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOOLS_H
 # define TOOLS_H
-# include "cub3d/cub3d.h"
 
 // tools.c
 //

@@ -6,11 +6,11 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:51:43 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/08/08 23:18:17 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 // Helper function to draw a scaled pixel at (x, y) with the specified color
 void	draw_scaled_pixel(t_cube *cube, int x, int y, int color)

@@ -6,11 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/21 10:29:37 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 23:11:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:33:40 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 // draw the column
 void	draw_column(t_cube *cube, uint32_t column, t_data_dda *data)
@@ -110,7 +110,7 @@ void	draw_screen(void *param)
 			cube->data.wall_dist = cube->data.s_dist.x - cube->data.ds_dist.x;
 		else
 			cube->data.wall_dist = cube->data.s_dist.y - cube->data.ds_dist.y;
-		cube->data.line_height = (int32_t) (cube->app->s_screen.y / cube->data.wall_dist);
+		cube->data.line_height = (int32_t)(cube->app->s_screen.y / cube->data.wall_dist);
 		draw_column(cube, x++, &(cube->data));
 	}
 }

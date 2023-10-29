@@ -6,13 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:07:31 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:00:46 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:31:12 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "cub3d/cub3d.h"
 
 // checker_config.c
 t_status	check_color(char *color_seq);
@@ -36,6 +35,8 @@ t_status	parse_config(int32_t fd, t_config *input);
 t_status	check_map(t_map *map, char *line_map);
 
 t_status	parse_map(int32_t fd, t_map *map);
+
+t_status	parse_input_file(char *file_path, t_cube *cube);
 
 // store_map_info.c
 uint32_t	find_height(char **map_2d);

@@ -6,11 +6,11 @@
 /*   By: faru <faru@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 10:30:51 by faru          #+#    #+#                 */
-/*   Updated: 2023/08/08 23:11:43 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 void	free_config(t_config *config)
 {

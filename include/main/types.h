@@ -6,13 +6,37 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 21:09:44 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/09 00:44:28 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:36:35 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENUM_H
 # define ENUM_H
-# include "cub3d/cub3d.h"
+# ifdef __APPLE__
+#   define WIDTH 1920							// (Mac) width size in pixel
+#   define HEIGHT 1080							// (Mac) height size in pixel
+# elif defined(__linux__)
+#   define WIDTH 1150							// (linux) width size in pixel
+#   define HEIGHT 647							// (linux) height size in pixel
+# endif
+# define CUBE_FILE_EXT ".cub"					// extension of file to parse
+# define TEXT_FILE_EXT ".png"					// extension of texture files
+# define SCREEN_SIZE_RATE 0.9					// size of the screen compared to the window
+# define MINIMAP_SIZE_RATE 0.2					// size of the minimap compared to the screen
+# define RADIUS 0.4								// radius of the player inside the map (in map squares)
+# define FOV .66								// 2 * FOV is the length of the field of view (in map squares)
+# define BPP 4									// bytes per pixel (colors)
+# define MOUSE_ROT_SPEED -0.6					// coefficient for camera rotation (mouse pressed)
+# define KEY_ROT_SPEED 0.09						// coefficient for camera rotation (arrows pressed)
+# define MOV_SPEED 0.1							// coefficient for camera movement (WASD pressed)
+# define TORCH_SPRITES 49						// number of torch instances
+# define TORCH_SPRITES_PATH "./texture/torch/"	// path for torch textures
+# define FF_MASK_CHAR	'|'						// character used inside flood-fill algorithm as a mask
+# define RGBA_RED 0xFF0000FF					// RGBA of some colors				
+# define RGBA_GREEN 0x00FF00FF
+# define RGBA_BLUE 0x0000FFFF
+# define RGBA_BLACK 0x000000FF
+# define RGBA_WHITE 0xFFFFFFFF
 
 // directions
 typedef enum s_direction

@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/03 15:48:14 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:09:06 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:16:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 t_status	check_surroundings(char **map, t_xy_point pt, uint32_t row_col)
 {

@@ -6,13 +6,13 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:40:48 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/22 22:16:43 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:20:25 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef APP_H
 # define APP_H
-# include "cub3d/cub3d.h"
+# include "main/types.h"
 
 // app.c
 // sets the app instance, that relies on MLX42

@@ -6,13 +6,12 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 20:37:52 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/22 22:27:22 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:17:04 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_H
 # define INIT_H
-# include "cub3d/cub3d.h"
 
 // init.h
 // constructor functions

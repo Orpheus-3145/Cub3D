@@ -6,7 +6,7 @@
 #    By: fra <fra@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/07/01 22:06:35 by fra           #+#    #+#                  #
-#    Updated: 2023/08/13 22:14:27 by fra           ########   odam.nl          #
+#    Updated: 2023/10/29 18:19:21 by fra           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,6 @@ LIBFT := $(LIBFT_DIR)/libft.a
 HEADERS := $(shell find include -type f -name '*.h')
 SOURCES := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJECTS := $(patsubst $(SRC_DIR)%,$(OBJ_DIR)%,$(SOURCES:.c=.o))
-
-WIDTH := 1000
-HEIGHT := 475
-SIZE_FLAGS := -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT)
 
 CC  := gcc
 IFLAGS := -Iinclude -I$(MLX42_DIR)/include -I$(LIBFT_DIR)/include
@@ -71,7 +67,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	@$(CC) $(SIZE_FLAGS) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@printf "(cub3D) $(BLUE)Created object $$(basename $@)$(RESET)\n"
 
 clean:

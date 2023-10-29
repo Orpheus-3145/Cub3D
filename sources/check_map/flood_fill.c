@@ -6,11 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 00:48:41 by fra           #+#    #+#                 */
-/*   Updated: 2023/08/08 22:47:37 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 18:36:00 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 void	reset_map(char **map, t_xy_point start_pos, char face, char mask)
 {
@@ -98,18 +98,16 @@ t_status	flood_fill(char **map)
 	t_vector	start_tmp;
 	t_xy_point	start;
 	char		face;
-	char 		mask;
 
-	mask = '|';
 	start_tmp = find_pos_map(map);
 	start = (t_xy_point){start_tmp.x, start_tmp.y};
 	face = map[start.y][start.x];
-	status = ff_algorithm(map, start, mask);
+	status = ff_algorithm(map, start, FF_MASK_CHAR);
 	if (status == STAT_TRUE)
 	{
 		status = check_flood_fill(map);
 		if (status == STAT_TRUE)
-			reset_map(map, start, face, mask);
+			reset_map(map, start, face, FF_MASK_CHAR);
 		else
 			status = STAT_PARSE_ERR;
 	}

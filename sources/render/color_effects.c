@@ -6,11 +6,11 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/31 19:55:12 by itopchu       #+#    #+#                 */
-/*   Updated: 2023/07/31 20:35:56 by anonymous     ########   odam.nl         */
+/*   Updated: 2023/10/29 18:22:20 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d/cub3d.h"
+#include "main/cub3d.h"
 
 uint32_t	enhance(uint32_t comp, double dist, double max_d, int limit)
 {
