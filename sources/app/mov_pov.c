@@ -12,7 +12,7 @@
 
 #include "main/cub3d.h"
 
-int	is_wall_collision(t_map *map, int x, int y)
+bool	is_wall_collision(t_map *map, int x, int y)
 {
 	return (map->map_2d[y][x] == '1');
 }

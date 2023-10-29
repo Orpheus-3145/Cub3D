@@ -6,7 +6,7 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/26 23:19:21 by fra           #+#    #+#                 */
-/*   Updated: 2023/10/29 18:33:59 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 19:22:12 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int32_t	get_color(char **map, int32_t x, int32_t y)
 	else if (map[y][x] == '1')
 		return (RGBA_BLACK);
 	else
-		return (RGBA_WHITE);
+		return (RGBA_TRANS);
 }
 
 void	draw_minimap(t_app *app, t_map *map)

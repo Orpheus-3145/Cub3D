@@ -6,38 +6,11 @@
 /*   By: fra <fra@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/30 16:30:29 by fra           #+#    #+#                 */
-/*   Updated: 2023/10/29 18:31:01 by fra           ########   odam.nl         */
+/*   Updated: 2023/10/29 19:32:03 by fra           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main/cub3d.h"
-
-t_status	check_map(t_map *map, char *line_map)
-{
-	char		**map_2d;
-	char		**raw_map;
-	t_status	status;
-
-	raw_map = ft_split(line_map, '|', false);
-	if (raw_map == NULL)
-		return (STAT_MEM_FAIL);
-	map_2d = rect_map(raw_map);
-	ft_free_double((void **) raw_map, -1);
-	if (map_2d == NULL)
-		return (STAT_MEM_FAIL);
-	status = check_start_pos(map_2d);
-	if (status == STAT_TRUE)
-	{
-		status = check_walls(map_2d);
-		if (status == STAT_TRUE)
-			status = flood_fill(map_2d);
-	}
-	if (status != STAT_TRUE)
-		ft_free_double((void **) map_2d, -1);
-	else
-		store_map_info(map, map_2d);
-	return (status);
-}
 
 t_status	parse_map(int32_t fd, t_map *map)
 {
