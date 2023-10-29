@@ -9,16 +9,16 @@ The underlying goal of this project is to create and use a ray-casting algorithm
 # Approach
 ## Parsing
 First, because an evironment is rendered a configuration file needs to be parsed, to gather informations regarding:
-- **graphic**: textures to apply on the walls (4 are needed, for walls facing respectively North, South, East, West);
+- **graphic**: textures to apply on thes (4 are needed, for walls facing respectively North, South, East, West);
 - **graphic**: colors (RGB) of the ceiling and the floor;
 - **map**: a map is required to render the environment (see the subject for guidelines about how to draw a valid map).
 
 **N.B.** for all rules regarding the format of the input file see the [subject](https://cdn.intra.42.fr/pdf/pdf/82527/en.subject.pdf);
 
-**N.B.** there's another check performed by the parsed and not required by the subject, that is done by the flood fill algorithm that ensures that no inaccessible rooms are admitted inside the map, i.e. the player can reach *every* empty spot inside the map.
+**N.B.** there's another check performed by the parser and not required by the subject, that is done by a flood fill algorithm that ensures that no inaccessible rooms are admitted, i.e. the player can reach *every* empty spot inside the map.
 
 ## Ray Casting
-Once the parsing is done, it is finally possible to render an image on the screen, as said before, the ray casting algorithm ([see that](https://lodev.org/cgtutor/raycasting.html)) is used: the view of the player is considered to be a range of rays projected from the position of the player on a straight line, because the map (and so the player) is surrounded by walls, the longer the ray travels before hitting a wall, the smaller that wall will be drawn.
+Once the parsing is done, it is finally possible to render an image on the screen, as said before, the ray casting algorithm ([see that](https://lodev.org/cgtutor/raycasting.html)) is used: the view of the player is considered to be a range of rays projected from the position of the player on a straight line, because the map (and so the player) is surrounded by walls, the longer every ray travels before hitting a wall, the smaller that portion of wall (i.e. column of pixels) will be drawn.
 
 ## Compiling and running
 The project relies on the following submodules:
@@ -34,13 +34,18 @@ The project relies on the following submodules:
 To execute the project without using `make run` is necessary to provide an argument that represent the path of the input/parsed file.
 
 ## Structure
-	include/           <- header file
-	libft/             <- auxiliary submodule 
-	MLX42/             <- auxiliary submodule 
-	objects/           <- object files
-	sources/           <- source C files
-		app/
-
+	include/			<- header file
+	libft/  			<- auxiliary submodule 
+	MLX42/  			<- auxiliary submodule 
+	objects/			<- object files
+	sources/			<- source C files
+		app/			<- handling of the MLX42 API
+		check_map			<- specific checks on the input map
+		init			<- constructors
+		main			<- main function
+		parser			<- parsing of the input file to gather info
+		render			<- low level rendering done with ray-casting
+		tools			<- generic functions
 
 # Playing
 Once the game is running the following keys are available:
