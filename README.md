@@ -59,4 +59,4 @@ To execute the project without using `make run` is necessary to provide an argum
 
 # References
 - 42 project: [cub3d](https://cdn.intra.42.fr/pdf/pdf/82527/en.subject.pdf)
-- By: [Francesco Aru](https://github.com/Orpheus-3145) and [Choko](https://github.com/Am0rA), francesco.aru25@gmail.com, intra42/slack nickname: @faru, Codam, Amsterdam
+- By: [Francesco Aru](https://github.com/Orpheus-3145) and [Itopchu](https://github.com/Am0rA), francesco.aru25@gmail.com, intra42/slack nickname: @faru, Codam, Amsterdam
