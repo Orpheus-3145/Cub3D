@@ -1,7 +1,7 @@
 # Cub3d
 The aim of this project is to create a simpler clone of the 90' famous first person shooter [Wolfenstein](http://users.atw.hu/wolf3d/).
 
-Cub3d was a project developed by my team-partner Choko ( <--- many thanks for the cooperation!) and me.
+Cub3d was a project developed by my team-partner Itopchu ( <--- many thanks for the cooperation!) and me.
 
 # Overview
 The underlying goal of this project is to create and use a ray-casting algorithm able to render a sandobox environment where the player can move inside of it, even though it won't be able to shoot at spawning NPCs.
